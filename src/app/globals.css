@@ -37,6 +37,7 @@ a {
 
 @media (prefers-color-scheme: dark) {
   html {
+    text-align: center;
     color-scheme: dark;
   }
 }
