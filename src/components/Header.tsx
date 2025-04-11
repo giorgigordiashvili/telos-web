@@ -1,5 +1,4 @@
 "use client";
-import React, { useState } from "react";
 import styled from "styled-components";
 import Logo from "./Logo";
 import MenuItem from "./MenuItem";
@@ -24,9 +23,7 @@ const Stylednav = styled.nav`
   }
 `;
 
-type Props = {};
-
-const Header = (props: Props) => {
+const Header = () => {
   return (
     <>
       <StyledHeader>

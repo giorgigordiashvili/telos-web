@@ -13,9 +13,7 @@ const Burgermenu = styled.div`
   }
 `;
 
-type Props = {};
-
-const Burgericon = (props: Props) => {
+const Burgericon = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => setIsOpen((prev) => !prev);
