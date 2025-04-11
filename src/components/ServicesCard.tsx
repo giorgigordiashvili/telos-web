@@ -18,12 +18,18 @@ const Container = styled.div`
   gap: 16px;
   border-radius: 12px;
   padding: 24px;
-  background-color: #f6f6f6;
-  transition: background-color 0.3s ease;
+  background-color: white;
   border: 2px solid #e0e0e0;
 
   &:hover {
     background-color: #dadada;
+  }
+
+  @media (max-width: 1184px) {
+    max-width: 100%;
+    width: 100%;
+    gap: 12px;
+    padding: 16px;
   }
 `;
 
