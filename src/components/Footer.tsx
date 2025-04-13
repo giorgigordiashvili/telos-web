@@ -91,19 +91,19 @@ const Footer = () => {
       <Socials>
         <Image
           alt="location"
-          src={"/images/location.png"}
+          src={"/images/Footer/facebook_logo.png"}
           width={32}
           height={32}
         />
         <Image
           alt="location"
-          src={"/images/location.png"}
+          src={"/images/Footer/instagram_logo.png"}
           width={32}
           height={32}
         />
         <Image
           alt="location"
-          src={"/images/location.png"}
+          src={"/images/Footer/linkedin_logo.png"}
           width={32}
           height={32}
         />
@@ -112,43 +112,39 @@ const Footer = () => {
         <Location>
           <Image
             alt="location"
-            src={"/images/location.png"}
+            src={"/images/Footer/footer_location.png"}
             width={32}
             height={32}
           />
           <Footertext>
-            <Typography variant="paragraph-bold" children="Bakhtrioni st. 23" />
-            <Typography children="Tbilisi, Georgia" variant="paragraph-bold" />
+            <Typography variant="paragraph-bold">Bakhtrioni st. 23</Typography>
+            <Typography variant="paragraph-bold">Tbilisi, Georgia</Typography>
           </Footertext>
         </Location>
         <Location>
           <Image
             alt="location"
-            src={"/images/location.png"}
+            src={"/images/Footer/footer_phone.png"}
             width={32}
             height={32}
           />
           <Footertext>
-            <Typography variant="paragraph-bold" children="Phone Number" />
-            <Typography
-              variant="paragraph-bold"
-              children="+(995) 999 999 999"
-            />
+            <Typography variant="paragraph-bold">Phone Number</Typography>
+            <Typography variant="paragraph-bold">+(995) 999 999 999</Typography>
           </Footertext>
         </Location>
         <Location>
           <Image
             alt="location"
-            src={"/images/location.png"}
+            src={"/images/Footer/footer_email.png"}
             width={32}
             height={32}
           />
           <Footertext>
-            <Typography variant="paragraph-bold" children="Email" />
-            <Typography
-              variant="paragraph-bold"
-              children="example@example.com"
-            />
+            <Typography variant="paragraph-bold">Email</Typography>
+            <Typography variant="paragraph-bold">
+              example@example.com
+            </Typography>
           </Footertext>
         </Location>
       </Footerinfo>
