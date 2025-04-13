@@ -6,8 +6,6 @@ import MenuItem from "./MenuItem";
 import Image from "next/image";
 import Typography from "./Typography";
 
-type Props = {};
-
 const Footerstyled = styled.footer`
   width: 100%;
   height: 497px;
@@ -73,7 +71,7 @@ const Location = styled.div`
   }
 `;
 
-const Footer = (props: Props) => {
+const Footer = () => {
   return (
     <Footerstyled>
       <Styledlogo>
