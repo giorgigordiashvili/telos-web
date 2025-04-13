@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Typography from "./Typography";
 import ServicesCard from "./ServicesCard";
@@ -19,7 +19,13 @@ const Container = styled.div`
   max-width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  justify-content: space-between;
+  gap: 24px;
+  align-items: center;
+  @media (max-width: 1184px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 `;
 
 const softwareServices = [
@@ -36,7 +42,7 @@ const softwareServices = [
   {
     imageUrl: "/images/ServicesCard/mobile.png",
     title: "Mobile Development",
-    subtitle: `· Develop cross-platform mobile applications with React Native.\n\n· Create native-like performance and seamless UX for Android and iOS.\n\n· Integrate APIs, payment gateways, and real-time notifications.`,
+    subtitle: `· Develop cross-platform mobile applications with React Native.· Create native-like performance and seamless UX for Android and iOS.· Integrate APIs, payment gateways, and real-time notifications.`,
   },
 ];
 
@@ -47,9 +53,20 @@ const marketingService = {
 };
 
 const ServicesList = ({ text }: Props) => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const updateWidth = () => {
+      setIsMobile(window.innerWidth <= 1184);
+    };
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
+  }, []);
+
   return (
     <Wrapper>
-      <Typography variant="h1">{text}</Typography>
+      <Typography variant={isMobile ? "h3" : "h1"}>{text}</Typography>
       {text === "Software" ? (
         <Container>
           {softwareServices.map((service, index) => (

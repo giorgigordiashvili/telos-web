@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Typography, { H1 } from "./Typography";
+import Typography from "./Typography";
 import Image from "next/image";
 
 type Props = {
@@ -14,6 +14,7 @@ const HeaderWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
   gap: 16px;
 `;
 
@@ -22,6 +23,17 @@ const StyledTypography = styled(Typography)`
 `;
 
 const PageTitle = ({ text, className, iconUrl, subtitle }: Props) => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkWidth = () => {
+      setIsMobile(window.innerWidth <= 1184);
+    };
+    checkWidth();
+    window.addEventListener("resize", checkWidth);
+    return () => window.removeEventListener("resize", checkWidth);
+  }, []);
+
   return (
     <HeaderWrapper
       className={className}
@@ -30,8 +42,12 @@ const PageTitle = ({ text, className, iconUrl, subtitle }: Props) => {
       {iconUrl && (
         <Image src={iconUrl} alt={`${text} icon`} width={40} height={40} />
       )}
-      {subtitle && <StyledTypography variant="h4">{subtitle}</StyledTypography>}
-      <H1>{text}</H1>
+      {subtitle && (
+        <StyledTypography variant={isMobile ? "paragraph-bold" : "h4"}>
+          {subtitle}
+        </StyledTypography>
+      )}
+      <Typography variant={isMobile ? "h2" : "h1"}>{text}</Typography>
     </HeaderWrapper>
   );
 };
