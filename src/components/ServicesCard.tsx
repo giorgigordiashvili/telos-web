@@ -7,9 +7,10 @@ type Props = {
   title: string;
   subtitle: string;
   imageUrl: string;
+  isCareer?: boolean;
 };
 
-const Container = styled.div`
+const Container = styled.div<{ $isCareer?: boolean }>`
   width: 368px;
   min-height: 250px;
   height: fit-content;
@@ -30,6 +31,7 @@ const Container = styled.div`
     width: 100%;
     gap: 12px;
     padding: 16px;
+    min-height: ${({ $isCareer }) => ($isCareer ? "187px" : "auto")};
   }
 `;
 
@@ -39,12 +41,12 @@ const StyledTypography = styled(Typography)`
 
 const SubtitleTypography = styled(Typography)`
   color: #03171680;
-  white-space: pre-line; // ✅ This preserves newlines and spacing
+  white-space: pre-line;
 `;
 
-const ServicesCard = ({ title, subtitle, imageUrl }: Props) => {
+const ServicesCard = ({ title, subtitle, imageUrl, isCareer }: Props) => {
   return (
-    <Container>
+    <Container $isCareer={isCareer}>
       <Image src={imageUrl} alt={`${title} image`} width={64} height={64} />
       <StyledTypography variant="h4">{title}</StyledTypography>
       <SubtitleTypography variant="paragraph-medium">
