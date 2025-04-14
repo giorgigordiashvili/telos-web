@@ -14,7 +14,7 @@ const Container = styled.div`
   padding: 96px 16px;
   gap: 48px;
 
-  @media (max-width: 1184px) {
+  @media (max-width: 768px) {
     padding-top: 32px;
     padding-bottom: 48px;
     gap: 24px;
@@ -24,7 +24,7 @@ const Container = styled.div`
 const CareerScreen = () => {
   return (
     <Container>
-      <PageTitle text="Career"/>
+      <PageTitle text="Career" />
       <ServicesList text="Career" />
     </Container>
   );
