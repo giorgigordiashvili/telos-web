@@ -3,10 +3,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Typography from "./Typography";
 
-type Props = {
-  label?: string;
-};
-
 const CheckboxWrapper = styled.label<{ checked: boolean }>`
   display: flex;
   align-items: center;
@@ -52,8 +48,13 @@ const Checkmark = styled.div`
   background-size: contain;
 `;
 
-const PrimeryCheckbox = ({ label }: Props) => {
-  const [checked, setChecked] = useState(false);
+type Props = {
+  label?: string;
+  checked: boolean;
+  onChange: () => void;
+};
+
+const PrimeryCheckbox = ({ label, checked, onChange }: Props) => {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -62,7 +63,7 @@ const PrimeryCheckbox = ({ label }: Props) => {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <HiddenCheckbox checked={checked} onChange={() => setChecked(!checked)} />
+      <HiddenCheckbox checked={checked} onChange={onChange} />
       <StyledCheckbox checked={checked} hovered={hovered}>
         {checked && <Checkmark />}
       </StyledCheckbox>

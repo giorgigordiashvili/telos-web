@@ -44,9 +44,13 @@ type Props = {
   size: "big" | "small";
   text: string;
   placeholder: string;
+  value: string;
+  onChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
 };
 
-const PrimeryInput = ({ size, text, placeholder }: Props) => {
+const PrimeryInput = ({ size, text, placeholder, value, onChange }: Props) => {
   if (size === "big") {
     return (
       <Styleddiv>
@@ -54,7 +58,8 @@ const PrimeryInput = ({ size, text, placeholder }: Props) => {
         <Biginput>
           <textarea
             placeholder={placeholder}
-            name=""
+            value={value}
+            onChange={onChange}
             style={{
               width: "100%",
               height: "100%",
@@ -77,13 +82,13 @@ const PrimeryInput = ({ size, text, placeholder }: Props) => {
       <Biginput>
         <input
           placeholder={placeholder}
-          name=""
+          value={value}
+          onChange={onChange}
           style={{
             width: "100%",
             height: "100%",
             outline: "none",
             borderRadius: "inherit",
-            resize: "none",
             padding: "16px",
             border: "none",
             color: "inherit",

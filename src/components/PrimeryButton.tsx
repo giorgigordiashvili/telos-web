@@ -8,7 +8,7 @@ type Props = {
 };
 
 const StyledButton = styled.div<{ variant: "blue" | "white" }>`
-  width: fit-content;
+  width: 100%;
   height: 53px;
   top: 20px;
   border-radius: 8px;
@@ -39,6 +39,7 @@ const StyledButton = styled.div<{ variant: "blue" | "white" }>`
       variant === "blue" ? "rgba(30, 95, 255, 1)" : "rgba(255, 255, 255, 1)"};
     color: ${({ variant }) =>
       variant === "white" ? "  rgba(30, 95, 255, 1)" : "#fff"};
+    box-shadow: 0px 7px 13.1px -1px rgba(0, 0, 0, 0.43);
   }
 `;
 

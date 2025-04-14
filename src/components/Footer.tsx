@@ -16,7 +16,7 @@ const Footerstyled = styled.footer`
   padding: 96px 144px;
   align-items: center;
   background: linear-gradient(180deg, #1b2a41 0%, #0f1724 100%);
-  @media (max-width: 900px) {
+  @media (max-width: 1280px) {
     height: 685px;
     padding: 48px 16px;
     gap: 16px;
@@ -31,7 +31,7 @@ const Footerinfo = styled.div`
   padding-bottom: 16px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  @media (max-width: 900px) {
+  @media (max-width: 1280px) {
     grid-template-rows: repeat(3, 1fr);
     grid-template-columns: auto;
     padding: 0;
@@ -40,7 +40,7 @@ const Footerinfo = styled.div`
 `;
 const Stylednav = styled.div`
   display: flex;
-  @media (max-width: 900px) {
+  @media (max-width: 1280px) {
     flex-direction: column;
     align-items: center;
   }
@@ -52,7 +52,7 @@ const Socials = styled.div`
   position: relative;
   padding-bottom: 16px;
   border-bottom: 1px solid rgba(93, 173, 226, 1);
-  @media (max-width: 900px) {
+  @media (max-width: 1280px) {
     padding-bottom: 8px;
   }
 `;
@@ -65,7 +65,7 @@ const Location = styled.div`
   align-items: center;
   justify-content: center;
   gap: 16px;
-  @media (max-width: 900px) {
+  @media (max-width: 1280px) {
     width: fit-content;
     height: 68px;
   }
