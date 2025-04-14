@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Typography from "./Typography";
 import Image from "next/image";
@@ -18,6 +20,15 @@ const Wrapper = styled.div`
   background-color: white;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 1152px) {
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 280px;
+  }
 `;
 
 const ImageWrapper = styled.div`
@@ -36,6 +47,10 @@ const Content = styled.div`
   flex-direction: column;
   gap: 12px;
   flex: 1;
+
+  @media (max-width: 768px) {
+    height: 140px;
+  }
 `;
 
 const Title = styled(Typography)`
@@ -48,18 +63,36 @@ const Subtitle = styled(Typography)`
 
 const DateText = styled(Typography)`
   color: #03171680;
-  margin-top: auto;
 `;
 
 const PressCard = ({ imageSrc, title, subtitle, date }: Props) => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkWidth = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkWidth();
+    window.addEventListener("resize", checkWidth);
+    return () => window.removeEventListener("resize", checkWidth);
+  }, []);
+
   return (
     <Wrapper>
       <ImageWrapper>
-        <StyledImage src={imageSrc} alt={title} fill priority />
+        <StyledImage
+          src={imageSrc}
+          alt={title}
+          fill
+          priority
+          sizes="(max-width: 768px) 100vw, (max-width: 1152px) 50vw, 25vw"
+        />
       </ImageWrapper>
       <Content>
-        <Title variant="h3">{title}</Title>
-        <Subtitle variant="h4">{subtitle}</Subtitle>
+        <Title variant={isMobile ? "h3" : "h3"}>{title}</Title>
+        <Subtitle variant={isMobile ? "paragraph-bold" : "h4"}>
+          {subtitle}
+        </Subtitle>
         <DateText variant="paragraph-bold">{date}</DateText>
       </Content>
     </Wrapper>

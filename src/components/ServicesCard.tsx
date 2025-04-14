@@ -26,7 +26,7 @@ const Container = styled.div<{ $isCareer?: boolean }>`
     background-color: #dadada;
   }
 
-  @media (max-width: 1184px) {
+  @media (max-width: 768px) {
     max-width: 100%;
     width: 100%;
     gap: 12px;
