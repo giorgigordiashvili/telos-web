@@ -1,10 +1,12 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Typography from "./Typography";
 import ServicesCard from "./ServicesCard";
 
 type Props = {
-  text: "Software" | "Marketing";
+  text: "Software" | "Marketing" | "Career";
 };
 
 const Wrapper = styled.div`
@@ -20,12 +22,15 @@ const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
-  align-items: center;
-  @media (max-width: 1184px) {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
   }
+`;
+
+const Heading = styled(Typography)<{ $center?: boolean }>`
+  align-self: ${({ $center }) => ($center ? "center" : "flex-start")};
+  text-align: ${({ $center }) => ($center ? "center" : "left")};
 `;
 
 const softwareServices = [
@@ -52,12 +57,45 @@ const marketingService = {
   subtitle: `· Create visually stunning UI/UX designs tailored to your brand identity.\n\n· Develop prototypes and wireframes for rapid validation of ideas.\n\n· Deliver design systems and reusable components.`,
 };
 
+const careerServices = [
+  {
+    imageUrl: "/images/ServicesCard/default_service_icon.png",
+    title: "Knowledge Sharing",
+    subtitle: "type description here, what this services offers cliend",
+  },
+  {
+    imageUrl: "/images/ServicesCard/default_service_icon.png",
+    title: "Personal Growth",
+    subtitle: "type description here, what this services offers cliend",
+  },
+  {
+    imageUrl: "/images/ServicesCard/default_service_icon.png",
+    title: "Events & Occasions",
+    subtitle: "type description here, what this services offers cliend",
+  },
+  {
+    imageUrl: "/images/ServicesCard/default_service_icon.png",
+    title: "Ambassador Program",
+    subtitle: "type description here, what this services offers cliend",
+  },
+  {
+    imageUrl: "/images/ServicesCard/default_service_icon.png",
+    title: "Relocation Opportunities",
+    subtitle: "type description here, what this services offers cliend",
+  },
+  {
+    imageUrl: "/images/ServicesCard/default_service_icon.png",
+    title: "Internal Activities",
+    subtitle: "type description here, what this services offers cliend",
+  },
+];
+
 const ServicesList = ({ text }: Props) => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const updateWidth = () => {
-      setIsMobile(window.innerWidth <= 1184);
+      setIsMobile(window.innerWidth <= 768);
     };
     updateWidth();
     window.addEventListener("resize", updateWidth);
@@ -66,7 +104,13 @@ const ServicesList = ({ text }: Props) => {
 
   return (
     <Wrapper>
-      <Typography variant={isMobile ? "h3" : "h1"}>{text}</Typography>
+      <Heading
+        variant={text === "Career" ? (isMobile ? "h3" : "h2") : isMobile ? "h3" : "h1"}
+        $center={text === "Career"}
+      >
+        {text === "Career" ? "Company Benefits" : text}
+      </Heading>
+
       {text === "Software" ? (
         <Container>
           {softwareServices.map((service, index) => (
@@ -78,12 +122,24 @@ const ServicesList = ({ text }: Props) => {
             />
           ))}
         </Container>
-      ) : (
+      ) : text === "Marketing" ? (
         <ServicesCard
           imageUrl={marketingService.imageUrl}
           title={marketingService.title}
           subtitle={marketingService.subtitle}
         />
+      ) : (
+        <Container>
+          {careerServices.map((service, index) => (
+            <ServicesCard
+              key={index}
+              imageUrl={service.imageUrl}
+              title={service.title}
+              subtitle={service.subtitle}
+              isCareer
+            />
+          ))}
+        </Container>
       )}
     </Wrapper>
   );
