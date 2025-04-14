@@ -21,7 +21,7 @@ const H3 = styled.h3`
 
 const H4 = styled.h4`
   font-weight: bold;
-  font-size: 26px;
+  font-size: 22px;
   line-height: 34px;
 `
 
