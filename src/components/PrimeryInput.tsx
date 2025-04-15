@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Typography from "./Typography";
 
 const Biginput = styled.div`
+  background-color: rgba(248, 248, 248, 1);
   resize: none;
   width: 100%;
   height: 100%;
@@ -48,9 +49,17 @@ type Props = {
   onChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
+  type?: "text" | "number" | "email";
 };
 
-const PrimeryInput = ({ size, text, placeholder, value, onChange }: Props) => {
+const PrimeryInput = ({
+  type,
+  size,
+  text,
+  placeholder,
+  value,
+  onChange,
+}: Props) => {
   if (size === "big") {
     return (
       <Styleddiv>
@@ -69,6 +78,7 @@ const PrimeryInput = ({ size, text, placeholder, value, onChange }: Props) => {
               padding: "16px",
               border: "none",
               color: "inherit",
+              backgroundColor: "inherit",
             }}
           />
         </Biginput>
@@ -81,6 +91,7 @@ const PrimeryInput = ({ size, text, placeholder, value, onChange }: Props) => {
       <Typography variant="paragraph-bold">{text}</Typography>
       <Biginput>
         <input
+          type={type}
           placeholder={placeholder}
           value={value}
           onChange={onChange}
@@ -92,6 +103,7 @@ const PrimeryInput = ({ size, text, placeholder, value, onChange }: Props) => {
             padding: "16px",
             border: "none",
             color: "inherit",
+            backgroundColor: "inherit",
           }}
         />
       </Biginput>

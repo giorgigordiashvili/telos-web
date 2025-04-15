@@ -9,7 +9,6 @@ import Image from "next/image";
 import { useState } from "react";
 
 const Main = styled.div`
-  background-color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -99,6 +98,7 @@ const ContactScreen = (props: Props) => {
         <Form>
           <Fullname>
             <PrimeryInput
+              type="text"
               size="small"
               text="Name"
               placeholder="Enter your name"
@@ -106,6 +106,7 @@ const ContactScreen = (props: Props) => {
               onChange={(e) => setName(e.target.value)}
             />
             <PrimeryInput
+              type="email"
               size="small"
               text="Email"
               placeholder="Enter your Email"
