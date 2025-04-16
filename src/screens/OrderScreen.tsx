@@ -74,8 +74,7 @@ const OrderScreen = () => {
   const [agreed, setAgreed] = useState(false);
   const [option, setoption] = useState<string | null>(null);
   const [minBudget, setMinBudget] = useState(100000);
-const [maxBudget, setMaxBudget] = useState(400000);
-
+  const [maxBudget, setMaxBudget] = useState(400000);
 
   const options = [
     'option 1',
@@ -97,7 +96,8 @@ const [maxBudget, setMaxBudget] = useState(400000);
       message,
       agreed,
       minBudget,
-      maxBudget    });
+      maxBudget,
+    });
   };
 
   return (
@@ -136,11 +136,11 @@ const [maxBudget, setMaxBudget] = useState(400000);
           />
         </Form>
         <BudgetSlider
-  minVal={minBudget}
-  maxVal={maxBudget}
-  onMinChange={setMinBudget}
-  onMaxChange={setMaxBudget}
-/>
+          minVal={minBudget}
+          maxVal={maxBudget}
+          onMinChange={setMinBudget}
+          onMaxChange={setMaxBudget}
+        />
         <Description>
           <PrimeryInput
             size="big"
