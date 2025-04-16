@@ -10,7 +10,7 @@ const StyledHeader = styled.div`
   align-items: center;
   max-width: 1152px;
   margin-inline: auto;
-  @media (max-width: 900px) {
+  @media (max-width: 1280px) {
     margin-inline: 16px;
   }
 `;
@@ -18,7 +18,7 @@ const StyledHeader = styled.div`
 const Stylednav = styled.nav`
   display: flex;
   gap: 12px;
-  @media (max-width: 900px) {
+  @media (max-width: 1280px) {
     display: none;
   }
 `;
@@ -31,13 +31,13 @@ const Header = () => {
         <Stylednav>
           <MenuItem text="Services" />
           <MenuItem text="Projects" />
-          <MenuItem text="resources">
+          <MenuItem text="Resources">
             <MenuItem text="blog" />
             <MenuItem text="career" />
             <MenuItem text="press" />
           </MenuItem>
           <MenuItem text="Acceleration" />
-          <MenuItem text="order" />
+          <MenuItem text="Order" />
           <MenuItem text="Contact Us" isHighlighted variant="dark" />
         </Stylednav>
         <Burgericon />
