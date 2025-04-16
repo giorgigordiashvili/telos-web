@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const SliderWrapper = styled.div`
@@ -11,7 +11,6 @@ const SliderWrapper = styled.div`
 
 const Labels = styled.div`
   color: rgba(3, 23, 22, 1);
-
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
@@ -83,15 +82,23 @@ const ThumbInput = styled.input`
   }
 `;
 
-export default function BudgetSlider() {
+type BudgetSliderProps = {
+  minVal: number;
+  maxVal: number;
+  onMinChange: (val: number) => void;
+  onMaxChange: (val: number) => void;
+};
+
+export default function BudgetSlider({
+  minVal,
+  maxVal,
+  onMinChange,
+  onMaxChange,
+}: BudgetSliderProps) {
   const min = 0;
   const max = 500000;
 
-  const [minVal, setMinVal] = useState(100000);
-  const [maxVal, setMaxVal] = useState(400000);
-
   const getPercent = (value: number) => ((value - min) / (max - min)) * 100;
-
   const minPercent = getPercent(minVal);
   const maxPercent = getPercent(maxVal);
 
@@ -112,10 +119,8 @@ export default function BudgetSlider() {
           min={min}
           max={max}
           value={minVal}
-          onChange={e => setMinVal(Math.min(Number(e.target.value), maxVal - 10000))}
-          style={{
-            zIndex: minVal > max - 100000 ? '5' : '3',
-          }}
+          onChange={e => onMinChange(Math.min(Number(e.target.value), maxVal - 10000))}
+          style={{ zIndex: minVal > max - 100000 ? '5' : '3' }}
         />
 
         {/* Max Thumb */}
@@ -124,7 +129,7 @@ export default function BudgetSlider() {
           min={min}
           max={max}
           value={maxVal}
-          onChange={e => setMaxVal(Math.max(Number(e.target.value), minVal + 10000))}
+          onChange={e => onMaxChange(Math.max(Number(e.target.value), minVal + 10000))}
         />
       </RangeContainer>
     </SliderWrapper>
