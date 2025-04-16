@@ -82,7 +82,6 @@ const ThumbInput = styled.input`
   }
 `;
 
-
 type Props = {
   minValue: number;
   maxValue: number;
@@ -90,16 +89,13 @@ type Props = {
 };
 
 export default function BudgetSlider({ minValue, maxValue, onChange }: Props) {
-
   const min = 0;
   const max = 500000;
 
   const getPercent = (value: number) => ((value - min) / (max - min)) * 100;
 
-
   const minPercent = getPercent(minValue);
   const maxPercent = getPercent(maxValue);
-
 
   return (
     <SliderWrapper>
@@ -126,7 +122,6 @@ export default function BudgetSlider({ minValue, maxValue, onChange }: Props) {
           style={{
             zIndex: minValue > max - 100000 ? '5' : '3',
           }}
-
         />
 
         <ThumbInput

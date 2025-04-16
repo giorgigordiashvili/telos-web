@@ -8,7 +8,6 @@ import PrimeryInput from '@/components/PrimeryInput';
 import BudgetSlider from '@/components/Slider';
 import Image from 'next/image';
 import { Formik } from 'formik';
-import { useState } from 'react';
 import * as Yup from 'yup';
 import styled from 'styled-components';
 
@@ -95,14 +94,8 @@ const OrderScreen = () => {
   const max = 500000;
 
   const rangeWidth = max - min;
-  const defaultMin = min + rangeWidth * 0.25; // 25%
-  const defaultMax = min + rangeWidth * 0.75; // 75%
-
-  const [budgetRange, setBudgetRange] = useState({
-    min: defaultMin,
-    max: defaultMax,
-  });
-
+  const defaultMin = min + rangeWidth * 0.25;
+  const defaultMax = min + rangeWidth * 0.75;
 
   return (
     <Page>
@@ -128,7 +121,7 @@ const OrderScreen = () => {
             console.log('Submitted Values:', values);
           }}
         >
-          {({ values, handleChange, handleSubmit, setFieldValue, errors }) => (
+          {({ values, handleChange, handleSubmit, setFieldValue }) => (
             <Form onSubmit={handleSubmit}>
               <OptionDropdown
                 options={options}
@@ -167,7 +160,6 @@ const OrderScreen = () => {
                 minValue={values.minValue}
                 maxValue={values.maxValue}
                 onChange={({ min, max }) => {
-                  setBudgetRange({ min, max });
                   setFieldValue('minValue', min);
                   setFieldValue('maxValue', max);
                 }}
@@ -198,7 +190,6 @@ const OrderScreen = () => {
             </Form>
           )}
         </Formik>
-
       </Main>
     </Page>
   );

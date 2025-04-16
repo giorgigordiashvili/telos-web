@@ -99,7 +99,7 @@ const ContactScreen = () => {
             console.log(values);
           }}
         >
-          {({ values, handleChange, handleSubmit, setFieldValue, errors, touched }) => {
+          {({ values, handleChange, handleSubmit, setFieldValue, errors }) => {
             console.log('Formik Errors:', errors);
 
             return (
