@@ -12,7 +12,8 @@ const StyledHeader = styled.div`
   margin-inline: auto;
   @media (max-width: 1280px) {
     margin-inline: auto;
-    padding-inline: 16px;  }
+    padding-inline: 16px;
+  }
 `;
 
 const Stylednav = styled.nav`
