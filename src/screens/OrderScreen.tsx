@@ -103,6 +103,7 @@ const OrderScreen = () => {
     max: defaultMax,
   });
 
+
   return (
     <Page>
       <Main>
@@ -197,6 +198,7 @@ const OrderScreen = () => {
             </Form>
           )}
         </Formik>
+
       </Main>
     </Page>
   );

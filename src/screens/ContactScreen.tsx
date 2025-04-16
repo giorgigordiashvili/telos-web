@@ -33,7 +33,6 @@ const Body = styled.div`
   @media (max-width: 1280px) {
     flex-direction: column;
     gap: 0;
-    width: 100%;
 
     .Bigimage {
       object-fit: contain;
