@@ -3,12 +3,7 @@
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* Removed dark mode media query */
 
 html,
 body {
@@ -35,9 +30,4 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    text-align: center;
-    color-scheme: dark;
-  }
-}
+/* Removed dark mode media query */
