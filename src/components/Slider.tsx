@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const SliderWrapper = styled.div`
@@ -11,7 +11,6 @@ const SliderWrapper = styled.div`
 
 const Labels = styled.div`
   color: rgba(3, 23, 22, 1);
-
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
@@ -83,48 +82,59 @@ const ThumbInput = styled.input`
   }
 `;
 
-export default function BudgetSlider() {
+type Props = {
+  minValue: number;
+  maxValue: number;
+  onChange: (values: { min: number; max: number }) => void;
+};
+
+export default function BudgetSlider({ minValue, maxValue, onChange }: Props) {
   const min = 0;
   const max = 500000;
 
-  const [minVal, setMinVal] = useState(100000);
-  const [maxVal, setMaxVal] = useState(400000);
-
   const getPercent = (value: number) => ((value - min) / (max - min)) * 100;
 
-  const minPercent = getPercent(minVal);
-  const maxPercent = getPercent(maxVal);
+  const minPercent = getPercent(minValue);
+  const maxPercent = getPercent(maxValue);
 
   return (
     <SliderWrapper>
       <Labels>
-        <Label>{Math.round(minVal / 1000)}k$</Label>
-        <Label>{Math.round(maxVal / 1000)}k$</Label>
+        <Label>{Math.round(minValue / 1000)}k$</Label>
+        <Label>{Math.round(maxValue / 1000)}k$</Label>
       </Labels>
 
       <RangeContainer>
         <SliderTrack />
         <SliderRange minPercent={minPercent} maxPercent={maxPercent} />
 
-        {/* Min Thumb */}
         <ThumbInput
           type="range"
           min={min}
           max={max}
-          value={minVal}
-          onChange={e => setMinVal(Math.min(Number(e.target.value), maxVal - 10000))}
+          value={minValue}
+          onChange={e =>
+            onChange({
+              min: Math.min(Number(e.target.value), maxValue - 10000),
+              max: maxValue,
+            })
+          }
           style={{
-            zIndex: minVal > max - 100000 ? '5' : '3',
+            zIndex: minValue > max - 100000 ? '5' : '3',
           }}
         />
 
-        {/* Max Thumb */}
         <ThumbInput
           type="range"
           min={min}
           max={max}
-          value={maxVal}
-          onChange={e => setMaxVal(Math.max(Number(e.target.value), minVal + 10000))}
+          value={maxValue}
+          onChange={e =>
+            onChange({
+              min: minValue,
+              max: Math.max(Number(e.target.value), minValue + 10000),
+            })
+          }
         />
       </RangeContainer>
     </SliderWrapper>

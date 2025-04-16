@@ -4,8 +4,9 @@ import PrimeryButton from '@/components/PrimeryButton';
 import PrimeryCheckbox from '@/components/PrimeryCheckbox';
 import PrimeryInput from '@/components/PrimeryInput';
 import Image from 'next/image';
-import { useState } from 'react';
 import styled from 'styled-components';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 
 const Main = styled.div`
   display: flex;
@@ -41,7 +42,7 @@ const Body = styled.div`
     }
   }
 `;
-const Form = styled.div`
+const Form = styled.form`
   width: 564px;
   height: 459px;
   display: flex;
@@ -65,21 +66,15 @@ const Description = styled.div`
   text-align: left;
   height: 165px;
 `;
+
+const validationSchema = Yup.object({
+  name: Yup.string().required('Required'),
+  email: Yup.string().email('Invalid email').required('Required'),
+  message: Yup.string().required('Required'),
+  agreed: Yup.boolean().oneOf([true], 'You must agree to continue'),
+});
+
 const ContactScreen = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const [agreed, setAgreed] = useState(false);
-
-  const handleSubmit = () => {
-    console.log({
-      name,
-      email,
-      message,
-      agreed,
-    });
-  };
-
   return (
     <Main>
       <Title>
@@ -93,43 +88,67 @@ const ContactScreen = () => {
           height={555}
           className="Bigimage"
         />
-        <Form>
-          <Fullname>
-            <PrimeryInput
-              type="text"
-              size="small"
-              text="Name"
-              placeholder="Enter your name"
-              value={name}
-              onChange={e => setName(e.target.value)}
-            />
-            <PrimeryInput
-              type="email"
-              size="small"
-              text="Email"
-              placeholder="Enter your Email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-            />
-          </Fullname>
-          <Description>
-            <PrimeryInput
-              size="big"
-              text="Message"
-              placeholder="click and start typing"
-              value={message}
-              onChange={e => setMessage(e.target.value)}
-            />
-          </Description>
-          <PrimeryCheckbox
-            label="By submitting this form, you agree to our Privacy Policy"
-            checked={agreed}
-            onChange={() => setAgreed(!agreed)}
-          />
-          <div onClick={handleSubmit}>
-            <PrimeryButton variant="blue">Submit</PrimeryButton>
-          </div>
-        </Form>
+        <Formik
+          initialValues={{
+            name: '',
+            email: '',
+            message: '',
+            agreed: false,
+          }}
+          validationSchema={validationSchema}
+          onSubmit={values => {
+            console.log(values);
+          }}
+        >
+          {({ values, handleChange, handleSubmit, setFieldValue, errors, touched }) => {
+            console.log('Formik Errors:', errors);
+
+            return (
+              <Form onSubmit={handleSubmit}>
+                <Fullname>
+                  <PrimeryInput
+                    type="text"
+                    size="small"
+                    text="Name"
+                    placeholder="Enter your name"
+                    value={values.name}
+                    onChange={handleChange}
+                    name="name"
+                  />
+                  <PrimeryInput
+                    type="email"
+                    size="small"
+                    text="Email"
+                    placeholder="Enter your Email"
+                    value={values.email}
+                    onChange={handleChange}
+                    name="email"
+                  />
+                </Fullname>
+                <Description>
+                  <PrimeryInput
+                    size="big"
+                    text="Message"
+                    placeholder="click and start typing"
+                    value={values.message}
+                    onChange={handleChange}
+                    name="message"
+                  />
+                </Description>
+                <PrimeryCheckbox
+                  label="By submitting this form, you agree to our Privacy Policy"
+                  checked={values.agreed}
+                  onChange={() => setFieldValue('agreed', !values.agreed)}
+                />
+                <div>
+                  <PrimeryButton type="submit" variant="blue">
+                    Submit
+                  </PrimeryButton>
+                </div>
+              </Form>
+            );
+          }}
+        </Formik>
       </Body>
     </Main>
   );
