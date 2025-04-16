@@ -7,7 +7,7 @@ import SideBar from './SideBar'; // adjust path if needed
 const Burgermenu = styled.div`
   display: none;
   position: relative;
-  @media (max-width: 900px) {
+  @media (max-width: 1280px) {
     display: block;
     cursor: pointer;
   }
