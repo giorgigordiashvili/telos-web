@@ -21,8 +21,10 @@ const H3 = styled.h3`
 
 const H4 = styled.h4`
   font-weight: bold;
+  font-weight: 700;
   font-size: 22px;
-  line-height: 34px;
+  line-height: 100%;
+  letter-spacing: 0%;
 `;
 
 const ParagraphBold = styled.p`

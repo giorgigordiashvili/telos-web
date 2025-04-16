@@ -6,7 +6,7 @@ import Typography from './Typography';
 import ServicesCard from './ServicesCard';
 
 type Props = {
-  text: 'Software' | 'Marketing' | 'Career';
+  text: 'Software' | 'Marketing' | 'Career' | 'features';
 };
 
 const Wrapper = styled.div`
@@ -23,15 +23,53 @@ const Container = styled.div`
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1280px) {
     grid-template-columns: 1fr;
   }
+`;
+
+const FeaturesContainer = styled.div`
+  display: flex;
+  gap: 24px;
+  flex-wrap: nowrap;
+
+  @media (max-width: 1280px) {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* @media (max-width: 768px) {
+    flex-direction: column;
+  } */
 `;
 
 const Heading = styled(Typography)<{ $center?: boolean }>`
   align-self: ${({ $center }) => ($center ? 'center' : 'flex-start')};
   text-align: ${({ $center }) => ($center ? 'center' : 'left')};
 `;
+
+const featuresServices = [
+  {
+    imageUrl: '/images/ServicesCard/frontend.png',
+    title: 'Web App Development',
+    subtitle: `We design and develop scalable, high-performance web applications tailored to your business needs using Next.js. From dynamic dashboards to e-commerce platforms, our solutions are optimized for user experience.`,
+  },
+  {
+    imageUrl: '/images/ServicesCard/mobile.png',
+    title: 'Mobile App Development',
+    subtitle: `Our team builds responsive, cross-platform mobile applications with React Native, ensuring seamless functionality and a consistent user experience across Android and iOS devices.`,
+  },
+  {
+    imageUrl: '/images/ServicesCard/backend.png',
+    title: 'Backend Dev./API Integration',
+    subtitle: `We specialize in developing secure, scalable backends using Node.js and Laravel, along with seamless integration of APIs to ensure your app communicates effectively with third-party services.`,
+  },
+  {
+    imageUrl: '/images/ServicesCard/design.png',
+    title: 'UI/UX Design and Prototyping',
+    subtitle: `Our design team creates intuitive and visually appealing interfaces that align with your brand, ensuring an exceptional user journey from start to finish.`,
+  },
+];
 
 const softwareServices = [
   {
@@ -61,32 +99,32 @@ const careerServices = [
   {
     imageUrl: '/images/ServicesCard/default_service_icon.png',
     title: 'Knowledge Sharing',
-    subtitle: 'type description here, what this services offers cliend',
+    subtitle: 'type description here, what this services offers client',
   },
   {
     imageUrl: '/images/ServicesCard/default_service_icon.png',
     title: 'Personal Growth',
-    subtitle: 'type description here, what this services offers cliend',
+    subtitle: 'type description here, what this services offers client',
   },
   {
     imageUrl: '/images/ServicesCard/default_service_icon.png',
     title: 'Events & Occasions',
-    subtitle: 'type description here, what this services offers cliend',
+    subtitle: 'type description here, what this services offers client',
   },
   {
     imageUrl: '/images/ServicesCard/default_service_icon.png',
     title: 'Ambassador Program',
-    subtitle: 'type description here, what this services offers cliend',
+    subtitle: 'type description here, what this services offers client',
   },
   {
     imageUrl: '/images/ServicesCard/default_service_icon.png',
     title: 'Relocation Opportunities',
-    subtitle: 'type description here, what this services offers cliend',
+    subtitle: 'type description here, what this services offers client',
   },
   {
     imageUrl: '/images/ServicesCard/default_service_icon.png',
     title: 'Internal Activities',
-    subtitle: 'type description here, what this services offers cliend',
+    subtitle: 'type description here, what this services offers client',
   },
 ];
 
@@ -104,12 +142,14 @@ const ServicesList = ({ text }: Props) => {
 
   return (
     <Wrapper>
-      <Heading
-        variant={text === 'Career' ? (isMobile ? 'h3' : 'h2') : isMobile ? 'h3' : 'h1'}
-        $center={text === 'Career'}
-      >
-        {text === 'Career' ? 'Company Benefits' : text}
-      </Heading>
+      {text !== 'features' && (
+        <Heading
+          variant={text === 'Career' ? (isMobile ? 'h3' : 'h2') : isMobile ? 'h3' : 'h1'}
+          $center={text === 'Career'}
+        >
+          {text === 'Career' ? 'Company Benefits' : text}
+        </Heading>
+      )}
 
       {text === 'Software' ? (
         <Container>
@@ -128,7 +168,7 @@ const ServicesList = ({ text }: Props) => {
           title={marketingService.title}
           subtitle={marketingService.subtitle}
         />
-      ) : (
+      ) : text === 'Career' ? (
         <Container>
           {careerServices.map((service, index) => (
             <ServicesCard
@@ -140,6 +180,19 @@ const ServicesList = ({ text }: Props) => {
             />
           ))}
         </Container>
+      ) : (
+        <FeaturesContainer>
+          {featuresServices.map((service, index) => (
+            <ServicesCard
+              key={index}
+              imageUrl={service.imageUrl}
+              title={service.title}
+              subtitle={service.subtitle}
+              showLearnMore
+              isFeature
+            />
+          ))}
+        </FeaturesContainer>
       )}
     </Wrapper>
   );
