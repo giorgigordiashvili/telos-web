@@ -27,7 +27,7 @@ const PageTitle = ({ text, className, iconUrl, subtitle }: Props) => {
 
   useEffect(() => {
     const checkWidth = () => {
-      setIsMobile(window.innerWidth <= 1184);
+      setIsMobile(window.innerWidth <= 768);
     };
     checkWidth();
     window.addEventListener("resize", checkWidth);
@@ -42,12 +42,22 @@ const PageTitle = ({ text, className, iconUrl, subtitle }: Props) => {
       {iconUrl && (
         <Image src={iconUrl} alt={`${text} icon`} width={40} height={40} />
       )}
-      {subtitle && (
-        <StyledTypography variant={isMobile ? "paragraph-bold" : "h4"}>
+
+      {/* If not Press, show subtitle before title */}
+      {text !== "Press" && subtitle && (
+        <StyledTypography variant={isMobile ? "h3" : "h4"}>
           {subtitle}
         </StyledTypography>
       )}
+
       <Typography variant={isMobile ? "h2" : "h1"}>{text}</Typography>
+
+      {/* If Press, show subtitle after title */}
+      {text === "Press" && subtitle && (
+        <StyledTypography variant={isMobile ? "h3" : "h4"}>
+          {subtitle}
+        </StyledTypography>
+      )}
     </HeaderWrapper>
   );
 };
