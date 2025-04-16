@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import React from "react";
-import styled from "styled-components";
-import Typography from "@/components/Typography";
+import React from 'react';
+import styled from 'styled-components';
+import Typography from '@/components/Typography';
 
-type TagColor = "brown" | "green" | "blue";
+type TagColor = 'brown' | 'green' | 'blue';
 
 type Props = {
   text: string;
@@ -12,9 +12,9 @@ type Props = {
 };
 
 const colorMap: Record<TagColor, string> = {
-  brown: "#BE8484",
-  green: "#35B954",
-  blue: "#4588C3",
+  brown: '#BE8484',
+  green: '#35B954',
+  blue: '#4588C3',
 };
 
 const StyledTag = styled.div<{ $color: TagColor }>`

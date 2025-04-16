@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React from "react";
-import styled from "styled-components";
-import PageTitle from "@/components/PageTitle";
-import PressList from "@/components/PressList";
+import React from 'react';
+import styled from 'styled-components';
+import PageTitle from '@/components/PageTitle';
+import PressList from '@/components/PressList';
 
 const Container = styled.div`
   max-width: 1152px;
@@ -15,11 +15,11 @@ const Container = styled.div`
   gap: 96px;
 
   @media (max-width: 1152px) {
-  padding-top: 32px;
-  padding-bottom: 48px;
-  padding-inline: 16px;
-  gap: 48px;
-}
+    padding-top: 32px;
+    padding-bottom: 48px;
+    padding-inline: 16px;
+    gap: 48px;
+  }
 `;
 
 const PressScreen = () => {

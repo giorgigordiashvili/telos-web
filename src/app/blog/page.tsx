@@ -1,5 +1,5 @@
-import BlogScreen from "@/screens/BlogScreen";
-import React from "react";
+import BlogScreen from '@/screens/BlogScreen';
+import React from 'react';
 
 const page = () => {
   return <BlogScreen />;

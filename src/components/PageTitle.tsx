@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import Typography from "./Typography";
-import Image from "next/image";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import Typography from './Typography';
+import Image from 'next/image';
 
 type Props = {
   text: string;
@@ -30,33 +30,27 @@ const PageTitle = ({ text, className, iconUrl, subtitle }: Props) => {
       setIsMobile(window.innerWidth <= 768);
     };
     checkWidth();
-    window.addEventListener("resize", checkWidth);
-    return () => window.removeEventListener("resize", checkWidth);
+    window.addEventListener('resize', checkWidth);
+    return () => window.removeEventListener('resize', checkWidth);
   }, []);
 
   return (
     <HeaderWrapper
       className={className}
-      style={text === "Blog" ? { alignItems: "flex-start" } : {}}
+      style={text === 'Blog' ? { alignItems: 'flex-start' } : {}}
     >
-      {iconUrl && (
-        <Image src={iconUrl} alt={`${text} icon`} width={40} height={40} />
-      )}
+      {iconUrl && <Image src={iconUrl} alt={`${text} icon`} width={40} height={40} />}
 
       {/* If not Press, show subtitle before title */}
-      {text !== "Press" && subtitle && (
-        <StyledTypography variant={isMobile ? "h3" : "h4"}>
-          {subtitle}
-        </StyledTypography>
+      {text !== 'Press' && subtitle && (
+        <StyledTypography variant={isMobile ? 'h3' : 'h4'}>{subtitle}</StyledTypography>
       )}
 
-      <Typography variant={isMobile ? "h2" : "h1"}>{text}</Typography>
+      <Typography variant={isMobile ? 'h2' : 'h1'}>{text}</Typography>
 
       {/* If Press, show subtitle after title */}
-      {text === "Press" && subtitle && (
-        <StyledTypography variant={isMobile ? "h3" : "h4"}>
-          {subtitle}
-        </StyledTypography>
+      {text === 'Press' && subtitle && (
+        <StyledTypography variant={isMobile ? 'h3' : 'h4'}>{subtitle}</StyledTypography>
       )}
     </HeaderWrapper>
   );

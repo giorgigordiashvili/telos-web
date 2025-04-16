@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import PageTitle from "@/components/PageTitle";
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import Typography from "@/components/Typography";
-import PrimeryButton from "@/components/PrimeryButton";
-import Image from "next/image";
-import BlogList from "@/components/BlogList";
+import PageTitle from '@/components/PageTitle';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import Typography from '@/components/Typography';
+import PrimeryButton from '@/components/PrimeryButton';
+import Image from 'next/image';
+import BlogList from '@/components/BlogList';
 
 // 🔹 useIsMobile hook
 const useIsMobile = (breakpoint = 768) => {
@@ -15,8 +15,8 @@ const useIsMobile = (breakpoint = 768) => {
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth <= breakpoint);
     check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
   }, [breakpoint]);
 
   return isMobile;
@@ -109,12 +109,12 @@ const BlogScreen = () => {
           <PageTitle text="Blog" />
           <BlogContent>
             <BlogTextContainer>
-              <Typography variant={isMobile ? "h3" : "h2"}>
+              <Typography variant={isMobile ? 'h3' : 'h2'}>
                 this is a featured article - the most important piece of content
               </Typography>
               <Typography variant="paragraph-medium">
-                very short description of whats actually being discussed in this
-                article, maybe the first sentences to provide a preview
+                very short description of whats actually being discussed in this article, maybe the
+                first sentences to provide a preview
               </Typography>
               <PrimeryButton variant="border">read now</PrimeryButton>
             </BlogTextContainer>
@@ -124,7 +124,7 @@ const BlogScreen = () => {
                 alt="test-photo"
                 fill
                 sizes="100%"
-                style={{ objectFit: "cover" }}
+                style={{ objectFit: 'cover' }}
               />
             </BlogImageContainer>
           </BlogContent>

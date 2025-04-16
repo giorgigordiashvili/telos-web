@@ -1,0 +1,28 @@
+# Build output
+.next/
+out/
+build/
+dist/
+
+# Node modules
+node_modules/
+
+# Log files
+*.log
+
+# Coverage directory
+coverage/
+
+# Cache
+.cache/
+.eslintcache
+
+# Public assets
+public/
+
+# Next.js environment variables
+.env*.local
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts

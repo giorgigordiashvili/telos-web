@@ -1,8 +1,8 @@
-"use client";
-import React, { useEffect, useRef } from "react";
-import styled from "styled-components";
-import Image from "next/image";
-import MenuItem from "./MenuItem";
+'use client';
+import React, { useEffect, useRef } from 'react';
+import styled from 'styled-components';
+import Image from 'next/image';
+import MenuItem from './MenuItem';
 
 const Back = styled.div`
   background-color: rgba(0, 0, 0, 0.1);
@@ -75,9 +75,9 @@ const SideBar = ({ onClose }: Props) => {
         onClose();
       }
     };
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [onClose]);
 
@@ -100,12 +100,7 @@ const SideBar = ({ onClose }: Props) => {
         <Contact>
           <MenuItem text="Contact Us" isHighlighted variant="light" />
           <Location>
-            <Image
-              alt="location"
-              width={11}
-              height={17}
-              src="/images/location.png"
-            />
+            <Image alt="location" width={11} height={17} src="/images/location.png" />
             <LocationP> Bakhtrioni st. 23</LocationP>
           </Location>
         </Contact>

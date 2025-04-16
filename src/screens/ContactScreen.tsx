@@ -1,14 +1,13 @@
-'use client'
-import PageTitle from '@/components/PageTitle'
-import PrimeryButton from '@/components/PrimeryButton'
-import PrimeryCheckbox from '@/components/PrimeryCheckbox'
-import PrimeryInput from '@/components/PrimeryInput'
-import Image from 'next/image'
-import { useState } from 'react'
-import styled from 'styled-components'
+'use client';
+import PageTitle from '@/components/PageTitle';
+import PrimeryButton from '@/components/PrimeryButton';
+import PrimeryCheckbox from '@/components/PrimeryCheckbox';
+import PrimeryInput from '@/components/PrimeryInput';
+import Image from 'next/image';
+import { useState } from 'react';
+import styled from 'styled-components';
 
 const Main = styled.div`
-  background-color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,7 +16,7 @@ const Main = styled.div`
     margin-bottom: 48px;
     padding-inline: 16px;
   }
-`
+`;
 const Title = styled.div`
   margin-top: 96px;
   margin-bottom: 96px;
@@ -25,7 +24,7 @@ const Title = styled.div`
     margin-top: 32px;
     margin-bottom: 48px;
   }
-`
+`;
 const Body = styled.div`
   display: flex;
   gap: 24px;
@@ -41,7 +40,7 @@ const Body = styled.div`
       height: auto;
     }
   }
-`
+`;
 const Form = styled.div`
   width: 564px;
   height: 459px;
@@ -52,7 +51,7 @@ const Form = styled.div`
     width: 100%;
     gap: 16px;
   }
-`
+`;
 const Fullname = styled.div`
   display: flex;
   gap: 24px;
@@ -61,25 +60,25 @@ const Fullname = styled.div`
     flex-direction: column;
     gap: 16px;
   }
-`
+`;
 const Description = styled.div`
   text-align: left;
   height: 165px;
-`
+`;
 const ContactScreen = () => {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [message, setMessage] = useState('')
-  const [agreed, setAgreed] = useState(false)
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [agreed, setAgreed] = useState(false);
 
   const handleSubmit = () => {
     console.log({
       name,
       email,
       message,
-      agreed
-    })
-  }
+      agreed,
+    });
+  };
 
   return (
     <Main>
@@ -97,18 +96,20 @@ const ContactScreen = () => {
         <Form>
           <Fullname>
             <PrimeryInput
+              type="text"
               size="small"
               text="Name"
               placeholder="Enter your name"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={e => setName(e.target.value)}
             />
             <PrimeryInput
+              type="email"
               size="small"
               text="Email"
               placeholder="Enter your Email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={e => setEmail(e.target.value)}
             />
           </Fullname>
           <Description>
@@ -117,7 +118,7 @@ const ContactScreen = () => {
               text="Message"
               placeholder="click and start typing"
               value={message}
-              onChange={(e) => setMessage(e.target.value)}
+              onChange={e => setMessage(e.target.value)}
             />
           </Description>
           <PrimeryCheckbox
@@ -131,7 +132,7 @@ const ContactScreen = () => {
         </Form>
       </Body>
     </Main>
-  )
-}
+  );
+};
 
-export default ContactScreen
+export default ContactScreen;

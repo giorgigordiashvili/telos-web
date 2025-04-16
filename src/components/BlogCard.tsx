@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import React from "react";
-import styled from "styled-components";
-import Typography from "./Typography";
-import Image from "next/image";
-import TagButton from "@/components/TagButton";
-import ArrowRight from "@/icons/ArrowRight";
+import React from 'react';
+import styled from 'styled-components';
+import Typography from './Typography';
+import Image from 'next/image';
+import TagButton from '@/components/TagButton';
+import ArrowRight from '@/icons/ArrowRight';
 
 type Props = {
   imageSrc: string;
@@ -13,18 +13,18 @@ type Props = {
   category: string;
 };
 
-type TagColor = "brown" | "green" | "blue";
+type TagColor = 'brown' | 'green' | 'blue';
 
 const getTagColor = (category: string): TagColor => {
   switch (category.toLowerCase()) {
-    case "category 1":
-      return "brown";
-    case "category 2":
-      return "green";
-    case "category 3":
-      return "blue";
+    case 'category 1':
+      return 'brown';
+    case 'category 2':
+      return 'green';
+    case 'category 3':
+      return 'blue';
     default:
-      return "brown"; // fallback
+      return 'brown'; // fallback
   }
 };
 
@@ -106,7 +106,7 @@ const BlogCard = ({ imageSrc, title, category }: Props) => {
           src={imageSrc}
           alt={title}
           fill
-          style={{ objectFit: "cover" }}
+          style={{ objectFit: 'cover' }}
           priority
           sizes="(max-width: 768px) 100vw, 270px"
         />
