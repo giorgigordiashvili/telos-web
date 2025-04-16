@@ -5,11 +5,12 @@ import styled from 'styled-components';
 type Variant = 'blue' | 'white' | 'border';
 
 type Props = {
+  type?: 'submit';
   variant: Variant;
   children: React.ReactNode;
 };
 
-const StyledButton = styled.div<{ variant: 'blue' | 'white' | 'border' }>`
+const StyledButton = styled.button<{ variant: 'blue' | 'white' | 'border' }>`
   width: 100%;
   height: 53px;
   top: 20px;
@@ -47,8 +48,12 @@ const StyledButton = styled.div<{ variant: 'blue' | 'white' | 'border' }>`
   }
 `;
 
-const PrimeryButton = ({ children, variant }: Props) => {
-  return <StyledButton variant={variant}>{children}</StyledButton>;
+const PrimeryButton = ({ type, children, variant }: Props) => {
+  return (
+    <StyledButton type={type} variant={variant}>
+      {children}
+    </StyledButton>
+  );
 };
 
 export default PrimeryButton;

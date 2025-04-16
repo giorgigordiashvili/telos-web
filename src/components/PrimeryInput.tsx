@@ -42,6 +42,7 @@ const Styleddiv = styled.div`
 `;
 
 type Props = {
+  name: string;
   size: 'big' | 'small';
   text: string;
   placeholder: string;
@@ -50,13 +51,14 @@ type Props = {
   type?: 'text' | 'number' | 'email';
 };
 
-const PrimeryInput = ({ type, size, text, placeholder, value, onChange }: Props) => {
+const PrimeryInput = ({ name, type, size, text, placeholder, value, onChange }: Props) => {
   if (size === 'big') {
     return (
       <Styleddiv>
         <Typography variant="paragraph-bold">{text}</Typography>
         <Biginput>
           <textarea
+            name={name}
             placeholder={placeholder}
             value={value}
             onChange={onChange}
@@ -82,6 +84,7 @@ const PrimeryInput = ({ type, size, text, placeholder, value, onChange }: Props)
       <Typography variant="paragraph-bold">{text}</Typography>
       <Biginput>
         <input
+          name={name}
           type={type}
           placeholder={placeholder}
           value={value}
