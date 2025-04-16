@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import Typography from "./Typography";
-import Image from "next/image";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import Typography from './Typography';
+import Image from 'next/image';
 
 type Props = {
   imageSrc: string;
@@ -73,8 +73,8 @@ const PressCard = ({ imageSrc, title, subtitle, date }: Props) => {
       setIsMobile(window.innerWidth <= 768);
     };
     checkWidth();
-    window.addEventListener("resize", checkWidth);
-    return () => window.removeEventListener("resize", checkWidth);
+    window.addEventListener('resize', checkWidth);
+    return () => window.removeEventListener('resize', checkWidth);
   }, []);
 
   return (
@@ -89,10 +89,8 @@ const PressCard = ({ imageSrc, title, subtitle, date }: Props) => {
         />
       </ImageWrapper>
       <Content>
-        <Title variant={isMobile ? "h3" : "h3"}>{title}</Title>
-        <Subtitle variant={isMobile ? "paragraph-bold" : "h4"}>
-          {subtitle}
-        </Subtitle>
+        <Title variant={isMobile ? 'h3' : 'h3'}>{title}</Title>
+        <Subtitle variant={isMobile ? 'paragraph-bold' : 'h4'}>{subtitle}</Subtitle>
         <DateText variant="paragraph-bold">{date}</DateText>
       </Content>
     </Wrapper>

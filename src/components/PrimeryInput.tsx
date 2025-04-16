@@ -1,7 +1,7 @@
-"use client";
-import React from "react";
-import styled from "styled-components";
-import Typography from "./Typography";
+'use client';
+import React from 'react';
+import styled from 'styled-components';
+import Typography from './Typography';
 
 const Biginput = styled.div`
   background-color: rgba(248, 248, 248, 1);
@@ -42,25 +42,16 @@ const Styleddiv = styled.div`
 `;
 
 type Props = {
-  size: "big" | "small";
+  size: 'big' | 'small';
   text: string;
   placeholder: string;
   value: string;
-  onChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
-  type?: "text" | "number" | "email";
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  type?: 'text' | 'number' | 'email';
 };
 
-const PrimeryInput = ({
-  type,
-  size,
-  text,
-  placeholder,
-  value,
-  onChange,
-}: Props) => {
-  if (size === "big") {
+const PrimeryInput = ({ type, size, text, placeholder, value, onChange }: Props) => {
+  if (size === 'big') {
     return (
       <Styleddiv>
         <Typography variant="paragraph-bold">{text}</Typography>
@@ -70,15 +61,15 @@ const PrimeryInput = ({
             value={value}
             onChange={onChange}
             style={{
-              width: "100%",
-              height: "100%",
-              outline: "none",
-              borderRadius: "inherit",
-              resize: "none",
-              padding: "16px",
-              border: "none",
-              color: "inherit",
-              backgroundColor: "inherit",
+              width: '100%',
+              height: '100%',
+              outline: 'none',
+              borderRadius: 'inherit',
+              resize: 'none',
+              padding: '16px',
+              border: 'none',
+              color: 'inherit',
+              backgroundColor: 'inherit',
             }}
           />
         </Biginput>
@@ -96,14 +87,14 @@ const PrimeryInput = ({
           value={value}
           onChange={onChange}
           style={{
-            width: "100%",
-            height: "100%",
-            outline: "none",
-            borderRadius: "inherit",
-            padding: "16px",
-            border: "none",
-            color: "inherit",
-            backgroundColor: "inherit",
+            width: '100%',
+            height: '100%',
+            outline: 'none',
+            borderRadius: 'inherit',
+            padding: '16px',
+            border: 'none',
+            color: 'inherit',
+            backgroundColor: 'inherit',
           }}
         />
       </Biginput>

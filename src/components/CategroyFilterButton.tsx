@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import React from "react";
-import styled from "styled-components";
-import Typography from "@/components/Typography";
+import React from 'react';
+import styled from 'styled-components';
+import Typography from '@/components/Typography';
 
 type Props = {
   text: string;
@@ -15,17 +15,17 @@ const StyledButton = styled.button<{ $selected: boolean }>`
   height: min-content;
   padding: 12px 16px;
   border-radius: 40px;
-  background-color: ${({ $selected }) => ($selected ? "#031716" : "#f6f6f6")};
+  background-color: ${({ $selected }) => ($selected ? '#031716' : '#f6f6f6')};
   border: none;
   cursor: pointer;
 
   &:hover {
-    background-color: ${({ $selected }) => ($selected ? "#031716" : "#dadada")};
+    background-color: ${({ $selected }) => ($selected ? '#031716' : '#dadada')};
   }
 `;
 
 const TextWrapper = styled.div<{ $selected: boolean }>`
-  color: ${({ $selected }) => ($selected ? "#fff" : "#031716")};
+  color: ${({ $selected }) => ($selected ? '#fff' : '#031716')};
 `;
 
 const CategroyFilterButton = ({ text, onClick, selected }: Props) => {

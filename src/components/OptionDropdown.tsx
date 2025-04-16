@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import styled, { css } from "styled-components";
-import Image from "next/image";
-import Typography from "./Typography";
+import React, { useState } from 'react';
+import styled, { css } from 'styled-components';
+import Image from 'next/image';
+import Typography from './Typography';
 
 const DropdownContainer = styled.div`
   width: 100%;
@@ -21,7 +21,7 @@ const DropdownHeader = styled.div<{ isOpen: boolean }>`
   align-items: center;
   color: rgba(3, 23, 22, 0.4);
 
-  ${(props) =>
+  ${props =>
     props.isOpen &&
     css`
       border-bottom-left-radius: 0;
@@ -32,7 +32,7 @@ const DropdownHeader = styled.div<{ isOpen: boolean }>`
 
 const ArrowWrapper = styled.div<{ isOpen: boolean }>`
   transition: transform 0.2s ease-in-out;
-  ${(props) =>
+  ${props =>
     props.isOpen &&
     css`
       transform: rotate(180deg);
@@ -86,15 +86,11 @@ interface SelecDropdownProps {
   onChange?: (value: string) => void;
 }
 
-const SelecDropdown: React.FC<SelecDropdownProps> = ({
-  options,
-  value,
-  onChange,
-}) => {
+const SelecDropdown: React.FC<SelecDropdownProps> = ({ options, value, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState<string | null>(value ?? null);
 
-  const toggleDropdown = () => setIsOpen((prev) => !prev);
+  const toggleDropdown = () => setIsOpen(prev => !prev);
 
   const handleSelect = (option: string) => {
     setSelected(option);
@@ -105,16 +101,9 @@ const SelecDropdown: React.FC<SelecDropdownProps> = ({
   return (
     <DropdownContainer>
       <DropdownHeader isOpen={isOpen} onClick={toggleDropdown}>
-        <Typography variant="paragraph-medium">
-          {selected || "Select an option"}
-        </Typography>
+        <Typography variant="paragraph-medium">{selected || 'Select an option'}</Typography>
         <ArrowWrapper isOpen={isOpen}>
-          <Image
-            src="/images/order/down.png"
-            alt="arrow"
-            width={11}
-            height={5.5}
-          />
+          <Image src="/images/order/down.png" alt="arrow" width={11} height={5.5} />
         </ArrowWrapper>
       </DropdownHeader>
 

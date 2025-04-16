@@ -1,5 +1,5 @@
-import ServicesScreen from "@/screens/ServicesScreen";
-import React from "react";
+import ServicesScreen from '@/screens/ServicesScreen';
+import React from 'react';
 
 const Page = () => {
   return <ServicesScreen />;

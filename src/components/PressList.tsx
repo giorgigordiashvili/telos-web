@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import React from "react";
-import styled from "styled-components";
-import PressCard from "./PressCard";
+import React from 'react';
+import styled from 'styled-components';
+import PressCard from './PressCard';
 
 const Wrapper = styled.div`
   display: flex;
@@ -29,52 +29,52 @@ const Container = styled.div`
 
 const pressData = [
   {
-    imageSrc: "/images/PressCard/default.png",
-    title: "Press Name",
-    subtitle: "Article name - headline for article",
-    date: "Date (year)",
+    imageSrc: '/images/PressCard/default.png',
+    title: 'Press Name',
+    subtitle: 'Article name - headline for article',
+    date: 'Date (year)',
   },
   {
-    imageSrc: "/images/PressCard/default.png",
-    title: "Press Name",
-    subtitle: "Article name - headline for article",
-    date: "Date (year)",
+    imageSrc: '/images/PressCard/default.png',
+    title: 'Press Name',
+    subtitle: 'Article name - headline for article',
+    date: 'Date (year)',
   },
   {
-    imageSrc: "/images/PressCard/default.png",
-    title: "Press Name",
-    subtitle: "Article name - headline for article",
-    date: "Date (year)",
+    imageSrc: '/images/PressCard/default.png',
+    title: 'Press Name',
+    subtitle: 'Article name - headline for article',
+    date: 'Date (year)',
   },
   {
-    imageSrc: "/images/PressCard/default.png",
-    title: "Press Name",
-    subtitle: "Article name - headline for article",
-    date: "Date (year)",
+    imageSrc: '/images/PressCard/default.png',
+    title: 'Press Name',
+    subtitle: 'Article name - headline for article',
+    date: 'Date (year)',
   },
   {
-    imageSrc: "/images/PressCard/default.png",
-    title: "Press Name",
-    subtitle: "Article name - headline for article",
-    date: "Date (year)",
+    imageSrc: '/images/PressCard/default.png',
+    title: 'Press Name',
+    subtitle: 'Article name - headline for article',
+    date: 'Date (year)',
   },
   {
-    imageSrc: "/images/PressCard/default.png",
-    title: "Press Name",
-    subtitle: "Article name - headline for article",
-    date: "Date (year)",
+    imageSrc: '/images/PressCard/default.png',
+    title: 'Press Name',
+    subtitle: 'Article name - headline for article',
+    date: 'Date (year)',
   },
   {
-    imageSrc: "/images/PressCard/default.png",
-    title: "Press Name",
-    subtitle: "Article name - headline for article",
-    date: "Date (year)",
+    imageSrc: '/images/PressCard/default.png',
+    title: 'Press Name',
+    subtitle: 'Article name - headline for article',
+    date: 'Date (year)',
   },
   {
-    imageSrc: "/images/PressCard/default.png",
-    title: "Press Name",
-    subtitle: "Article name - headline for article",
-    date: "Date (year)",
+    imageSrc: '/images/PressCard/default.png',
+    title: 'Press Name',
+    subtitle: 'Article name - headline for article',
+    date: 'Date (year)',
   },
 ];
 

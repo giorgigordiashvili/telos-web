@@ -1,13 +1,13 @@
-'use client'
-import React from 'react'
-import styled from 'styled-components'
+'use client';
+import React from 'react';
+import styled from 'styled-components';
 
-type Variant = 'blue' | 'white' | 'border'
+type Variant = 'blue' | 'white' | 'border';
 
 type Props = {
-  variant: Variant
-  children: React.ReactNode
-}
+  variant: Variant;
+  children: React.ReactNode;
+};
 
 const StyledButton = styled.div<{ variant: 'blue' | 'white' | 'border' }>`
   width: 100%;
@@ -24,56 +24,31 @@ const StyledButton = styled.div<{ variant: 'blue' | 'white' | 'border' }>`
   cursor: pointer;
 
   background-color: ${({ variant }) =>
-    variant === 'blue'
-      ? 'rgba(30, 95, 255, 0.75)'
-      : variant === 'white'
-      ? '#ffffff'
-      : '#EAF4FC'};
+    variant === 'blue' ? 'rgba(30, 95, 255, 0.75)' : variant === 'white' ? '#ffffff' : '#EAF4FC'};
 
   color: ${({ variant }) =>
-    variant === 'blue'
-      ? '#ffffff'
-      : variant === 'white'
-      ? 'rgba(30, 95, 255, 0.7)'
-      : '#031716'};
+    variant === 'blue' ? '#ffffff' : variant === 'white' ? 'rgba(30, 95, 255, 0.7)' : '#031716'};
 
-  border: ${({ variant }) =>
-    variant === 'border' ? '1px solid #1E5FFF' : 'none'};
+  border: ${({ variant }) => (variant === 'border' ? '1px solid #1E5FFF' : 'none')};
 
   &:hover {
     background-color: ${({ variant }) =>
-      variant === 'blue'
-        ? 'rgba(75, 123, 243, 0.6)'
-        : variant === 'white'
-        ? '#ffffff'
-        : '#D6EAFB'};
+      variant === 'blue' ? 'rgba(75, 123, 243, 0.6)' : variant === 'white' ? '#ffffff' : '#D6EAFB'};
     color: ${({ variant }) =>
-      variant === 'blue'
-        ? '#ffffff'
-        : variant === 'white'
-        ? 'rgba(75, 123, 243, 0.6)'
-        : '#031716'};
+      variant === 'blue' ? '#ffffff' : variant === 'white' ? 'rgba(75, 123, 243, 0.6)' : '#031716'};
   }
 
   &:active {
     background-color: ${({ variant }) =>
-      variant === 'blue'
-        ? 'rgba(30, 95, 255, 1)'
-        : variant === 'white'
-        ? '#ffffff'
-        : '#C0DFF9'};
+      variant === 'blue' ? 'rgba(30, 95, 255, 1)' : variant === 'white' ? '#ffffff' : '#C0DFF9'};
     color: ${({ variant }) =>
-      variant === 'blue'
-        ? '#ffffff'
-        : variant === 'white'
-        ? 'rgba(30, 95, 255, 1)'
-        : '#031716'};
+      variant === 'blue' ? '#ffffff' : variant === 'white' ? 'rgba(30, 95, 255, 1)' : '#031716'};
     box-shadow: 0px 7px 13.1px -1px rgba(0, 0, 0, 0.43);
   }
-`
+`;
 
 const PrimeryButton = ({ children, variant }: Props) => {
-  return <StyledButton variant={variant}>{children}</StyledButton>
-}
+  return <StyledButton variant={variant}>{children}</StyledButton>;
+};
 
-export default PrimeryButton
+export default PrimeryButton;

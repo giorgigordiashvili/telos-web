@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React from "react";
-import styled from "styled-components";
-import PageTitle from "@/components/PageTitle";
-import ServicesList from "@/components/ServicesList";
+import React from 'react';
+import styled from 'styled-components';
+import PageTitle from '@/components/PageTitle';
+import ServicesList from '@/components/ServicesList';
 
 const Container = styled.div`
   max-width: 1152px;

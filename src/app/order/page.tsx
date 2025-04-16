@@ -1,9 +1,6 @@
-import React from "react";
-import OrderScreen from "@/screens/OrderScreen";
+import OrderScreen from '@/screens/OrderScreen';
 
-type Props = {};
-
-const page = (props: Props) => {
+const page = () => {
   return <OrderScreen />;
 };
 

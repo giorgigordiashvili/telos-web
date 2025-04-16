@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
 const SliderWrapper = styled.div`
   width: 100%;
@@ -112,11 +112,9 @@ export default function BudgetSlider() {
           min={min}
           max={max}
           value={minVal}
-          onChange={(e) =>
-            setMinVal(Math.min(Number(e.target.value), maxVal - 10000))
-          }
+          onChange={e => setMinVal(Math.min(Number(e.target.value), maxVal - 10000))}
           style={{
-            zIndex: minVal > max - 100000 ? "5" : "3",
+            zIndex: minVal > max - 100000 ? '5' : '3',
           }}
         />
 
@@ -126,9 +124,7 @@ export default function BudgetSlider() {
           min={min}
           max={max}
           value={maxVal}
-          onChange={(e) =>
-            setMaxVal(Math.max(Number(e.target.value), minVal + 10000))
-          }
+          onChange={e => setMaxVal(Math.max(Number(e.target.value), minVal + 10000))}
         />
       </RangeContainer>
     </SliderWrapper>

@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import styled from "styled-components";
-import BlogCard from "./BlogCard";
-import CategroyFilterButton from "./CategroyFilterButton";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import BlogCard from './BlogCard';
+import CategroyFilterButton from './CategroyFilterButton';
 
 const Wrapper = styled.div`
   display: flex;
@@ -36,78 +36,78 @@ const Container = styled.div`
 
 const blogData = [
   {
-    imageSrc: "/images/PressCard/default.png",
-    title: "How AI is Changing the Future",
-    category: "category 1",
+    imageSrc: '/images/PressCard/default.png',
+    title: 'How AI is Changing the Future',
+    category: 'category 1',
   },
   {
-    imageSrc: "/images/PressCard/default.png",
-    title: "Top UX Design Patterns in 2025",
-    category: "category 2",
+    imageSrc: '/images/PressCard/default.png',
+    title: 'Top UX Design Patterns in 2025',
+    category: 'category 2',
   },
   {
-    imageSrc: "/images/PressCard/default.png",
-    title: "Building Resilient Teams Remotely",
-    category: "category 3",
+    imageSrc: '/images/PressCard/default.png',
+    title: 'Building Resilient Teams Remotely',
+    category: 'category 3',
   },
   {
-    imageSrc: "/images/PressCard/default.png",
-    title: "Why Minimalism Works in UI",
-    category: "category 1",
+    imageSrc: '/images/PressCard/default.png',
+    title: 'Why Minimalism Works in UI',
+    category: 'category 1',
   },
   {
-    imageSrc: "/images/PressCard/default.png",
-    title: "Climate Tech and Innovation",
-    category: "category 2",
+    imageSrc: '/images/PressCard/default.png',
+    title: 'Climate Tech and Innovation',
+    category: 'category 2',
   },
   {
-    imageSrc: "/images/PressCard/default.png",
-    title: "Next.js 15 Features You Should Know",
-    category: "category 3",
+    imageSrc: '/images/PressCard/default.png',
+    title: 'Next.js 15 Features You Should Know',
+    category: 'category 3',
   },
   {
-    imageSrc: "/images/PressCard/default.png",
-    title: "Climate Tech and Innovation",
-    category: "category 1",
+    imageSrc: '/images/PressCard/default.png',
+    title: 'Climate Tech and Innovation',
+    category: 'category 1',
   },
   {
-    imageSrc: "/images/PressCard/default.png",
-    title: "Next.js 15 Features You Should Know",
-    category: "category 2",
+    imageSrc: '/images/PressCard/default.png',
+    title: 'Next.js 15 Features You Should Know',
+    category: 'category 2',
   },
 ];
 
 const BlogList = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string>("all articles");
+  const [selectedCategory, setSelectedCategory] = useState<string>('all articles');
 
   const filteredData =
-    selectedCategory === "all articles"
+    selectedCategory === 'all articles'
       ? blogData
-      : blogData.filter((item) => item.category === selectedCategory);
+      : blogData.filter(item => item.category === selectedCategory);
 
   return (
     <Wrapper>
       <BlogListingContainer>
         <CategroyFilterButton
           text="all articles"
-          onClick={() => setSelectedCategory("all articles")}
-          selected={selectedCategory === "all articles"}
+          onClick={() => setSelectedCategory('all articles')}
+          selected={selectedCategory === 'all articles'}
         />
         <CategroyFilterButton
           text="category 1"
-          onClick={() => setSelectedCategory("category 1")}
-          selected={selectedCategory === "category 1"}
+          onClick={() => setSelectedCategory('category 1')}
+          selected={selectedCategory === 'category 1'}
         />
 
         <CategroyFilterButton
           text="category 2"
-          onClick={() => setSelectedCategory("category 2")}
-          selected={selectedCategory === "category 2"}
+          onClick={() => setSelectedCategory('category 2')}
+          selected={selectedCategory === 'category 2'}
         />
         <CategroyFilterButton
           text="category 3"
-          onClick={() => setSelectedCategory("category 3")}
-          selected={selectedCategory === "category 3"}
+          onClick={() => setSelectedCategory('category 3')}
+          selected={selectedCategory === 'category 3'}
         />
       </BlogListingContainer>
       <Container>

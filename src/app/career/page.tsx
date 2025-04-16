@@ -1,5 +1,5 @@
-import CareerScreen from "@/screens/CareerScreen";
-import React from "react";
+import CareerScreen from '@/screens/CareerScreen';
+import React from 'react';
 
 const Page = () => {
   return <CareerScreen />;

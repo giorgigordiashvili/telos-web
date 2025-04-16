@@ -1,17 +1,16 @@
-"use client";
-import BudgetSlider from "@/components/Slider";
-import PageTitle from "@/components/PageTitle";
-import PrimeryInput from "@/components/PrimeryInput";
-import PrimeryCheckbox from "@/components/PrimeryCheckbox";
-import PrimeryButton from "@/components/PrimeryButton";
-import OptionDropdown from "@/components/OptionDropdown";
-import Image from "next/image";
-import React from "react";
-import styled from "styled-components";
-import { useState } from "react";
+'use client';
+import OptionDropdown from '@/components/OptionDropdown';
+import PageTitle from '@/components/PageTitle';
+import PrimeryButton from '@/components/PrimeryButton';
+import PrimeryCheckbox from '@/components/PrimeryCheckbox';
+import PrimeryInput from '@/components/PrimeryInput';
+import BudgetSlider from '@/components/Slider';
+import Image from 'next/image';
+import { useState } from 'react';
+import styled from 'styled-components';
 
 const Page = styled.div`
-  background-image: url("/images/order/back.png");
+  background-image: url('/images/order/back.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -66,25 +65,24 @@ const Submit = styled.div`
   border-radius: 8px;
   width: 100%;
 `;
-type Props = {};
 
-const OrderScreen = (props: Props) => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [number, setNumber] = useState("");
-  const [message, setMessage] = useState("");
+const OrderScreen = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [number, setNumber] = useState('');
+  const [message, setMessage] = useState('');
   const [agreed, setAgreed] = useState(false);
   const [option, setoption] = useState<string | null>(null);
 
   const options = [
-    "option 1",
-    "option 2",
-    "option 3",
-    "option 4",
-    "option 5",
-    "dada",
-    "dauhwud",
-    "duqwahd",
+    'option 1',
+    'option 2',
+    'option 3',
+    'option 4',
+    'option 5',
+    'dada',
+    'dauhwud',
+    'duqwahd',
   ];
 
   const handleSubmit = () => {
@@ -102,28 +100,19 @@ const OrderScreen = (props: Props) => {
     <Page>
       <Main>
         <Head>
-          <Image
-            src={"/images/order/order.png"}
-            alt="logo"
-            width={40}
-            height={40}
-          />
+          <Image src={'/images/order/order.png'} alt="logo" width={40} height={40} />
           <PageTitle text="Order" />
         </Head>
 
         <Form>
-          <OptionDropdown
-            options={options}
-            value={option}
-            onChange={setoption}
-          />
+          <OptionDropdown options={options} value={option} onChange={setoption} />
           <PrimeryInput
             type="text"
             size="small"
             text="Name"
             placeholder="Enter your name"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={e => setName(e.target.value)}
           />
           <PrimeryInput
             type="email"
@@ -131,7 +120,7 @@ const OrderScreen = (props: Props) => {
             text="Email"
             placeholder="Enter your Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
           />
           <PrimeryInput
             type="number"
@@ -139,7 +128,7 @@ const OrderScreen = (props: Props) => {
             text="Phone Number"
             placeholder="Enter your Number"
             value={number}
-            onChange={(e) => setNumber(e.target.value)}
+            onChange={e => setNumber(e.target.value)}
           />
         </Form>
         <BudgetSlider></BudgetSlider>
@@ -149,7 +138,7 @@ const OrderScreen = (props: Props) => {
             text="Message"
             placeholder="click and start typing"
             value={message}
-            onChange={(e) => setMessage(e.target.value)}
+            onChange={e => setMessage(e.target.value)}
           />
         </Description>
         <PrimeryCheckbox

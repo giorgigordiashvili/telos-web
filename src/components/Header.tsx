@@ -1,8 +1,8 @@
-"use client";
-import styled from "styled-components";
-import Logo from "./Logo";
-import MenuItem from "./MenuItem";
-import Burgericon from "./Burgericon";
+'use client';
+import styled from 'styled-components';
+import Logo from './Logo';
+import MenuItem from './MenuItem';
+import Burgericon from './Burgericon';
 
 const StyledHeader = styled.div`
   display: flex;

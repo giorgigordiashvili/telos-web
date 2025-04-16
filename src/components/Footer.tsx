@@ -1,10 +1,10 @@
-"use client";
-import React from "react";
-import styled from "styled-components";
-import Logo from "./Logo";
-import MenuItem from "./MenuItem";
-import Image from "next/image";
-import Typography from "./Typography";
+'use client';
+import React from 'react';
+import styled from 'styled-components';
+import Logo from './Logo';
+import MenuItem from './MenuItem';
+import Image from 'next/image';
+import Typography from './Typography';
 
 const Footerstyled = styled.footer`
   width: 100%;
@@ -89,62 +89,30 @@ const Footer = () => {
         <MenuItem text="order" />
       </Stylednav>
       <Socials>
-        <Image
-          alt="location"
-          src={"/images/Footer/facebook_logo.png"}
-          width={32}
-          height={32}
-        />
-        <Image
-          alt="location"
-          src={"/images/Footer/instagram_logo.png"}
-          width={32}
-          height={32}
-        />
-        <Image
-          alt="location"
-          src={"/images/Footer/linkedin_logo.png"}
-          width={32}
-          height={32}
-        />
+        <Image alt="location" src={'/images/Footer/facebook_logo.png'} width={32} height={32} />
+        <Image alt="location" src={'/images/Footer/instagram_logo.png'} width={32} height={32} />
+        <Image alt="location" src={'/images/Footer/linkedin_logo.png'} width={32} height={32} />
       </Socials>
       <Footerinfo>
         <Location>
-          <Image
-            alt="location"
-            src={"/images/Footer/footer_location.png"}
-            width={32}
-            height={32}
-          />
+          <Image alt="location" src={'/images/Footer/footer_location.png'} width={32} height={32} />
           <Footertext>
             <Typography variant="paragraph-bold">Bakhtrioni st. 23</Typography>
             <Typography variant="paragraph-bold">Tbilisi, Georgia</Typography>
           </Footertext>
         </Location>
         <Location>
-          <Image
-            alt="location"
-            src={"/images/Footer/footer_phone.png"}
-            width={32}
-            height={32}
-          />
+          <Image alt="location" src={'/images/Footer/footer_phone.png'} width={32} height={32} />
           <Footertext>
             <Typography variant="paragraph-bold">Phone Number</Typography>
             <Typography variant="paragraph-bold">+(995) 999 999 999</Typography>
           </Footertext>
         </Location>
         <Location>
-          <Image
-            alt="location"
-            src={"/images/Footer/footer_email.png"}
-            width={32}
-            height={32}
-          />
+          <Image alt="location" src={'/images/Footer/footer_email.png'} width={32} height={32} />
           <Footertext>
             <Typography variant="paragraph-bold">Email</Typography>
-            <Typography variant="paragraph-bold">
-              example@example.com
-            </Typography>
+            <Typography variant="paragraph-bold">example@example.com</Typography>
           </Footertext>
         </Location>
       </Footerinfo>

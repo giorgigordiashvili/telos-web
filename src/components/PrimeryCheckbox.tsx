@@ -1,7 +1,7 @@
-"use client";
-import React, { useState } from "react";
-import styled from "styled-components";
-import Typography from "./Typography";
+'use client';
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import Typography from './Typography';
 
 const CheckboxWrapper = styled.label<{ checked: boolean }>`
   display: flex;
@@ -19,7 +19,7 @@ const CheckboxWrapper = styled.label<{ checked: boolean }>`
   }
 `;
 
-const HiddenCheckbox = styled.input.attrs({ type: "checkbox" })`
+const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
   display: none;
 `;
 
@@ -27,9 +27,8 @@ const StyledCheckbox = styled.div<{ checked: boolean; hovered: boolean }>`
   width: 20px;
   height: 20px;
   border-radius: 4px;
-  border: 2px solid ${({ checked }) => (checked ? "none" : "#1d2e2b")};
-  background-color: ${({ checked }) =>
-    checked ? "rgba(53, 185, 84, 1)" : "#fff"};
+  border: 2px solid ${({ checked }) => (checked ? 'none' : '#1d2e2b')};
+  background-color: ${({ checked }) => (checked ? 'rgba(53, 185, 84, 1)' : '#fff')};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,7 +36,7 @@ const StyledCheckbox = styled.div<{ checked: boolean; hovered: boolean }>`
     checked
       ? `-1px -3px 5px rgba(0, 0, 0, 0.25) inset,
          3px 4px 5.4px rgba(255, 255, 255, 0.25) inset`
-      : "none"};
+      : 'none'};
 `;
 
 const Checkmark = styled.div`

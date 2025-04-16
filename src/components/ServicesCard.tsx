@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import Typography from "./Typography";
-import Image from "next/image";
+import React from 'react';
+import styled from 'styled-components';
+import Typography from './Typography';
+import Image from 'next/image';
 
 type Props = {
   title: string;
@@ -31,7 +31,7 @@ const Container = styled.div<{ $isCareer?: boolean }>`
     width: 100%;
     gap: 12px;
     padding: 16px;
-    min-height: ${({ $isCareer }) => ($isCareer ? "187px" : "auto")};
+    min-height: ${({ $isCareer }) => ($isCareer ? '187px' : 'auto')};
   }
 `;
 
@@ -49,9 +49,7 @@ const ServicesCard = ({ title, subtitle, imageUrl, isCareer }: Props) => {
     <Container $isCareer={isCareer}>
       <Image src={imageUrl} alt={`${title} image`} width={64} height={64} />
       <StyledTypography variant="h4">{title}</StyledTypography>
-      <SubtitleTypography variant="paragraph-medium">
-        {subtitle}
-      </SubtitleTypography>
+      <SubtitleTypography variant="paragraph-medium">{subtitle}</SubtitleTypography>
     </Container>
   );
 };
