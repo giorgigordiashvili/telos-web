@@ -35,7 +35,7 @@ const ImageContainer = styled.div`
   width: 100%;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0px 4px 13px 5px #1E5FFF40;
+  box-shadow: 0px 4px 13px 5px #1e5fff40;
 `;
 
 const StyledTitle = styled(Typography)`
@@ -43,7 +43,7 @@ const StyledTitle = styled(Typography)`
 `;
 
 const StyledSubtitle = styled(Typography)`
-  color: #031716B3;
+  color: #031716b3;
 `;
 
 const PrimeryButtonWrapper = styled.div<{ $variant: 'right' | 'left' }>`

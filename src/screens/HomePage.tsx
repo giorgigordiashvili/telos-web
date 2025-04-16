@@ -1,14 +1,13 @@
-"use client";
+'use client';
 
-import React from "react";
-import styled from "styled-components";
-import Typography from "@/components/Typography";
-import Image from "next/image";
-import PrimeryButton from "@/components/PrimeryButton";
-import ServicesList from "@/components/ServicesList";
-import NewsCard from "@/components/NewsCard";
-import Accordion from "@/components/Accordion";
-import FAQSection from "@/components/FaqSection";
+import React from 'react';
+import styled from 'styled-components';
+import Typography from '@/components/Typography';
+import Image from 'next/image';
+import PrimeryButton from '@/components/PrimeryButton';
+import ServicesList from '@/components/ServicesList';
+import NewsCard from '@/components/NewsCard';
+import FAQSection from '@/components/FaqSection';
 
 const useIsMobile = (breakpoint = 1280) => {
   const [isMobile, setIsMobile] = React.useState(false);
@@ -16,8 +15,8 @@ const useIsMobile = (breakpoint = 1280) => {
   React.useEffect(() => {
     const check = () => setIsMobile(window.innerWidth <= breakpoint);
     check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
   }, [breakpoint]);
 
   return isMobile;
@@ -73,7 +72,7 @@ const MoreAboutOurFeatures = styled.div`
 
 const FeaturesSectionWrapper = styled.div`
   width: 100%;
-  background-color: #F7F7F7;
+  background-color: #f7f7f7;
   display: flex;
   justify-content: center;
   padding-block: 48px;
@@ -94,7 +93,7 @@ const Features = styled.div`
 
 const NewsSectionWrapper = styled.div`
   width: 100%;
-  background-color: #F9FAFB;
+  background-color: #f9fafb;
   display: flex;
   justify-content: center;
   padding-block: 48px;
@@ -113,8 +112,8 @@ const News = styled.div`
 `;
 
 const NewsCardWrapper = styled.div`
-max-width: 956px;
-width: 100%;
+  max-width: 956px;
+  width: 100%;
   padding-block: 48px;
   @media (max-width: 1280px) {
     padding-bottom: 0;
@@ -128,7 +127,7 @@ const StyledFeaturesText = styled(Typography)`
 
 const FAQSectionWrapper = styled.div`
   width: 100%;
-  background-color: #F9FAFB;
+  background-color: #f9fafb;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -136,28 +135,24 @@ const FAQSectionWrapper = styled.div`
   padding-block: 96px;
 `;
 
-
 const HomePage = () => {
   const isMobile = useIsMobile();
 
   return (
     <HomePageWrapper>
       <BackgroundSection>
-        <BackgroundImage
-          src="/images/HomePage/background.png"
-          alt="background"
-          fill
-          priority
-        />
+        <BackgroundImage src="/images/HomePage/background.png" alt="background" fill priority />
         <OverlayContent>
-          <StyledHeroText variant={isMobile ? "h2" : "h1"}>
-            Innovative Software<br />
+          <StyledHeroText variant={isMobile ? 'h2' : 'h1'}>
+            Innovative Software
+            <br />
             Solutions for a<br />
             Digital World
           </StyledHeroText>
 
           <StyledParagraphMedium variant="paragraph-medium">
-            Empowering businesses with cutting-edge web and mobile<br />
+            Empowering businesses with cutting-edge web and mobile
+            <br />
             applications built on Next.js and React Native.
           </StyledParagraphMedium>
 
@@ -169,7 +164,7 @@ const HomePage = () => {
 
       <FeaturesSectionWrapper>
         <Features>
-          <StyledFeaturesText variant={isMobile ? "h3" : "h2"}>Features</StyledFeaturesText>
+          <StyledFeaturesText variant={isMobile ? 'h3' : 'h2'}>Features</StyledFeaturesText>
           <ServicesList text="features" />
           <MoreAboutOurFeatures>
             <PrimeryButton variant="blue">More about our features</PrimeryButton>
@@ -178,24 +173,21 @@ const HomePage = () => {
       </FeaturesSectionWrapper>
 
       <NewsSectionWrapper>
-            <News>
-                <StyledFeaturesText variant={isMobile ? "h3" : "h2"}>News</StyledFeaturesText>
-                <NewsCardWrapper>
-                    <NewsCard isMobile={isMobile} variant="right" /> 
-                </NewsCardWrapper>
-                <NewsCardWrapper>
-                    <NewsCard isMobile={isMobile} variant="left" /> 
-                </NewsCardWrapper>
-                
-            </News>
-        </NewsSectionWrapper>
+        <News>
+          <StyledFeaturesText variant={isMobile ? 'h3' : 'h2'}>News</StyledFeaturesText>
+          <NewsCardWrapper>
+            <NewsCard isMobile={isMobile} variant="right" />
+          </NewsCardWrapper>
+          <NewsCardWrapper>
+            <NewsCard isMobile={isMobile} variant="left" />
+          </NewsCardWrapper>
+        </News>
+      </NewsSectionWrapper>
 
-        <FAQSectionWrapper>
-            <StyledFeaturesText variant={isMobile ? "h3" : "h2"}>FAQ</StyledFeaturesText>
-            <FAQSection />
-        </FAQSectionWrapper>
-
-
+      <FAQSectionWrapper>
+        <StyledFeaturesText variant={isMobile ? 'h3' : 'h2'}>FAQ</StyledFeaturesText>
+        <FAQSection />
+      </FAQSectionWrapper>
     </HomePageWrapper>
   );
 };
