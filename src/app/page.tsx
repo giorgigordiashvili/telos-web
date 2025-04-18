@@ -1,14 +1,6 @@
-import Logo from '@/components/Logo';
-import styles from './page.module.css';
+import HomePage from '@/screens/HomePage';
+import React from 'react';
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Logo />
-        <p>Our website is under construction. Please check back later</p>
-        <div></div>
-      </main>
-    </div>
-  );
+  return <HomePage />;
 }

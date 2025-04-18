@@ -54,7 +54,6 @@ const BlogContainer = styled.div`
   }
 `;
 
-// ✅ Wrapper for PageTitle and BlogContent
 const HeaderWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -99,6 +98,10 @@ const BlogImageContainer = styled.div`
   position: relative;
 `;
 
+const PrimeryButtonWrapper = styled.div`
+  width: 114px;
+`;
+
 const BlogScreen = () => {
   const isMobile = useIsMobile();
 
@@ -116,7 +119,9 @@ const BlogScreen = () => {
                 very short description of whats actually being discussed in this article, maybe the
                 first sentences to provide a preview
               </Typography>
-              <PrimeryButton variant="border">read now</PrimeryButton>
+              <PrimeryButtonWrapper>
+                <PrimeryButton variant="border">read now</PrimeryButton>
+              </PrimeryButtonWrapper>
             </BlogTextContainer>
             <BlogImageContainer>
               <Image

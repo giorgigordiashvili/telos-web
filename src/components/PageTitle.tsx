@@ -27,7 +27,7 @@ const PageTitle = ({ text, className, iconUrl, subtitle }: Props) => {
 
   useEffect(() => {
     const checkWidth = () => {
-      setIsMobile(window.innerWidth <= 768);
+      setIsMobile(window.innerWidth <= 1280);
     };
     checkWidth();
     window.addEventListener('resize', checkWidth);
