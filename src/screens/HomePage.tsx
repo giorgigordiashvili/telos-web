@@ -41,6 +41,8 @@ const BackgroundImage = styled(Image)`
 `;
 
 const OverlayContent = styled.div`
+    margin-top: 60px;
+
   position: relative;
   height: 100%;
   display: flex;

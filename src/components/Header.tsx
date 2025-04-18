@@ -3,14 +3,28 @@ import styled from 'styled-components';
 import Logo from './Logo';
 import MenuItem from './MenuItem';
 import Burgericon from './Burgericon';
+const Back=styled.div`
+width:100%;
+height: fit-content;
+    position: fixed;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    justify-self: anchor-center;
+    z-index: 100;
 
+`
 const StyledHeader = styled.div`
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1152px;
-  margin-inline: auto;
+  min-width: 1152px;
+
+
   @media (max-width: 1280px) {
+    min-width: 100%;
+
     margin-inline: auto;
     padding-inline: 16px;
   }
@@ -26,7 +40,7 @@ const Stylednav = styled.nav`
 
 const Header = () => {
   return (
-    <>
+    <Back>
       <StyledHeader>
         <Logo />
         <Stylednav>
@@ -43,7 +57,7 @@ const Header = () => {
         </Stylednav>
         <Burgericon />
       </StyledHeader>
-    </>
+    </Back>
   );
 };
 
