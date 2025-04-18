@@ -7,6 +7,11 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
+
+  @media (max-width: 1280px) {
+    width: 100%;
+    padding-inline: 16px;
+  }
 `;
 
 const faqData = [

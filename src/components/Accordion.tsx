@@ -10,7 +10,12 @@ type Props = {
 };
 
 const AccordionWrapper = styled.div`
-  width: 630px;
+  max-width: 760px;
+
+  @media (max-width: 1280px) {
+    width: 100%;
+    max-width: 100%;
+  }
 `;
 
 const AccordionContainer = styled.div`
@@ -20,7 +25,7 @@ const AccordionContainer = styled.div`
 `;
 
 const AccordionButton = styled.button`
-  width: 100%;
+  width: 760px;
   height: 77px;
   padding: 24px;
   display: flex;
@@ -29,6 +34,11 @@ const AccordionButton = styled.button`
   background-color: transparent;
   cursor: pointer;
   border: none;
+
+  @media (max-width: 1280px) {
+    width: 100%;
+    max-width: 100%;
+  }
 `;
 
 const DropdownIconWrapper = styled.div<{ $isOpen: boolean }>`
