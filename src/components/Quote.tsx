@@ -1,6 +1,9 @@
+'use client';
+
 import React from 'react';
 import styled from 'styled-components';
 import Typography from './Typography';
+import Image from 'next/image';
 
 const QuoteWrapper = styled.div`
   width: 303px;
@@ -31,12 +34,6 @@ const QuoteImage = styled.div`
   border-radius: 50%;
   overflow: hidden;
   box-shadow: 0px 14px 34px 0px #00000033;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
 
   @media (max-width: 1280px) {
     width: 100px;
@@ -79,13 +76,13 @@ const Quote: React.FC<Props> = ({ imageSrc, text, name, company }) => {
   return (
     <QuoteWrapper>
       <QuoteImage>
-        <img src={imageSrc} alt={`${name} photo`} />
+        <Image src={imageSrc} alt={`${name} photo`} fill style={{ objectFit: 'cover' }} />
       </QuoteImage>
       <QuoteText variant="paragraph-medium">{text}</QuoteText>
-    <QuoteNameCompanyWrapper>
-      <QuoteName variant="h4">{name}</QuoteName>
-      <QuoteCompany variant="paragraph-bold">{company}</QuoteCompany>
-    </QuoteNameCompanyWrapper>
+      <QuoteNameCompanyWrapper>
+        <QuoteName variant="h4">{name}</QuoteName>
+        <QuoteCompany variant="paragraph-bold">{company}</QuoteCompany>
+      </QuoteNameCompanyWrapper>
     </QuoteWrapper>
   );
 };
