@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Typography from './Typography';
@@ -22,7 +24,7 @@ const StyledTypography = styled(Typography)`
   color: #888888;
 `;
 
-const PageTitle = ({ text, className, iconUrl, subtitle }: Props) => {
+export default function PageTitle({ text, className, iconUrl, subtitle }: Props) {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -34,15 +36,21 @@ const PageTitle = ({ text, className, iconUrl, subtitle }: Props) => {
     return () => window.removeEventListener('resize', checkWidth);
   }, []);
 
+  // Align content to the start for 'Blog' or 'Acceleration'
+  const alignmentStyle =
+    text === 'Blog' || text === 'Acceleration' ? { alignItems: 'flex-start' } : {};
+
   return (
-    <HeaderWrapper
-      className={className}
-      style={text === 'Blog' ? { alignItems: 'flex-start' } : {}}
-    >
+    <HeaderWrapper className={className} style={alignmentStyle}>
       {iconUrl && <Image src={iconUrl} alt={`${text} icon`} width={40} height={40} />}
 
-      {/* If not Press, show subtitle before title */}
-      {text !== 'Press' && subtitle && (
+      {/* If Projects, show 'Work Collection' subtitle */}
+      {text === 'Projects' && (
+        <StyledTypography variant={isMobile ? 'h3' : 'h4'}>Work Collection</StyledTypography>
+      )}
+
+      {/* If not Press and not Projects, show custom subtitle before title */}
+      {text !== 'Press' && text !== 'Projects' && subtitle && (
         <StyledTypography variant={isMobile ? 'h3' : 'h4'}>{subtitle}</StyledTypography>
       )}
 
@@ -54,6 +62,4 @@ const PageTitle = ({ text, className, iconUrl, subtitle }: Props) => {
       )}
     </HeaderWrapper>
   );
-};
-
-export default PageTitle;
+}

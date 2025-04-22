@@ -88,17 +88,17 @@ const SideBar = ({ onClose }: Props) => {
           <Image alt="X" width={17} height={14} src="/images/cancel.png" />
         </Wrapper>
         <Stylednav>
-          <MenuItem text="Services" variant="light" />
-          <MenuItem text="Projects" variant="light" />
-          <MenuItem text="Acceleration" variant="light" />
+          <MenuItem text="Services" variant="light" href="/services" />
+          <MenuItem text="Projects" variant="light" href="/projects" />
+          <MenuItem text="Acceleration" variant="light" href="/acceleration" />
           <MenuItem text="resources" variant="light">
-            <MenuItem text="blog" />
-            <MenuItem text="career" />
-            <MenuItem text="press" />
+            <MenuItem text="blog" href="/blog" />
+            <MenuItem text="career" href="/career" />
+            <MenuItem text="press" href="/press" />
           </MenuItem>
         </Stylednav>
         <Contact>
-          <MenuItem text="Contact Us" isHighlighted variant="light" />
+          <MenuItem text="Contact Us" isHighlighted variant="light" href="/contact" />
           <Location>
             <Image alt="location" width={11} height={17} src="/images/location.png" />
             <LocationP> Bakhtrioni st. 23</LocationP>
