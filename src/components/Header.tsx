@@ -39,18 +39,18 @@ const Header = () => {
   return (
     <Back>
       <StyledHeader>
-        <Logo />
+        <Logo href="/" />
         <Stylednav>
-          <MenuItem text="Services" />
-          <MenuItem text="Projects" />
+          <MenuItem text="Services" href="/services" />
+          <MenuItem text="Projects" href="/projects" />
           <MenuItem text="Resources">
-            <MenuItem text="blog" />
-            <MenuItem text="career" />
-            <MenuItem text="press" />
+            <MenuItem text="blog" href="/blog" />
+            <MenuItem text="career" href="/career" />
+            <MenuItem text="press" href="/press" />
           </MenuItem>
-          <MenuItem text="Acceleration" />
-          <MenuItem text="Order" />
-          <MenuItem text="Contact Us" isHighlighted variant="dark" />
+          <MenuItem text="Acceleration" href="/acceleration" />
+          <MenuItem text="Order" href="/order" />
+          <MenuItem text="Contact Us" isHighlighted variant="dark" href="/contact" />
         </Stylednav>
         <Burgericon />
       </StyledHeader>

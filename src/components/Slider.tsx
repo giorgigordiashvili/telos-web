@@ -40,15 +40,20 @@ const SliderTrack = styled.div`
   border-radius: 5px;
 `;
 
-const SliderRange = styled.div<{ minPercent: number; maxPercent: number }>`
+const SliderRange = styled.div<{
+  $minPercent: number;
+  $maxPercent: number;
+}>`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   height: 8px;
   background-color: #081412;
   border-radius: 5px;
-  left: ${({ minPercent }) => `${minPercent}%`};
-  width: ${({ minPercent, maxPercent }) => `${maxPercent - minPercent}%`};
+
+  /* use the transient props for positioning */
+  left: ${({ $minPercent }) => `${$minPercent}%`};
+  width: ${({ $minPercent, $maxPercent }) => `${$maxPercent - $minPercent}%`};
 `;
 
 const ThumbInput = styled.input`
@@ -106,7 +111,9 @@ export default function BudgetSlider({ minValue, maxValue, onChange }: Props) {
 
       <RangeContainer>
         <SliderTrack />
-        <SliderRange minPercent={minPercent} maxPercent={maxPercent} />
+
+        {/* pass the transient props */}
+        <SliderRange $minPercent={minPercent} $maxPercent={maxPercent} />
 
         <ThumbInput
           type="range"
@@ -120,7 +127,7 @@ export default function BudgetSlider({ minValue, maxValue, onChange }: Props) {
             })
           }
           style={{
-            zIndex: minValue > max - 100000 ? '5' : '3',
+            zIndex: minValue > max - 100000 ? 5 : 3,
           }}
         />
 
