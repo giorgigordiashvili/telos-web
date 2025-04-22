@@ -10,7 +10,7 @@ const DropdownContainer = styled.div`
   position: relative;
 `;
 
-const DropdownHeader = styled.div<{ isOpen: boolean }>`
+const DropdownHeader = styled.div<{ $isOpen: boolean }>`
   background-color: rgba(248, 248, 248, 1);
   padding: 14px 20px 14px 24px;
   border-radius: 10px;
@@ -21,8 +21,8 @@ const DropdownHeader = styled.div<{ isOpen: boolean }>`
   align-items: center;
   color: rgba(3, 23, 22, 0.4);
 
-  ${props =>
-    props.isOpen &&
+  ${({ $isOpen }) =>
+    $isOpen &&
     css`
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
@@ -30,10 +30,11 @@ const DropdownHeader = styled.div<{ isOpen: boolean }>`
     `}
 `;
 
-const ArrowWrapper = styled.div<{ isOpen: boolean }>`
+const ArrowWrapper = styled.div<{ $isOpen: boolean }>`
   transition: transform 0.2s ease-in-out;
-  ${props =>
-    props.isOpen &&
+
+  ${({ $isOpen }) =>
+    $isOpen &&
     css`
       transform: rotate(180deg);
     `}
@@ -60,11 +61,9 @@ const DropdownList = styled.ul`
     width: 3px;
     height: 42px;
   }
-
   &::-webkit-scrollbar-track {
     background: transparent;
   }
-
   &::-webkit-scrollbar-thumb {
     background-color: rgba(0, 0, 0, 1);
   }
@@ -100,9 +99,9 @@ const SelecDropdown: React.FC<SelecDropdownProps> = ({ options, value, onChange 
 
   return (
     <DropdownContainer>
-      <DropdownHeader isOpen={isOpen} onClick={toggleDropdown}>
+      <DropdownHeader $isOpen={isOpen} onClick={toggleDropdown}>
         <Typography variant="paragraph-medium">{selected || 'Select an option'}</Typography>
-        <ArrowWrapper isOpen={isOpen}>
+        <ArrowWrapper $isOpen={isOpen}>
           <Image src="/images/order/down.png" alt="arrow" width={11} height={5.5} />
         </ArrowWrapper>
       </DropdownHeader>
