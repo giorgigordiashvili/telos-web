@@ -126,7 +126,6 @@ const NewsCardWrapper = styled.div`
 
 const StyledFeaturesText = styled(Typography)`
   color: #031716;
-  padding-bottom: 48px;
 `;
 
 const FAQSectionWrapper = styled.div`
