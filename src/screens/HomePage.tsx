@@ -43,7 +43,6 @@ const BackgroundImage = styled(Image)`
 
 const OverlayContent = styled.div`
   margin-top: 60px;
-
   position: relative;
   height: 100%;
   display: flex;
@@ -124,8 +123,10 @@ const NewsCardWrapper = styled.div`
   }
 `;
 
-const StyledFeaturesText = styled(Typography)`
+// Conditionally apply padding-bottom only when $withPadding is true
+const StyledFeaturesText = styled(Typography)<{ $withPadding?: boolean }>`
   color: #031716;
+  ${({ $withPadding }) => $withPadding && 'padding-bottom: 48px;'}
 `;
 
 const FAQSectionWrapper = styled.div`
@@ -208,14 +209,14 @@ const HomePage: React.FC = () => {
       </NewsSectionWrapper>
 
       <QuoteSectionWrapper>
-        <StyledFeaturesText variant={isMobile ? 'h3' : 'h2'}>
+        <StyledFeaturesText $withPadding variant={isMobile ? 'h3' : 'h2'}>
           Hear from our costumers
         </StyledFeaturesText>
         <QuoteCarousel />
       </QuoteSectionWrapper>
 
       <FAQSectionWrapper>
-        <StyledFeaturesText variant={isMobile ? 'h3' : 'h2'}>FAQ</StyledFeaturesText>
+        <StyledFeaturesText $withPadding variant={isMobile ? 'h3' : 'h2'}>FAQ</StyledFeaturesText>
         <FAQSection />
       </FAQSectionWrapper>
     </HomePageWrapper>
