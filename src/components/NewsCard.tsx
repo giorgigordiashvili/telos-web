@@ -48,9 +48,7 @@ const StyledSubtitle = styled(Typography)`
 
 const PrimeryButtonWrapper = styled.div<{ $variant: 'right' | 'left' }>`
   width: ${({ $variant }) => ($variant === 'left' ? '130px' : '126px')};
-  @media (max-width: 1280px) {
-    padding-top: 44px;
-  }
+  padding-top: 44px;
 `;
 
 const NewsCard = ({ isMobile, variant = 'right' }: Props) => {
