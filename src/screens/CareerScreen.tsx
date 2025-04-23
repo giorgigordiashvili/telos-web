@@ -8,7 +8,7 @@ import ServicesList from '@/components/ServicesList';
 const Container = styled.div`
   max-width: 1152px;
   margin: auto;
-  margin-top: 64px;
+  margin-top: 60px;
 
   display: flex;
   flex-direction: column;

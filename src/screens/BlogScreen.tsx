@@ -28,7 +28,7 @@ const Container = styled.div`
   height: auto;
   padding: 96px 16px;
   margin: auto;
-  margin-top: 64px;
+  margin-top: 60px;
   display: flex;
   flex-direction: column;
   background-color: #f9fafb;
