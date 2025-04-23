@@ -75,18 +75,18 @@ const Footer = () => {
   return (
     <Footerstyled>
       <Styledlogo>
-        <Logo color="white"></Logo>
+        <Logo color="white" href="/"></Logo>
       </Styledlogo>
       <Stylednav>
-        <MenuItem text="Services" />
-        <MenuItem text="Projects" />
+        <MenuItem text="Services" href="/services" />
+        <MenuItem text="Projects" href="/projects" />
         <MenuItem text="resources">
-          <MenuItem text="blog" />
-          <MenuItem text="career" />
-          <MenuItem text="press" />
+          <MenuItem text="blog" href="/blog" />
+          <MenuItem text="career" href="/career" />
+          <MenuItem text="press" href="/press" />
         </MenuItem>
-        <MenuItem text="Acceleration" />
-        <MenuItem text="order" />
+        <MenuItem text="Acceleration" href="/acceleration" />
+        <MenuItem text="order" href="/order" />
       </Stylednav>
       <Socials>
         <Image alt="location" src={'/images/Footer/facebook_logo.png'} width={32} height={32} />

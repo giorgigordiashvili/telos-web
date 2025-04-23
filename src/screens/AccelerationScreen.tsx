@@ -28,7 +28,6 @@ const Container = styled.div`
   height: auto;
   padding: 96px 16px;
   margin: auto;
-  margin-top: 64px;
   display: flex;
   flex-direction: column;
   background-color: #f9fafb;
@@ -103,14 +102,14 @@ const PrimeryButtonWrapper = styled.div`
   width: 114px;
 `;
 
-const BlogScreen = () => {
+const AccelerationScreen = () => {
   const isMobile = useIsMobile();
 
   return (
     <Container>
       <BlogContainer>
         <HeaderWrapper>
-          <PageTitle text="Blog" />
+          <PageTitle text="Acceleration" />
           <BlogContent>
             <BlogTextContainer>
               <Typography variant={isMobile ? 'h3' : 'h2'}>
@@ -141,4 +140,4 @@ const BlogScreen = () => {
   );
 };
 
-export default BlogScreen;
+export default AccelerationScreen;

@@ -12,6 +12,8 @@ import * as Yup from 'yup';
 import styled from 'styled-components';
 
 const Page = styled.div`
+  margin-top: 64px;
+
   background-image: url('/images/order/back.png');
   background-size: cover;
   background-repeat: no-repeat;
