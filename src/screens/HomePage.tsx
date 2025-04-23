@@ -216,7 +216,9 @@ const HomePage: React.FC = () => {
       </QuoteSectionWrapper>
 
       <FAQSectionWrapper>
-        <StyledFeaturesText $withPadding variant={isMobile ? 'h3' : 'h2'}>FAQ</StyledFeaturesText>
+        <StyledFeaturesText $withPadding variant={isMobile ? 'h3' : 'h2'}>
+          FAQ
+        </StyledFeaturesText>
         <FAQSection />
       </FAQSectionWrapper>
     </HomePageWrapper>
