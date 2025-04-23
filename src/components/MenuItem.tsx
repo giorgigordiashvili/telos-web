@@ -1,9 +1,11 @@
+// src/components/MenuItem.tsx
 'use client';
-import DropdownIcon from '@/icons/DropdownIcon';
-import { useEffect, useRef, useState } from 'react';
+
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import Typography from './Typography';
 import Link from 'next/link';
+import DropdownIcon from '@/icons/DropdownIcon';
+import Typography from './Typography';
 
 type Props = {
   text: string;
@@ -132,8 +134,13 @@ export default function MenuItem({
     return () => document.removeEventListener('mousedown', onClickOutside);
   }, [isOpen]);
 
-  // choose bold when dark, medium otherwise
-  const textVariant = variant === 'dark' ? 'paragraph-bold' : 'paragraph-medium';
+  // All items except "Contact Us" use paragraph-medium
+  const textVariant =
+    text !== 'Contact Us'
+      ? 'paragraph-medium'
+      : variant === 'dark'
+        ? 'paragraph-bold'
+        : 'paragraph-medium';
 
   return (
     <StyledContainer ref={containerRef}>
