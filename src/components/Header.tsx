@@ -5,7 +5,7 @@ import MenuItem from './MenuItem';
 import Burgericon from './Burgericon';
 const Back = styled.div`
   width: 100%;
-  height: fit-content;
+  height: 60px;
   position: fixed;
   background-color: white;
   display: flex;

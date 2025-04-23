@@ -30,13 +30,13 @@ const H4 = styled.h4`
 const ParagraphBold = styled.p`
   font-weight: bold;
   font-size: 16px;
-  line-height: 19px;
+  line-height: 21px;
 `;
 
 const ParagraphMedium = styled.p`
   font-weight: 500;
   font-size: 16px;
-  line-height: 19px;
+  line-height: 21px;
 `;
 
 type TypographyProps = {

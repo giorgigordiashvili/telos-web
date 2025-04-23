@@ -18,7 +18,7 @@ const StyledContainer = styled.li`
   position: relative;
   list-style: none;
   cursor: pointer;
-  margin-bottom: 0px !important;
+  margin-bottom: 0 !important;
   width: fit-content;
 `;
 
@@ -132,6 +132,9 @@ export default function MenuItem({
     return () => document.removeEventListener('mousedown', onClickOutside);
   }, [isOpen]);
 
+  // choose bold when dark, medium otherwise
+  const textVariant = variant === 'dark' ? 'paragraph-bold' : 'paragraph-medium';
+
   return (
     <StyledContainer ref={containerRef}>
       <StyledLink
@@ -152,7 +155,7 @@ export default function MenuItem({
         role={showDropdown ? 'button' : undefined}
         tabIndex={0}
       >
-        <Typography variant="paragraph-medium">{text}</Typography>
+        <Typography variant={textVariant}>{text}</Typography>
         {showDropdown && <DropdownIcon aria-hidden="true" />}
       </StyledLink>
 
