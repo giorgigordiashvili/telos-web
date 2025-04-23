@@ -36,7 +36,8 @@ const ParagraphBold = styled.p`
 const ParagraphMedium = styled.p`
   font-weight: 500;
   font-size: 16px;
-  line-height: 21px;
+  line-height: 120%;
+  letter-spacing: -2%;
 `;
 
 type TypographyProps = {
