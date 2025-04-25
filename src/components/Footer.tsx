@@ -16,20 +16,24 @@ const Footerstyled = styled.footer`
   padding: 96px 144px;
   align-items: center;
   background: linear-gradient(180deg, #1b2a41 0%, #0f1724 100%);
+
   @media (max-width: 1280px) {
     height: 685px;
     padding: 48px 16px;
     gap: 16px;
   }
 `;
+
 const Styledlogo = styled.div`
   margin-left: 86px;
 `;
+
 const Footerinfo = styled.div`
   padding-top: 16px;
   padding-bottom: 16px;
   display: grid;
   grid-template-columns: repeat(3, 368px);
+
   @media (max-width: 1280px) {
     grid-template-rows: repeat(3, 1fr);
     grid-template-columns: auto;
@@ -37,13 +41,20 @@ const Footerinfo = styled.div`
     justify-content: center;
   }
 `;
+
 const Stylednav = styled.div`
   display: flex;
+
   @media (max-width: 1280px) {
     flex-direction: column;
     align-items: center;
+
+    li {
+      height: 53px;
+    }
   }
 `;
+
 const Socials = styled.div`
   display: flex;
   gap: 19px;
@@ -51,23 +62,38 @@ const Socials = styled.div`
   position: relative;
   padding-bottom: 16px;
   border-bottom: 1px solid rgba(93, 173, 226, 1);
+
   @media (max-width: 1280px) {
     padding-bottom: 8px;
+    justify-content: center;
+
+    img {
+      width: 24px !important;
+      height: 24px !important;
+    }
   }
 `;
+
 const Footertext = styled.div`
   color: rgba(230, 230, 230, 0.7);
   text-align: left;
 `;
+
 const Location = styled.div`
   max-width: 368px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 16px;
+
   @media (max-width: 1280px) {
     width: fit-content;
     height: 68px;
+
+    img {
+      width: 24px !important;
+      height: 24px !important;
+    }
   }
 `;
 
@@ -75,8 +101,9 @@ const Footer = () => {
   return (
     <Footerstyled>
       <Styledlogo>
-        <Logo color="white" href="/"></Logo>
+        <Logo color="white" href="/" />
       </Styledlogo>
+
       <Stylednav>
         <MenuItem text="Services" href="/services" />
         <MenuItem text="Projects" href="/projects" />
@@ -88,28 +115,40 @@ const Footer = () => {
         <MenuItem text="Acceleration" href="/acceleration" />
         <MenuItem text="order" href="/order" />
       </Stylednav>
+
       <Socials>
-        <Image alt="location" src={'/images/Footer/facebook_logo.png'} width={32} height={32} />
-        <Image alt="location" src={'/images/Footer/instagram_logo.png'} width={32} height={32} />
-        <Image alt="location" src={'/images/Footer/linkedin_logo.png'} width={32} height={32} />
+        <Image alt="facebook logo" src="/images/Footer/facebook_logo.png" width={32} height={32} />
+        <Image
+          alt="instagram logo"
+          src="/images/Footer/instagram_logo.png"
+          width={32}
+          height={32}
+        />
+        <Image alt="linkedin logo" src="/images/Footer/linkedin_logo.png" width={32} height={32} />
       </Socials>
+
       <Footerinfo>
         <Location>
-          <Image alt="location" src={'/images/Footer/footer_location.png'} width={32} height={32} />
+          <Image
+            alt="location icon"
+            src="/images/Footer/footer_location.png"
+            width={32}
+            height={32}
+          />
           <Footertext>
             <Typography variant="paragraph-bold">Bakhtrioni st. 23</Typography>
             <Typography variant="paragraph-bold">Tbilisi, Georgia</Typography>
           </Footertext>
         </Location>
         <Location>
-          <Image alt="location" src={'/images/Footer/footer_phone.png'} width={32} height={32} />
+          <Image alt="phone icon" src="/images/Footer/footer_phone.png" width={32} height={32} />
           <Footertext>
             <Typography variant="paragraph-bold">Phone Number</Typography>
             <Typography variant="paragraph-bold">+(995) 999 999 999</Typography>
           </Footertext>
         </Location>
         <Location>
-          <Image alt="location" src={'/images/Footer/footer_email.png'} width={32} height={32} />
+          <Image alt="email icon" src="/images/Footer/footer_email.png" width={32} height={32} />
           <Footertext>
             <Typography variant="paragraph-bold">Email</Typography>
             <Typography variant="paragraph-bold">example@example.com</Typography>
