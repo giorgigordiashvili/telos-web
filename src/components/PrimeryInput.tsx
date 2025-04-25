@@ -18,7 +18,7 @@ const Styleddiv = styled.div`
   color: rgba(3, 23, 22, 0.6);
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 16px;
   border: none;
 
   &:hover {

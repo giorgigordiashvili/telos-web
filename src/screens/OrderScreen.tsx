@@ -10,6 +10,7 @@ import Image from 'next/image';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
+import Typography from '@/components/Typography';
 
 const Page = styled.div`
   margin-top: 60px;
@@ -69,6 +70,21 @@ const Submit = styled.div`
   box-shadow: 0px 7px 13.1px -1px rgba(0, 0, 0, 0.43);
   border-radius: 8px;
   width: 100%;
+`;
+
+const BudgetSliderWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  color: rgba(3, 23, 22, 0.6);
+
+  &:hover {
+    color: rgba(69, 136, 195, 1);
+    border-color: rgba(69, 136, 195, 0.4);
+  }
+
+  &:focus {
+    color: rgba(69, 136, 195, 1);
+  }
 `;
 
 const options = [
@@ -157,15 +173,17 @@ const OrderScreen = () => {
                 onChange={handleChange}
                 name="number"
               />
-
-              <BudgetSlider
-                minValue={values.minValue}
-                maxValue={values.maxValue}
-                onChange={({ min, max }) => {
-                  setFieldValue('minValue', min);
-                  setFieldValue('maxValue', max);
-                }}
-              />
+              <BudgetSliderWrapper>
+                <Typography variant="paragraph-bold">Budget</Typography>
+                <BudgetSlider
+                  minValue={values.minValue}
+                  maxValue={values.maxValue}
+                  onChange={({ min, max }) => {
+                    setFieldValue('minValue', min);
+                    setFieldValue('maxValue', max);
+                  }}
+                />
+              </BudgetSliderWrapper>
 
               <Description>
                 <PrimeryInput
