@@ -12,23 +12,34 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: normal;
-  padding: 96px 16px;
+  padding-block: 96px;
   gap: 96px;
 
   @media (max-width: 1280px) {
-    padding-top: 32px;
-    padding-bottom: 48px;
+    padding: 32px 16px 48px 16px;
     gap: 48px;
   }
 `;
 
+const ContainerWrapper = styled.div`
+  margin-top: 60px;
+  background-image: url('/images/order/back.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+`;
+
 const ServicesScreen = () => {
   return (
-    <Container>
-      <PageTitle text="Our Services" iconUrl="/images/PageTitle/services.png" />
-      <ServicesList text="Software" />
-      <ServicesList text="Marketing" />
-    </Container>
+    <ContainerWrapper>
+      <Container>
+        <PageTitle text="Our Services" iconUrl="/images/PageTitle/services.png" />
+        <ServicesList text="Software" />
+        <ServicesList text="Marketing" />
+      </Container>
+    </ContainerWrapper>
   );
 };
 
