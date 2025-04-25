@@ -26,11 +26,10 @@ const Styledlogo = styled.div`
   margin-left: 86px;
 `;
 const Footerinfo = styled.div`
-  width: 100%;
   padding-top: 16px;
   padding-bottom: 16px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 368px);
   @media (max-width: 1280px) {
     grid-template-rows: repeat(3, 1fr);
     grid-template-columns: auto;
@@ -61,6 +60,7 @@ const Footertext = styled.div`
   text-align: left;
 `;
 const Location = styled.div`
+  max-width: 368px;
   display: flex;
   align-items: center;
   justify-content: center;

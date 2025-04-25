@@ -39,7 +39,7 @@ const StyledLink = styled(Link)<{ variant: 'light' | 'dark'; $isHighlighted?: bo
         : '#6A7473'};
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
 
   &:hover {
     background-color: ${({ variant, $isHighlighted }) =>
