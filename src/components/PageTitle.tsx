@@ -58,7 +58,7 @@ export default function PageTitle({ text, className, iconUrl, subtitle }: Props)
 
       {/* If Press, show subtitle after title */}
       {text === 'Press' && subtitle && (
-        <StyledTypography variant={isMobile ? 'h3' : 'h4'}>{subtitle}</StyledTypography>
+        <StyledTypography variant={isMobile ? 'h4' : 'h3'}>{subtitle}</StyledTypography>
       )}
     </HeaderWrapper>
   );
