@@ -32,7 +32,7 @@ const BackgroundSection = styled.section`
   overflow: hidden;
 
   @media (max-width: 1280px) {
-    height: 627px;
+    height: 687px;
   }
 `;
 
