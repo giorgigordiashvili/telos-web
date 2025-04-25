@@ -32,7 +32,11 @@ const DropdownHeader = styled.div<{ $isOpen: boolean }>`
 
 const ArrowWrapper = styled.div<{ $isOpen: boolean }>`
   transition: transform 0.2s ease-in-out;
-
+  width: 11px;
+  height: 5.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   ${({ $isOpen }) =>
     $isOpen &&
     css`

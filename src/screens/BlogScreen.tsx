@@ -28,7 +28,7 @@ const Container = styled.div`
   height: auto;
   padding: 96px 16px;
   margin: auto;
-  margin-top: 64px;
+  margin-top: 60px;
   display: flex;
   flex-direction: column;
   background-color: #f9fafb;
@@ -65,7 +65,7 @@ const BlogContent = styled.div`
   max-width: 1152px;
   height: auto;
   display: grid;
-  grid-template-columns: 426px 1fr;
+  grid-template-columns: 456px 1fr;
   align-items: center;
   gap: 24px;
   border-radius: 32px;

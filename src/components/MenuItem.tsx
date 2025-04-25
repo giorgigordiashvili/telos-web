@@ -1,9 +1,11 @@
+// src/components/MenuItem.tsx
 'use client';
-import DropdownIcon from '@/icons/DropdownIcon';
-import { useEffect, useRef, useState } from 'react';
+
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import Typography from './Typography';
 import Link from 'next/link';
+import DropdownIcon from '@/icons/DropdownIcon';
+import Typography from './Typography';
 
 type Props = {
   text: string;
@@ -18,7 +20,7 @@ const StyledContainer = styled.li`
   position: relative;
   list-style: none;
   cursor: pointer;
-  margin-bottom: 0px !important;
+  margin-bottom: 0 !important;
   width: fit-content;
 `;
 
@@ -37,7 +39,7 @@ const StyledLink = styled(Link)<{ variant: 'light' | 'dark'; $isHighlighted?: bo
         : '#6A7473'};
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
 
   &:hover {
     background-color: ${({ variant, $isHighlighted }) =>
@@ -132,6 +134,14 @@ export default function MenuItem({
     return () => document.removeEventListener('mousedown', onClickOutside);
   }, [isOpen]);
 
+  // All items except "Contact Us" use paragraph-medium
+  const textVariant =
+    text !== 'Contact Us'
+      ? 'paragraph-medium'
+      : variant === 'dark'
+        ? 'paragraph-bold'
+        : 'paragraph-medium';
+
   return (
     <StyledContainer ref={containerRef}>
       <StyledLink
@@ -152,7 +162,7 @@ export default function MenuItem({
         role={showDropdown ? 'button' : undefined}
         tabIndex={0}
       >
-        <Typography variant="paragraph-medium">{text}</Typography>
+        <Typography variant={textVariant}>{text}</Typography>
         {showDropdown && <DropdownIcon aria-hidden="true" />}
       </StyledLink>
 

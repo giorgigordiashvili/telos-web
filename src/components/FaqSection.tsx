@@ -16,24 +16,24 @@ const Wrapper = styled.div`
 
 const faqData = [
   {
-    question: 'What is your main service?',
+    question: '1. What is your main service?',
     answer:
       'We specialize in building scalable web and mobile apps using modern technologies like React and Next.js.',
   },
   {
-    question: 'How long does a typical project take?',
+    question: '2. How long does a typical project take?',
     answer: 'It depends on the scope, but most projects are completed within 4 to 8 weeks.',
   },
   {
-    question: 'Do you provide post-launch support?',
+    question: '3. Do you provide post-launch support?',
     answer: 'Yes, we offer maintenance and continuous improvement packages after launch.',
   },
   {
-    question: 'Do you provide post-launch support?',
+    question: '4. Do you provide post-launch support?',
     answer: 'Yes, we offer maintenance and continuous improvement packages after launch.',
   },
   {
-    question: 'Do you provide post-launch support?',
+    question: '5. Do you provide post-launch support?',
     answer: 'Yes, we offer maintenance and continuous improvement packages after launch.',
   },
 ];

@@ -25,13 +25,13 @@ const StyledTag = styled.div<{ $color: TagColor }>`
   border-radius: 40px;
   background: #ffffff;
   box-shadow: 0px 5px 17.1px -6px #00000033;
-
   display: flex;
   align-items: center;
   justify-content: center;
 
   p {
     color: ${({ $color }) => colorMap[$color]};
+    text-transform: uppercase;
   }
 `;
 

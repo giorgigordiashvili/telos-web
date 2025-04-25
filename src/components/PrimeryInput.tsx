@@ -1,7 +1,6 @@
 'use client';
 import React from 'react';
 import styled from 'styled-components';
-import Typography from './Typography';
 
 const Biginput = styled.div`
   background-color: rgba(248, 248, 248, 1);
@@ -15,10 +14,11 @@ const Biginput = styled.div`
 const Styleddiv = styled.div`
   width: 100%;
   height: 100%;
+  font-size: 14px;
   color: rgba(3, 23, 22, 0.6);
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 16px;
   border: none;
 
   &:hover {
@@ -55,7 +55,7 @@ const PrimeryInput = ({ name, type, size, text, placeholder, value, onChange }: 
   if (size === 'big') {
     return (
       <Styleddiv>
-        <Typography variant="paragraph-bold">{text}</Typography>
+        <p>{text}</p>
         <Biginput>
           <textarea
             name={name}
@@ -81,7 +81,7 @@ const PrimeryInput = ({ name, type, size, text, placeholder, value, onChange }: 
 
   return (
     <Styleddiv>
-      <Typography variant="paragraph-bold">{text}</Typography>
+      <p>{text}</p>
       <Biginput>
         <input
           name={name}

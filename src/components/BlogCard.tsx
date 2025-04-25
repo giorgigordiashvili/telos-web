@@ -85,12 +85,8 @@ const ReadMore = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  p {
-    text-decoration: underline;
-    color: #9aa2a2;
-  }
-
+  text-decoration: underline;
+  color: #9aa2a2;
   .arrow-icon {
     display: none;
   }
@@ -115,7 +111,7 @@ const BlogCard = ({ imageSrc, title, category }: Props) => {
         <TagButton text={category} color={tagColor} />
         <Title variant="h4">{title}</Title>
         <ReadMore>
-          <Typography variant="paragraph-medium" className="read-more-text">
+          <Typography variant="paragraph-bold" className="read-more-text">
             Read now
           </Typography>
           <span className="arrow-icon">

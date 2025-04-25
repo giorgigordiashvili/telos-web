@@ -58,7 +58,7 @@ const allProjects: ProjectItem[] = [
 
 const Container = styled.div`
   margin: auto;
-  margin-top: 64px;
+  margin-top: 60px;
   padding-block: 96px;
   display: flex;
   flex-direction: column;

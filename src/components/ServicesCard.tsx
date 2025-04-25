@@ -44,6 +44,7 @@ const StyledTypography = styled(Typography)`
 const SubtitleTypography = styled(Typography)`
   color: #03171680;
   white-space: pre-line;
+  max-width: 309px;
 `;
 
 const LearnMore = styled(Typography)`
@@ -56,7 +57,7 @@ const ServicesCard = ({ title, subtitle, imageUrl, isCareer, showLearnMore, isFe
   return (
     <Container $isCareer={isCareer} $isFeature={isFeature}>
       <Image src={imageUrl} alt={`${title} image`} width={64} height={64} />
-      <StyledTypography variant="h4">{title}</StyledTypography>
+      <StyledTypography variant="h3">{title}</StyledTypography>
       <SubtitleTypography variant="paragraph-medium">{subtitle}</SubtitleTypography>
       {showLearnMore && <LearnMore variant="paragraph-bold">Learn more</LearnMore>}
     </Container>

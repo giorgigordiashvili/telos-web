@@ -7,9 +7,8 @@ import PressList from '@/components/PressList';
 
 const Container = styled.div`
   max-width: 1152px;
-  margin-top: 64px;
-
-  margin: auto;
+  margin-inline: auto;
+  margin-top: 120px;
   display: flex;
   flex-direction: column;
   align-items: normal;

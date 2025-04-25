@@ -2,21 +2,27 @@ import React from 'react';
 import styled from 'styled-components';
 
 const H1 = styled.h1`
-  font-size: 50px;
   font-weight: bold;
-  line-height: 65px;
+  font-weight: 700;
+  font-size: 50px;
+  line-height: 100%;
+  letter-spacing: 0%;
 `;
 
 const H2 = styled.h2`
-  font-size: 36px;
   font-weight: bold;
-  line-height: 47px;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 100%;
+  letter-spacing: 0%;
 `;
 
 const H3 = styled.h3`
   font-weight: bold;
+  font-weight: 700;
   font-size: 26px;
-  line-height: 34px;
+  line-height: 100%;
+  letter-spacing: 0%;
 `;
 
 const H4 = styled.h4`
@@ -29,14 +35,17 @@ const H4 = styled.h4`
 
 const ParagraphBold = styled.p`
   font-weight: bold;
+  font-weight: 700;
   font-size: 16px;
-  line-height: 19px;
+  line-height: 120%;
+  letter-spacing: -2%;
 `;
 
 const ParagraphMedium = styled.p`
   font-weight: 500;
   font-size: 16px;
-  line-height: 19px;
+  line-height: 120%;
+  letter-spacing: -2%;
 `;
 
 type TypographyProps = {
