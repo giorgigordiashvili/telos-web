@@ -10,7 +10,6 @@ import Image from 'next/image';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
-import Typography from '@/components/Typography';
 
 const Page = styled.div`
   margin-top: 60px;
@@ -73,6 +72,7 @@ const Submit = styled.div`
 `;
 
 const BudgetSliderWrapper = styled.div`
+  font-size: 14px;
   display: flex;
   flex-direction: column;
   color: rgba(3, 23, 22, 0.6);
@@ -174,7 +174,7 @@ const OrderScreen = () => {
                 name="number"
               />
               <BudgetSliderWrapper>
-                <Typography variant="paragraph-bold">Budget</Typography>
+                <p>Budget</p>
                 <BudgetSlider
                   minValue={values.minValue}
                   maxValue={values.maxValue}
