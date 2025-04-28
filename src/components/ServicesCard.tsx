@@ -32,34 +32,65 @@ const Container = styled.div<{ $isCareer?: boolean; $isFeature?: boolean }>`
     max-width: 100%;
     width: 100%;
     gap: 12px;
-    padding: 16px;
+    padding: ${({ $isFeature }) => ($isFeature ? '24px' : '16px')};
     min-height: ${({ $isCareer }) => ($isCareer ? '187px' : 'auto')};
   }
 `;
 
-const StyledTypography = styled(Typography)`
+const StyledTypography = styled(Typography)<{ $isFeature?: boolean }>`
   color: #031716;
+  @media (max-width: 1280px) {
+    ${({ $isFeature }) =>
+      $isFeature &&
+      `
+      font-size: 20px;
+    `}
+  }
 `;
 
-const SubtitleTypography = styled(Typography)`
+const SubtitleTypography = styled(Typography)<{ $isFeature?: boolean }>`
   color: #03171680;
   white-space: pre-line;
   max-width: 309px;
+
+  @media (max-width: 1280px) {
+    ${({ $isFeature }) =>
+      $isFeature &&
+      `
+      font-size: 14px;
+    `}
+  }
 `;
 
-const LearnMore = styled(Typography)`
+const LearnMore = styled(Typography)<{ $isFeature?: boolean }>`
   color: #031716;
   text-decoration: underline;
   font-size: 14px;
+
+  @media (max-width: 1280px) {
+    ${({ $isFeature }) =>
+      $isFeature &&
+      `
+      font-size: 16px;
+    `}
+  }
 `;
 
 const ServicesCard = ({ title, subtitle, imageUrl, isCareer, showLearnMore, isFeature }: Props) => {
   return (
     <Container $isCareer={isCareer} $isFeature={isFeature}>
       <Image src={imageUrl} alt={`${title} image`} width={64} height={64} />
-      <StyledTypography variant="h3">{title}</StyledTypography>
-      <SubtitleTypography variant="paragraph-medium">{subtitle}</SubtitleTypography>
-      {showLearnMore && <LearnMore variant="paragraph-bold">Learn more</LearnMore>}
+      <StyledTypography $isFeature={isFeature} variant="h3">
+        {title}
+      </StyledTypography>
+      <SubtitleTypography $isFeature={isFeature} variant="paragraph-medium">
+        {subtitle}
+      </SubtitleTypography>
+      {showLearnMore && (
+        <LearnMore $isFeature={isFeature} variant="paragraph-bold">
+          Learn more
+        </LearnMore>
+      )}
     </Container>
   );
 };
