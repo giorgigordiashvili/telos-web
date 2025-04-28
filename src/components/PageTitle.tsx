@@ -38,19 +38,22 @@ export default function PageTitle({ text, className, iconUrl, subtitle }: Props)
 
   // Determine title variant:
   // - "Our Services" always h3
-  // - On mobile, Blog, Career, and Contact us use h3
+  // - On mobile, Blog, Career, Contact us, and Order use h3
   // - Other mobile titles use h2
   // - Desktop titles use h1
   let titleVariant: 'h1' | 'h2' | 'h3';
   if (text === 'Our Services') {
     titleVariant = 'h3';
-  } else if (isMobile && (text === 'Blog' || text === 'Career' || text === 'Contact us')) {
+  } else if (
+    isMobile &&
+    (text === 'Blog' || text === 'Career' || text === 'Contact us' || text === 'Order')
+  ) {
     titleVariant = 'h3';
   } else {
     titleVariant = isMobile ? 'h2' : 'h1';
   }
 
-  // Align content to the start for 'Blog' or 'Acceleration'
+  // Align content to the start for specific pages
   const alignmentStyle =
     text === 'Blog' || text === 'Acceleration' ? { alignItems: 'flex-start' } : {};
 

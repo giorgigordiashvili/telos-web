@@ -5,7 +5,8 @@ import styled from 'styled-components';
 import Typography from './Typography';
 
 const CheckboxWrapper = styled.label<{ $checked: boolean }>`
-  display: flex;
+  display: grid;
+  grid-template-columns: 20px auto;
   align-items: center;
   gap: 10px;
   cursor: pointer;
@@ -15,6 +16,7 @@ const CheckboxWrapper = styled.label<{ $checked: boolean }>`
   line-height: 100%;
   color: #0f241f;
   opacity: ${({ $checked }) => ($checked ? 1 : 0.6)};
+
   &:hover {
     opacity: 1;
   }

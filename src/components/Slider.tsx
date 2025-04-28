@@ -35,7 +35,7 @@ const SliderTrack = styled.div`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  height: 8px;
+  height: 5px;
   width: 100%;
   background-color: #eee;
   border-radius: 5px;
@@ -48,7 +48,7 @@ const SliderRange = styled.div<{
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  height: 8px;
+  height: 5px;
   background-color: #081412;
   border-radius: 5px;
 
