@@ -36,6 +36,9 @@ export default function PageTitle({ text, className, iconUrl, subtitle }: Props)
     return () => window.removeEventListener('resize', checkWidth);
   }, []);
 
+  // Determine title variant: h3 if "Our Services", else h1/h2 based on breakpoint
+  const titleVariant = text === 'Our Services' ? 'h3' : isMobile ? 'h2' : 'h1';
+
   // Align content to the start for 'Blog' or 'Acceleration'
   const alignmentStyle =
     text === 'Blog' || text === 'Acceleration' ? { alignItems: 'flex-start' } : {};
@@ -54,7 +57,7 @@ export default function PageTitle({ text, className, iconUrl, subtitle }: Props)
         <StyledTypography variant={isMobile ? 'h3' : 'h4'}>{subtitle}</StyledTypography>
       )}
 
-      <Typography variant={isMobile ? 'h2' : 'h1'}>{text}</Typography>
+      <Typography variant={titleVariant}>{text}</Typography>
 
       {/* If Press, show subtitle after title */}
       {text === 'Press' && subtitle && (
