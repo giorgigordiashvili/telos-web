@@ -39,6 +39,9 @@ const Styleddiv = styled.div`
   &:focus {
     color: rgba(69, 136, 195, 1);
   }
+  @media (max-width: 1280px) {
+    gap: 12px;
+  }
 `;
 
 type Props = {

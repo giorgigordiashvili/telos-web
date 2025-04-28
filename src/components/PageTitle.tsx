@@ -38,13 +38,13 @@ export default function PageTitle({ text, className, iconUrl, subtitle }: Props)
 
   // Determine title variant:
   // - "Our Services" always h3
-  // - On mobile, Blog and Career use h3
+  // - On mobile, Blog, Career, and Contact us use h3
   // - Other mobile titles use h2
   // - Desktop titles use h1
   let titleVariant: 'h1' | 'h2' | 'h3';
   if (text === 'Our Services') {
     titleVariant = 'h3';
-  } else if (isMobile && (text === 'Blog' || text === 'Career')) {
+  } else if (isMobile && (text === 'Blog' || text === 'Career' || text === 'Contact us')) {
     titleVariant = 'h3';
   } else {
     titleVariant = isMobile ? 'h2' : 'h1';
