@@ -19,7 +19,7 @@ const NewsCardWrapper = styled.div<{ $variant: 'right' | 'left' }>`
 
   @media (max-width: 1280px) {
     grid-template-columns: 1fr;
-    gap: 48px;
+    gap: 110px;
   }
 `;
 
@@ -44,11 +44,18 @@ const StyledTitle = styled(Typography)`
 
 const StyledSubtitle = styled(Typography)`
   color: #031716b3;
+
+  @media (max-width: 1280px) {
+    font-size: 14px;
+  }
 `;
 
 const PrimeryButtonWrapper = styled.div<{ $variant: 'right' | 'left' }>`
   width: ${({ $variant }) => ($variant === 'left' ? '130px' : '126px')};
   padding-top: 44px;
+  @media (max-width: 1280px) {
+    padding-top: 34px;
+  }
 `;
 
 const NewsCard = ({ isMobile, variant = 'right' }: Props) => {
