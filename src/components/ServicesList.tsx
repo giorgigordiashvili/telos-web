@@ -124,7 +124,7 @@ const careerServices = [
   },
 ];
 
-const ServicesList = ({ text }: Props) => {
+const ServicesList: React.FC<Props> = ({ text }) => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -139,7 +139,7 @@ const ServicesList = ({ text }: Props) => {
   // Determine heading variant
   let headingVariant: 'h1' | 'h2' | 'h3' | 'h4';
   if (text === 'Career') {
-    headingVariant = isMobile ? 'h3' : 'h2';
+    headingVariant = isMobile ? 'h4' : 'h2';
   } else if (text === 'Software' || text === 'Marketing') {
     headingVariant = 'h4';
   } else {

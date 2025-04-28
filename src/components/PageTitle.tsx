@@ -36,11 +36,15 @@ export default function PageTitle({ text, className, iconUrl, subtitle }: Props)
     return () => window.removeEventListener('resize', checkWidth);
   }, []);
 
-  // Determine title variant: Our Services always h3, Blog on mobile h3, else mobile h2, desktop h1
+  // Determine title variant:
+  // - "Our Services" always h3
+  // - On mobile, Blog and Career use h3
+  // - Other mobile titles use h2
+  // - Desktop titles use h1
   let titleVariant: 'h1' | 'h2' | 'h3';
   if (text === 'Our Services') {
     titleVariant = 'h3';
-  } else if (text === 'Blog' && isMobile) {
+  } else if (isMobile && (text === 'Blog' || text === 'Career')) {
     titleVariant = 'h3';
   } else {
     titleVariant = isMobile ? 'h2' : 'h1';
