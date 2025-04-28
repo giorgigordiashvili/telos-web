@@ -16,6 +16,10 @@ const BlogListingContainer = styled.div`
   display: flex;
   gap: 4px;
   flex-wrap: wrap;
+
+  @media (max-width: 1280px) {
+    padding: 8px;
+  }
 `;
 
 const Container = styled.div`
@@ -77,7 +81,7 @@ const blogData = [
   },
 ];
 
-const BlogList = () => {
+const BlogList: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all articles');
 
   const filteredData =
@@ -98,7 +102,6 @@ const BlogList = () => {
           onClick={() => setSelectedCategory('category 1')}
           selected={selectedCategory === 'category 1'}
         />
-
         <CategroyFilterButton
           text="category 2"
           onClick={() => setSelectedCategory('category 2')}

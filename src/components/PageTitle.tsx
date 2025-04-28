@@ -36,8 +36,15 @@ export default function PageTitle({ text, className, iconUrl, subtitle }: Props)
     return () => window.removeEventListener('resize', checkWidth);
   }, []);
 
-  // Determine title variant: h3 if "Our Services", else h1/h2 based on breakpoint
-  const titleVariant = text === 'Our Services' ? 'h3' : isMobile ? 'h2' : 'h1';
+  // Determine title variant: Our Services always h3, Blog on mobile h3, else mobile h2, desktop h1
+  let titleVariant: 'h1' | 'h2' | 'h3';
+  if (text === 'Our Services') {
+    titleVariant = 'h3';
+  } else if (text === 'Blog' && isMobile) {
+    titleVariant = 'h3';
+  } else {
+    titleVariant = isMobile ? 'h2' : 'h1';
+  }
 
   // Align content to the start for 'Blog' or 'Acceleration'
   const alignmentStyle =
