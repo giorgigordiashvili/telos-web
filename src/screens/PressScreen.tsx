@@ -20,6 +20,7 @@ const Container = styled.div`
     padding-bottom: 48px;
     padding-inline: 16px;
     gap: 48px;
+    margin-top: 60px;
   }
 `;
 
