@@ -37,10 +37,6 @@ const FeaturesContainer = styled.div`
     flex-wrap: wrap;
     justify-content: center;
   }
-
-  /* @media (max-width: 768px) {
-    flex-direction: column;
-  } */
 `;
 
 const Heading = styled(Typography)<{ $center?: boolean }>`
@@ -128,7 +124,7 @@ const careerServices = [
   },
 ];
 
-const ServicesList = ({ text }: Props) => {
+const ServicesList: React.FC<Props> = ({ text }) => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -140,13 +136,20 @@ const ServicesList = ({ text }: Props) => {
     return () => window.removeEventListener('resize', updateWidth);
   }, []);
 
+  // Determine heading variant
+  let headingVariant: 'h1' | 'h2' | 'h3' | 'h4';
+  if (text === 'Career') {
+    headingVariant = isMobile ? 'h4' : 'h2';
+  } else if (text === 'Software' || text === 'Marketing') {
+    headingVariant = 'h4';
+  } else {
+    headingVariant = isMobile ? 'h3' : 'h1';
+  }
+
   return (
     <Wrapper>
       {text !== 'features' && (
-        <Heading
-          variant={text === 'Career' ? (isMobile ? 'h3' : 'h2') : isMobile ? 'h3' : 'h1'}
-          $center={text === 'Career'}
-        >
+        <Heading variant={headingVariant} $center={text === 'Career'}>
           {text === 'Career' ? 'Company Benefits' : text}
         </Heading>
       )}

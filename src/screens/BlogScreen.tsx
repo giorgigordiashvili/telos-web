@@ -113,7 +113,7 @@ const BlogScreen = () => {
           <PageTitle text="Blog" />
           <BlogContent>
             <BlogTextContainer>
-              <Typography variant={isMobile ? 'h3' : 'h2'}>
+              <Typography variant={isMobile ? 'h4' : 'h2'}>
                 this is a featured article - the most important piece of content
               </Typography>
               <Typography variant="paragraph-medium">

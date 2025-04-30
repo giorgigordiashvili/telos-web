@@ -1,4 +1,3 @@
-// Accordion.tsx
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Typography from '@/components/Typography';
@@ -58,6 +57,15 @@ const AccordionContent = styled.div`
   padding: 24px;
 `;
 
+// New styled override: shrink h4 to 14px on mobile
+const QuestionText = styled(Typography)`
+  @media (max-width: 1280px) {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 120%;
+  }
+`;
+
 const Accordion = ({ question, answer }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -65,7 +73,7 @@ const Accordion = ({ question, answer }: Props) => {
     <AccordionWrapper>
       <AccordionContainer>
         <AccordionButton onClick={() => setIsOpen(!isOpen)}>
-          <Typography variant="h4">{question}</Typography>
+          <QuestionText variant="h4">{question}</QuestionText>
           <DropdownIconWrapper $isOpen={isOpen}>
             <AccordionDropdown />
           </DropdownIconWrapper>

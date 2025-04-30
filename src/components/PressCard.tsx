@@ -63,6 +63,10 @@ const Subtitle = styled(Typography)`
 
 const DateText = styled(Typography)`
   color: #03171680;
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
 `;
 
 const PressCard = ({ imageSrc, title, subtitle, date }: Props) => {
@@ -89,7 +93,7 @@ const PressCard = ({ imageSrc, title, subtitle, date }: Props) => {
         />
       </ImageWrapper>
       <Content>
-        <Title variant={isMobile ? 'h3' : 'h3'}>{title}</Title>
+        <Title variant={isMobile ? 'h4' : 'h3'}>{title}</Title>
         <Subtitle variant={isMobile ? 'paragraph-bold' : 'h4'}>{subtitle}</Subtitle>
         <DateText variant="paragraph-bold">{date}</DateText>
       </Content>
