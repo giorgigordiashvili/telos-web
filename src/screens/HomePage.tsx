@@ -1,9 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import Typography from '@/components/Typography';
-import Image from 'next/image';
+import Particles, { initParticlesEngine } from '@tsparticles/react';
+import { loadSlim } from '@tsparticles/slim';
 import PrimeryButton from '@/components/PrimeryButton';
 import ServicesList from '@/components/ServicesList';
 import NewsCard from '@/components/NewsCard';
@@ -36,13 +37,16 @@ const BackgroundSection = styled.section`
   }
 `;
 
-const BackgroundImage = styled(Image)`
-  object-fit: cover;
+const StyledParticles = styled(Particles)`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   z-index: -1;
 `;
 
 const OverlayContent = styled.div`
-  margin-top: 60px;
   position: relative;
   height: 100%;
   display: flex;
@@ -64,12 +68,12 @@ const StyledParagraphMedium = styled(Typography)`
   text-shadow: 0px 7px 3.5px rgba(66, 120, 130, 0.56);
 `;
 
-const ExploreOurServicesWrapper = styled.div`
-  width: 205px;
+const ExploreOurServices = styled.div`
+  max-width: 205px;
 `;
 
 const MoreAboutOurFeatures = styled.div`
-  width: 230px;
+  max-width: 230px;
 `;
 
 const FeaturesSectionWrapper = styled.div`
@@ -123,7 +127,6 @@ const NewsCardWrapper = styled.div`
   }
 `;
 
-// Conditionally apply padding-bottom only when $withPadding is true
 const StyledFeaturesText = styled(Typography)<{ $withPadding?: boolean }>`
   color: #031716;
   ${({ $withPadding }) => $withPadding && 'padding-bottom: 48px;'}
@@ -160,29 +163,83 @@ const QuoteSectionWrapper = styled.div`
 
 const HomePage: React.FC = () => {
   const isMobile = useIsMobile();
+  const [init, setInit] = useState(false);
+
+  useEffect(() => {
+    initParticlesEngine(async engine => {
+      await loadSlim(engine);
+    }).then(() => {
+      setInit(true);
+    });
+  }, []);
+
+  const options = useMemo(
+    () => ({
+      background: { color: '#000000' },
+      fpsLimit: 40,
+      particles: {
+        number: { value: 80, density: { enable: true, area: 800 } },
+        color: { value: '#E3E3E3' },
+        shape: { type: 'polygon', polygon: { sides: 5 } },
+        opacity: {
+          value: 0.5,
+          random: false,
+          animation: { enable: false, speed: 1, minimumValue: 0.1, sync: false },
+        },
+        size: {
+          value: 0.3,
+          random: true,
+          animation: { enable: false, speed: 40, minimumValue: 0.1, sync: false },
+        },
+        links: {
+          enable: true,
+          distance: 300,
+          color: '#ffffff',
+          opacity: 0.4,
+          width: 1,
+        },
+        move: {
+          enable: true,
+          speed: 4.810236182596568,
+          direction: 'none',
+          random: false,
+          straight: false,
+          outModes: { default: 'out' },
+          bounce: false,
+        },
+      },
+      interactivity: {
+        events: {
+          onhover: { enable: true, mode: 'repulse' },
+          onclick: { enable: true, mode: 'push' },
+          resize: true,
+        },
+        modes: { repulse: { distance: 215.78421578421577, duration: 0.4 }, push: { quantity: 4 } },
+      },
+      detectRetina: true,
+    }),
+    []
+  );
 
   return (
     <HomePageWrapper>
       <BackgroundSection>
-        <BackgroundImage src="/images/HomePage/background.png" alt="background" fill priority />
+        {init && <StyledParticles id="tsparticles" options={options} />}
         <OverlayContent>
           <StyledHeroText variant={isMobile ? 'h2' : 'h1'}>
             Innovative Software
             <br />
-            Solutions for a
-            <br />
+            Solutions for a<br />
             Digital World
           </StyledHeroText>
-
           <StyledParagraphMedium variant="paragraph-medium">
             Empowering businesses with cutting-edge web and mobile
             <br />
             applications built on Next.js and React Native.
           </StyledParagraphMedium>
-
-          <ExploreOurServicesWrapper>
+          <ExploreOurServices>
             <PrimeryButton variant="blue">Explore Our Services</PrimeryButton>
-          </ExploreOurServicesWrapper>
+          </ExploreOurServices>
         </OverlayContent>
       </BackgroundSection>
 

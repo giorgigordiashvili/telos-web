@@ -8,20 +8,20 @@ import MenuItem from './MenuItem';
 import Burgericon from './Burgericon';
 
 // Styled container that handles background transparency and show/hide on scroll
-const Back = styled.div<{ show: boolean; isTop: boolean }>`
+const Back = styled.div<{ $show: boolean; $isTop: boolean }>`
   width: 100%;
   height: 60px;
   position: fixed;
   top: 0;
   left: 0;
-  background-color: ${({ isTop }) => (isTop ? 'transparent' : '#ffffff')};
+  background-color: ${({ $isTop }) => ($isTop ? 'transparent' : '#ffffff')};
   display: flex;
   justify-content: center;
   z-index: 100;
   transition:
     background-color 0.3s ease,
     transform 0.3s ease;
-  transform: translateY(${({ show }) => (show ? '0' : '-100%')});
+  transform: translateY(${({ $show }) => ($show ? '0' : '-100%')});
 `;
 
 const StyledHeader = styled.div`
@@ -69,7 +69,7 @@ const Header: React.FC = () => {
   const effectiveIsTop = isHome && isTop;
 
   return (
-    <Back show={show} isTop={effectiveIsTop}>
+    <Back $show={show} $isTop={effectiveIsTop}>
       <StyledHeader>
         {/* Logo white on top of home, black otherwise */}
         <Logo href="/" color={effectiveIsTop ? 'white' : 'black'} />
