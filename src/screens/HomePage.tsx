@@ -1,15 +1,16 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
-import styled from 'styled-components';
+import FAQSection from '@/components/FaqSection';
+import NewsCard from '@/components/NewsCard';
+import PrimeryButton from '@/components/PrimeryButton';
+import QuoteCarousel from '@/components/QuoteCarrousel';
+import ServicesList from '@/components/ServicesList';
 import Typography from '@/components/Typography';
+import { MoveDirection, OutMode } from '@tsparticles/engine';
 import Particles, { initParticlesEngine } from '@tsparticles/react';
 import { loadSlim } from '@tsparticles/slim';
-import PrimeryButton from '@/components/PrimeryButton';
-import ServicesList from '@/components/ServicesList';
-import NewsCard from '@/components/NewsCard';
-import FAQSection from '@/components/FaqSection';
-import QuoteCarousel from '@/components/QuoteCarrousel';
+import React, { useEffect, useMemo, useState } from 'react';
+import styled from 'styled-components';
 
 const useIsMobile = (breakpoint = 1280) => {
   const [isMobile, setIsMobile] = React.useState(false);
@@ -201,10 +202,10 @@ const HomePage: React.FC = () => {
         move: {
           enable: true,
           speed: 4.810236182596568,
-          direction: 'none',
+          direction: MoveDirection.none,
           random: false,
           straight: false,
-          outModes: { default: 'out' },
+          outModes: { default: OutMode.out },
           bounce: false,
         },
       },
@@ -212,7 +213,7 @@ const HomePage: React.FC = () => {
         events: {
           onhover: { enable: true, mode: 'repulse' },
           onclick: { enable: true, mode: 'push' },
-          resize: true,
+          resize: { enable: true },
         },
         modes: { repulse: { distance: 215.78421578421577, duration: 0.4 }, push: { quantity: 4 } },
       },
