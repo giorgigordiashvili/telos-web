@@ -1,4 +1,3 @@
-// src/components/MenuItem.tsx
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
@@ -14,6 +13,7 @@ type Props = {
   children?: React.ReactNode;
   hasDropdown?: boolean;
   isHighlighted?: boolean;
+  isTransparent?: boolean;
 };
 
 const StyledContainer = styled.li`
@@ -24,16 +24,22 @@ const StyledContainer = styled.li`
   width: fit-content;
 `;
 
-const StyledLink = styled(Link)<{ variant: 'light' | 'dark'; $isHighlighted?: boolean }>`
+const StyledLink = styled(Link)<{
+  variant: 'light' | 'dark';
+  $isHighlighted?: boolean;
+  $isTransparent?: boolean;
+}>`
   padding: 16px 20px;
   border-radius: 8px;
   background-color: ${({ variant, $isHighlighted }) =>
     $isHighlighted ? (variant === 'light' ? '#FFFFFF' : '#1E5FFF') : 'transparent'};
-  color: ${({ variant, $isHighlighted }) =>
+  color: ${({ variant, $isHighlighted, $isTransparent }) =>
     variant === 'light'
-      ? $isHighlighted
-        ? '#628FFF'
-        : '#F6F6F6'
+      ? $isTransparent
+        ? '#CCCCCC'
+        : $isHighlighted
+          ? '#628FFF'
+          : '#F6F6F6'
       : $isHighlighted
         ? '#FFF'
         : '#6A7473'};
@@ -55,11 +61,13 @@ const StyledLink = styled(Link)<{ variant: 'light' | 'dark'; $isHighlighted?: bo
   }
 
   & svg path {
-    stroke: ${({ variant, $isHighlighted }) =>
+    stroke: ${({ variant, $isHighlighted, $isTransparent }) =>
       variant === 'light'
-        ? $isHighlighted
-          ? '#628FFF'
-          : '#F6F6F6'
+        ? $isTransparent
+          ? '#CCCCCC'
+          : $isHighlighted
+            ? '#628FFF'
+            : '#F6F6F6'
         : $isHighlighted
           ? '#FFF'
           : '#6A7473'};
@@ -104,6 +112,7 @@ export default function MenuItem({
   children,
   hasDropdown = false,
   isHighlighted,
+  isTransparent = false,
 }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLLIElement>(null);
@@ -134,13 +143,7 @@ export default function MenuItem({
     return () => document.removeEventListener('mousedown', onClickOutside);
   }, [isOpen]);
 
-  // All items except "Contact Us" use paragraph-medium
-  const textVariant =
-    text !== 'Contact Us'
-      ? 'paragraph-medium'
-      : variant === 'dark'
-        ? 'paragraph-bold'
-        : 'paragraph-medium';
+  const textVariant = text === 'Contact Us' ? 'paragraph-bold' : 'paragraph-medium';
 
   return (
     <StyledContainer ref={containerRef}>
@@ -148,6 +151,7 @@ export default function MenuItem({
         href={href ?? '#'}
         variant={variant}
         $isHighlighted={isHighlighted}
+        $isTransparent={isTransparent}
         onClick={
           showDropdown
             ? e => {
