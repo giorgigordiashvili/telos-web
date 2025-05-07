@@ -131,7 +131,7 @@ const Header: React.FC = () => {
             href="/contact"
           />
         </Stylednav>
-        <Burgericon />
+        <Burgericon color={effectiveIsTop ? '#FFFFFF' : '#000000'} />
       </StyledHeader>
     </Back>
   );

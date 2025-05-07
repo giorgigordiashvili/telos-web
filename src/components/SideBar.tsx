@@ -7,7 +7,7 @@ import MenuItem from './MenuItem';
 const Back = styled.div`
   background-color: rgba(0, 0, 0, 0.1);
   width: 100%;
-  height: 100%;
+  height: 100dvh;
   position: fixed;
   top: 0;
   right: 0;
@@ -21,7 +21,7 @@ const Box = styled.div`
   flex-direction: column;
   width: 214px;
   background-color: rgba(3, 23, 22, 1);
-  height: 100%;
+  height: 100dvh;
   padding: 11px 17px 26px 0;
 `;
 
