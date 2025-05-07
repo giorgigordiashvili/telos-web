@@ -1,6 +1,5 @@
 backend:
-  name: github
-  repo: "giorgigordiashvili/telos-web" # The GitHub repo where the files will be stored
+  name: git-gateway
   branch: main # Branch to update (optional; defaults to master)
 
 media_folder: "public/images" # Media files will be stored in the repo under public/images
