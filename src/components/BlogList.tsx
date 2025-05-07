@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import BlogCard from './BlogCard';
 import CategroyFilterButton from './CategroyFilterButton';
@@ -38,6 +38,19 @@ const Container = styled.div`
   }
 `;
 
+// Interface for blog post data
+interface BlogPost {
+  slug: string;
+  frontmatter: {
+    title: string;
+    date: string;
+    thumbnail?: string;
+    tags?: string[];
+  };
+  content: string;
+}
+
+// Fallback blog data in case CMS data isn't available
 const blogData = [
   {
     imageSrc: '/images/PressCard/default.png',
@@ -83,45 +96,81 @@ const blogData = [
 
 const BlogList: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all articles');
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
+  const [categories, setCategories] = useState<string[]>(['all articles']);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const filteredData =
+  // Fetch blog posts from the CMS
+  useEffect(() => {
+    const fetchBlogPosts = async () => {
+      try {
+        const response = await fetch('/api/content/blog');
+        if (!response.ok) throw new Error('Failed to fetch blog posts');
+        const data = await response.json();
+        setBlogPosts(data);
+
+        // Extract unique categories from tags
+        const tagSets = new Set<string>();
+        data.forEach((post: BlogPost) => {
+          if (post.frontmatter.tags) {
+            post.frontmatter.tags.forEach(tag => tagSets.add(tag));
+          }
+        });
+        setCategories(['all articles', ...Array.from(tagSets)]);
+      } catch (error) {
+        console.error('Error fetching blog posts:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchBlogPosts();
+  }, []);
+
+  // Filter blog posts based on selected category
+  const filteredPosts =
     selectedCategory === 'all articles'
-      ? blogData
-      : blogData.filter(item => item.category === selectedCategory);
+      ? blogPosts
+      : blogPosts.filter(post => post.frontmatter.tags?.includes(selectedCategory));
+
+  // Fall back to the hardcoded data if no posts are available from the CMS
+  const fallbackData = blogData;
 
   return (
     <Wrapper>
       <BlogListingContainer>
-        <CategroyFilterButton
-          text="all articles"
-          onClick={() => setSelectedCategory('all articles')}
-          selected={selectedCategory === 'all articles'}
-        />
-        <CategroyFilterButton
-          text="category 1"
-          onClick={() => setSelectedCategory('category 1')}
-          selected={selectedCategory === 'category 1'}
-        />
-        <CategroyFilterButton
-          text="category 2"
-          onClick={() => setSelectedCategory('category 2')}
-          selected={selectedCategory === 'category 2'}
-        />
-        <CategroyFilterButton
-          text="category 3"
-          onClick={() => setSelectedCategory('category 3')}
-          selected={selectedCategory === 'category 3'}
-        />
-      </BlogListingContainer>
-      <Container>
-        {filteredData.map((item, index) => (
-          <BlogCard
-            key={index}
-            imageSrc={item.imageSrc}
-            title={item.title}
-            category={item.category}
+        {categories.map(category => (
+          <CategroyFilterButton
+            key={category}
+            text={category}
+            onClick={() => setSelectedCategory(category)}
+            selected={selectedCategory === category}
           />
         ))}
+      </BlogListingContainer>
+      <Container>
+        {isLoading ? (
+          <p>Loading blog posts...</p>
+        ) : filteredPosts.length > 0 ? (
+          filteredPosts.map(post => (
+            <BlogCard
+              key={post.slug}
+              imageSrc={post.frontmatter.thumbnail || '/images/PressCard/default.png'}
+              title={post.frontmatter.title}
+              category={post.frontmatter.tags?.join(', ') || 'Uncategorized'}
+              slug={post.slug}
+            />
+          ))
+        ) : (
+          fallbackData.map((item, index) => (
+            <BlogCard
+              key={index}
+              imageSrc={item.imageSrc}
+              title={item.title}
+              category={item.category}
+            />
+          ))
+        )}
       </Container>
     </Wrapper>
   );

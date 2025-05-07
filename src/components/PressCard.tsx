@@ -1,15 +1,18 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Typography from './Typography';
-import Image from 'next/image';
 
 type Props = {
   imageSrc: string;
   title: string;
   subtitle: string;
   date: string;
+  slug?: string;
+  externalLink?: string;
 };
 
 const Wrapper = styled.div`
@@ -20,6 +23,15 @@ const Wrapper = styled.div`
   background-color: white;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease-in-out,
+    box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
 
   @media (max-width: 1152px) {
     width: 100%;
@@ -69,7 +81,7 @@ const DateText = styled(Typography)`
   }
 `;
 
-const PressCard = ({ imageSrc, title, subtitle, date }: Props) => {
+const PressCard = ({ imageSrc, title, subtitle, date, slug, externalLink }: Props) => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -81,8 +93,8 @@ const PressCard = ({ imageSrc, title, subtitle, date }: Props) => {
     return () => window.removeEventListener('resize', checkWidth);
   }, []);
 
-  return (
-    <Wrapper>
+  const content = (
+    <>
       <ImageWrapper>
         <StyledImage
           src={imageSrc}
@@ -97,8 +109,34 @@ const PressCard = ({ imageSrc, title, subtitle, date }: Props) => {
         <Subtitle variant={isMobile ? 'paragraph-bold' : 'h4'}>{subtitle}</Subtitle>
         <DateText variant="paragraph-bold">{date}</DateText>
       </Content>
-    </Wrapper>
+    </>
   );
+
+  // If there's an external link, render the card as an anchor tag
+  if (externalLink) {
+    return (
+      <a
+        href={externalLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ textDecoration: 'none' }}
+      >
+        <Wrapper>{content}</Wrapper>
+      </a>
+    );
+  }
+
+  // If there's a slug but no external link, link to the internal press detail page
+  if (slug) {
+    return (
+      <Link href={`/press/${slug}`} style={{ textDecoration: 'none' }}>
+        <Wrapper>{content}</Wrapper>
+      </Link>
+    );
+  }
+
+  // If there's neither an external link nor a slug, render as is
+  return <Wrapper>{content}</Wrapper>;
 };
 
 export default PressCard;

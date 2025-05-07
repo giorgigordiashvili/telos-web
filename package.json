@@ -8,15 +8,20 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "cms:dev": "node scripts/cms-config.js --dev && next dev --turbopack",
+    "cms:prod": "node scripts/cms-config.js --prod"
   },
   "dependencies": {
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.8.1",
     "formik": "^2.4.6",
+    "gray-matter": "^4.0.3",
     "next": "15.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-markdown": "^10.1.0",
+    "rehype-raw": "^7.0.0",
     "styled-components": "^6.1.17",
     "tsparticles": "^3.8.1",
     "yup": "^1.6.1"

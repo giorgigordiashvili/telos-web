@@ -1,12 +1,25 @@
 'use client';
 
-import PageTitle from '@/components/PageTitle';
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import Typography from '@/components/Typography';
-import PrimeryButton from '@/components/PrimeryButton';
-import Image from 'next/image';
 import BlogList from '@/components/BlogList';
+import PageTitle from '@/components/PageTitle';
+import PrimeryButton from '@/components/PrimeryButton';
+import Typography from '@/components/Typography';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
+
+// Interface for blog post data from CMS
+interface BlogPost {
+  slug: string;
+  frontmatter: {
+    title: string;
+    date: string;
+    thumbnail?: string;
+    tags?: string[];
+  };
+  content: string;
+}
 
 // 🔹 useIsMobile hook
 const useIsMobile = (breakpoint = 768) => {
@@ -105,6 +118,32 @@ const PrimeryButtonWrapper = styled.div`
 
 const BlogScreen = () => {
   const isMobile = useIsMobile();
+  const [featuredPost, setFeaturedPost] = useState<BlogPost | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchFeaturedPost = async () => {
+      try {
+        const response = await fetch('/api/content/blog');
+        if (!response.ok) throw new Error('Failed to fetch blog posts');
+        const data = await response.json();
+
+        // Sort posts by date (newest first) and get the first one as featured
+        if (data.length > 0) {
+          const sortedPosts = [...data].sort((a, b) => {
+            return new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime();
+          });
+          setFeaturedPost(sortedPosts[0]);
+        }
+      } catch (error) {
+        console.error('Error fetching featured post:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchFeaturedPost();
+  }, []);
 
   return (
     <Container>
@@ -113,21 +152,43 @@ const BlogScreen = () => {
           <PageTitle text="Blog" />
           <BlogContent>
             <BlogTextContainer>
-              <Typography variant={isMobile ? 'h4' : 'h2'}>
-                this is a featured article - the most important piece of content
-              </Typography>
-              <Typography variant="paragraph-medium">
-                very short description of whats actually being discussed in this article, maybe the
-                first sentences to provide a preview
-              </Typography>
-              <PrimeryButtonWrapper>
-                <PrimeryButton variant="border">read now</PrimeryButton>
-              </PrimeryButtonWrapper>
+              {isLoading ? (
+                <Typography variant={isMobile ? 'h4' : 'h2'}>
+                  Loading featured article...
+                </Typography>
+              ) : featuredPost ? (
+                <>
+                  <Typography variant={isMobile ? 'h4' : 'h2'}>
+                    {featuredPost.frontmatter.title}
+                  </Typography>
+                  <Typography variant="paragraph-medium">
+                    {featuredPost.content.substring(0, 150)}...
+                  </Typography>
+                  <PrimeryButtonWrapper>
+                    <Link href={`/blog/${featuredPost.slug}`}>
+                      <PrimeryButton variant="border">read now</PrimeryButton>
+                    </Link>
+                  </PrimeryButtonWrapper>
+                </>
+              ) : (
+                <>
+                  <Typography variant={isMobile ? 'h4' : 'h2'}>
+                    this is a featured article - the most important piece of content
+                  </Typography>
+                  <Typography variant="paragraph-medium">
+                    very short description of whats actually being discussed in this article, maybe
+                    the first sentences to provide a preview
+                  </Typography>
+                  <PrimeryButtonWrapper>
+                    <PrimeryButton variant="border">read now</PrimeryButton>
+                  </PrimeryButtonWrapper>
+                </>
+              )}
             </BlogTextContainer>
             <BlogImageContainer>
               <Image
-                src="/images/Blog/test.png"
-                alt="test-photo"
+                src={featuredPost?.frontmatter.thumbnail || '/images/Blog/test.png'}
+                alt={featuredPost?.frontmatter.title || 'featured post image'}
                 fill
                 sizes="100%"
                 style={{ objectFit: 'cover' }}

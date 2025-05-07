@@ -1,16 +1,17 @@
 'use client';
 
-import React from 'react';
-import styled from 'styled-components';
-import Typography from './Typography';
-import Image from 'next/image';
 import TagButton from '@/components/TagButton';
 import ArrowRight from '@/icons/ArrowRight';
+import Image from 'next/image';
+import Link from 'next/link';
+import styled from 'styled-components';
+import Typography from './Typography';
 
 type Props = {
   imageSrc: string;
   title: string;
   category: string;
+  slug?: string;
 };
 
 type TagColor = 'brown' | 'green' | 'blue';
@@ -91,11 +92,11 @@ const ReadMore = styled.div`
   }
 `;
 
-const BlogCard = ({ imageSrc, title, category }: Props) => {
+const BlogCard = ({ imageSrc, title, category, slug }: Props) => {
   const tagColor = getTagColor(category);
 
-  return (
-    <Wrapper>
+  const content = (
+    <>
       <ImageWrapper>
         <StyledImage
           src={imageSrc}
@@ -118,8 +119,18 @@ const BlogCard = ({ imageSrc, title, category }: Props) => {
           </span>
         </ReadMore>
       </Content>
-    </Wrapper>
+    </>
   );
+
+  if (slug) {
+    return (
+      <Link href={`/blog/${slug}`} style={{ textDecoration: 'none' }}>
+        <Wrapper>{content}</Wrapper>
+      </Link>
+    );
+  }
+
+  return <Wrapper>{content}</Wrapper>;
 };
 
 export default BlogCard;

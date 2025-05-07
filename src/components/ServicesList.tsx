@@ -2,12 +2,23 @@
 
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import Typography from './Typography';
 import ServicesCard from './ServicesCard';
+import Typography from './Typography';
 
 type Props = {
   text: 'Software' | 'Marketing' | 'Career' | 'features';
 };
+
+// Interface for service content from CMS
+interface ServiceContent {
+  slug: string;
+  frontmatter: {
+    title: string;
+    icon: string;
+    shortDescription: string;
+  };
+  content: string;
+}
 
 const Wrapper = styled.div`
   display: flex;
@@ -126,6 +137,8 @@ const careerServices = [
 
 const ServicesList: React.FC<Props> = ({ text }) => {
   const [isMobile, setIsMobile] = useState(false);
+  const [services, setServices] = useState<ServiceContent[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const updateWidth = () => {
@@ -134,6 +147,24 @@ const ServicesList: React.FC<Props> = ({ text }) => {
     updateWidth();
     window.addEventListener('resize', updateWidth);
     return () => window.removeEventListener('resize', updateWidth);
+  }, []);
+
+  // Fetch services from CMS
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await fetch('/api/content/services');
+        if (!response.ok) throw new Error('Failed to fetch services');
+        const data = await response.json();
+        setServices(data);
+      } catch (error) {
+        console.error('Error fetching services:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchServices();
   }, []);
 
   // Determine heading variant
@@ -146,15 +177,56 @@ const ServicesList: React.FC<Props> = ({ text }) => {
     headingVariant = isMobile ? 'h3' : 'h1';
   }
 
-  return (
-    <Wrapper>
-      {text !== 'features' && (
-        <Heading variant={headingVariant} $center={text === 'Career'}>
-          {text === 'Career' ? 'Company Benefits' : text}
-        </Heading>
-      )}
+  // Use CMS services when available, otherwise fall back to hardcoded services
+  const renderServices = () => {
+    if (isLoading) {
+      return <p>Loading services...</p>;
+    }
 
-      {text === 'Software' ? (
+    // If we have services from CMS and this is the features or Software section, use them
+    if (services.length > 0 && (text === 'features' || text === 'Software')) {
+      const servicesToDisplay = text === 'features' ? services.slice(0, 4) : services;
+
+      if (text === 'features') {
+        return (
+          <FeaturesContainer>
+            {servicesToDisplay.map(service => (
+              <ServicesCard
+                key={service.slug}
+                imageUrl={
+                  service.frontmatter.icon || '/images/ServicesCard/default_service_icon.png'
+                }
+                title={service.frontmatter.title}
+                subtitle={service.frontmatter.shortDescription}
+                showLearnMore
+                isFeature
+                slug={service.slug}
+              />
+            ))}
+          </FeaturesContainer>
+        );
+      } else {
+        return (
+          <Container>
+            {servicesToDisplay.map(service => (
+              <ServicesCard
+                key={service.slug}
+                imageUrl={
+                  service.frontmatter.icon || '/images/ServicesCard/default_service_icon.png'
+                }
+                title={service.frontmatter.title}
+                subtitle={service.frontmatter.shortDescription}
+                slug={service.slug}
+              />
+            ))}
+          </Container>
+        );
+      }
+    }
+
+    // Fall back to hardcoded services if no CMS data or for other sections
+    if (text === 'Software') {
+      return (
         <Container>
           {softwareServices.map((service, index) => (
             <ServicesCard
@@ -165,13 +237,17 @@ const ServicesList: React.FC<Props> = ({ text }) => {
             />
           ))}
         </Container>
-      ) : text === 'Marketing' ? (
+      );
+    } else if (text === 'Marketing') {
+      return (
         <ServicesCard
           imageUrl={marketingService.imageUrl}
           title={marketingService.title}
           subtitle={marketingService.subtitle}
         />
-      ) : text === 'Career' ? (
+      );
+    } else if (text === 'Career') {
+      return (
         <Container>
           {careerServices.map((service, index) => (
             <ServicesCard
@@ -183,7 +259,10 @@ const ServicesList: React.FC<Props> = ({ text }) => {
             />
           ))}
         </Container>
-      ) : (
+      );
+    } else {
+      // Features section with hardcoded data
+      return (
         <FeaturesContainer>
           {featuresServices.map((service, index) => (
             <ServicesCard
@@ -196,7 +275,19 @@ const ServicesList: React.FC<Props> = ({ text }) => {
             />
           ))}
         </FeaturesContainer>
+      );
+    }
+  };
+
+  return (
+    <Wrapper>
+      {text !== 'features' && (
+        <Heading variant={headingVariant} $center={text === 'Career'}>
+          {text === 'Career' ? 'Company Benefits' : text}
+        </Heading>
       )}
+
+      {renderServices()}
     </Wrapper>
   );
 };

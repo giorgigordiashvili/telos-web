@@ -1,7 +1,7 @@
-import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import styled from 'styled-components';
 import Typography from './Typography';
-import Image from 'next/image';
 
 type Props = {
   title: string;
@@ -10,6 +10,7 @@ type Props = {
   isCareer?: boolean;
   showLearnMore?: boolean;
   isFeature?: boolean;
+  slug?: string;
 };
 
 const Container = styled.div<{ $isCareer?: boolean; $isFeature?: boolean }>`
@@ -23,6 +24,7 @@ const Container = styled.div<{ $isCareer?: boolean; $isFeature?: boolean }>`
   padding: 24px;
   background-color: white;
   border: 2px solid #e0e0e0;
+  cursor: pointer;
 
   &:hover {
     background-color: #dadada;
@@ -76,9 +78,17 @@ const LearnMore = styled(Typography)<{ $isFeature?: boolean }>`
   }
 `;
 
-const ServicesCard = ({ title, subtitle, imageUrl, isCareer, showLearnMore, isFeature }: Props) => {
-  return (
-    <Container $isCareer={isCareer} $isFeature={isFeature}>
+const ServicesCard = ({
+  title,
+  subtitle,
+  imageUrl,
+  isCareer,
+  showLearnMore,
+  isFeature,
+  slug,
+}: Props) => {
+  const content = (
+    <>
       <Image src={imageUrl} alt={`${title} image`} width={64} height={64} />
       <StyledTypography $isFeature={isFeature} variant="h3">
         {title}
@@ -91,6 +101,22 @@ const ServicesCard = ({ title, subtitle, imageUrl, isCareer, showLearnMore, isFe
           Learn more
         </LearnMore>
       )}
+    </>
+  );
+
+  if (slug && !isCareer) {
+    return (
+      <Link href={`/services/${slug}`} style={{ textDecoration: 'none' }}>
+        <Container $isCareer={isCareer} $isFeature={isFeature}>
+          {content}
+        </Container>
+      </Link>
+    );
+  }
+
+  return (
+    <Container $isCareer={isCareer} $isFeature={isFeature}>
+      {content}
     </Container>
   );
 };
