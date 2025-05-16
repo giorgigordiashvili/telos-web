@@ -1,21 +1,17 @@
 backend:
   name: git-gateway
-  branch: main # Branch to update
-  
-# When using local development with the proxy server,
-# the local_backend property activates the editorial workflow
-local_backend: true
+  branch: main # Branch to update (optional; defaults to master)
 
-media_folder: "public/images" 
-public_folder: "/images"
+media_folder: "public/images" # Media files will be stored in the repo under public/images
+public_folder: "/images" # The src attribute for uploaded media will begin with /images
 
 collections:
-  - name: "blog"
-    label: "Blog"
-    folder: "src/content/blog"
-    create: true
-    slug: "{{slug}}"
-    fields:
+  - name: "blog" # Used in routes, e.g., /admin/collections/blog
+    label: "Blog" # Used in the UI
+    folder: "src/content/blog" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    fields: # The fields for each document, usually in front matter
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Publish Date", name: "date", widget: "datetime"}
       - {label: "Featured Image", name: "thumbnail", widget: "image", required: false}
@@ -45,14 +41,3 @@ collections:
       - {label: "Image", name: "image", widget: "image", required: false}
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "External Link", name: "link", widget: "string", required: false}
-      
-  - name: "career"
-    label: "Career"
-    folder: "src/content/career"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Icon", name: "icon", widget: "image", required: false}
-      - {label: "Short Description", name: "shortDescription", widget: "string"}
-      - {label: "Body", name: "body", widget: "markdown"}
