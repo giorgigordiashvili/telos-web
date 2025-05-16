@@ -9,11 +9,12 @@ import Typography from './Typography';
 type Props = {
   text: string;
   href?: string;
-  variant?: 'light' | 'dark';
+  variant?: 'light' | 'dark' | 'sidebar';
   children?: React.ReactNode;
   hasDropdown?: boolean;
   isHighlighted?: boolean;
   isTransparent?: boolean;
+  onClick?: () => void;
 };
 
 const StyledContainer = styled.li`
@@ -25,44 +26,24 @@ const StyledContainer = styled.li`
 `;
 
 const StyledLink = styled(Link)<{
-  variant: 'light' | 'dark';
+  variant: 'light' | 'dark' | 'sidebar';
   $isHighlighted?: boolean;
   $isTransparent?: boolean;
 }>`
   padding: 16px 20px;
   border-radius: 8px;
   background-color: ${({ variant, $isHighlighted }) =>
-    $isHighlighted ? (variant === 'light' ? '#FFFFFF' : '#1E5FFF') : 'transparent'};
-  color: ${({ variant, $isHighlighted, $isTransparent }) =>
-    variant === 'light'
-      ? $isTransparent
-        ? '#CCCCCC'
-        : $isHighlighted
-          ? '#628FFF'
-          : '#F6F6F6'
+    variant === 'sidebar'
+      ? 'transparent'
       : $isHighlighted
-        ? '#FFF'
-        : '#6A7473'};
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  &:hover {
-    background-color: ${({ variant, $isHighlighted }) =>
-      $isHighlighted ? (variant === 'light' ? '#EDEDED' : '#668DED') : 'transparent'};
-    color: ${({ variant, $isHighlighted }) =>
-      variant === 'light'
-        ? $isHighlighted
-          ? '#1E5FFF'
-          : '#fff'
-        : $isHighlighted
-          ? '#FFF'
-          : '#000'};
-  }
-
-  & svg path {
-    stroke: ${({ variant, $isHighlighted, $isTransparent }) =>
-      variant === 'light'
+        ? variant === 'light'
+          ? '#FFFFFF'
+          : '#1E5FFF'
+        : 'transparent'};
+  color: ${({ variant, $isHighlighted, $isTransparent }) =>
+    variant === 'sidebar'
+      ? '#F6F6F6'
+      : variant === 'light'
         ? $isTransparent
           ? '#CCCCCC'
           : $isHighlighted
@@ -71,38 +52,104 @@ const StyledLink = styled(Link)<{
         : $isHighlighted
           ? '#FFF'
           : '#6A7473'};
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  &:hover {
+    background-color: ${({ variant, $isHighlighted }) =>
+      variant === 'sidebar'
+        ? 'transparent'
+        : $isHighlighted
+          ? variant === 'light'
+            ? '#EDEDED'
+            : '#668DED'
+          : 'transparent'};
+    color: ${({ variant, $isHighlighted }) =>
+      variant === 'sidebar'
+        ? '#F6F6F6'
+        : variant === 'light'
+          ? $isHighlighted
+            ? '#1E5FFF'
+            : '#fff'
+          : $isHighlighted
+            ? '#FFF'
+            : '#000'};
+  }
+
+  & svg path {
+    stroke: ${({ variant, $isHighlighted, $isTransparent }) =>
+      variant === 'sidebar'
+        ? '#F6F6F6'
+        : variant === 'light'
+          ? $isTransparent
+            ? '#CCCCCC'
+            : $isHighlighted
+              ? '#628FFF'
+              : '#F6F6F6'
+          : $isHighlighted
+            ? '#FFF'
+            : '#6A7473'};
     transition: stroke 0.2s ease;
   }
 
   &:hover svg path {
     stroke: ${({ variant, $isHighlighted }) =>
-      variant === 'light'
-        ? $isHighlighted
-          ? '#1E5FFF'
-          : '#fff'
-        : $isHighlighted
-          ? '#FFF'
-          : '#000'};
+      variant === 'sidebar'
+        ? '#F6F6F6'
+        : variant === 'light'
+          ? $isHighlighted
+            ? '#1E5FFF'
+            : '#fff'
+          : $isHighlighted
+            ? '#FFF'
+            : '#000'};
   }
 `;
 
-const ChildrenContainer = styled.div<{ $isOpen: boolean }>`
+const ChildrenContainer = styled.div<{ $isOpen: boolean; $isSidebar?: boolean }>`
   position: absolute;
   top: 100%;
-  left: 0;
+  left: ${({ $isSidebar }) => ($isSidebar ? '-33px' : '0')};
   padding: 12px;
   background-color: white;
-  border-radius: 0 20px 20px 20px;
+  border-radius: ${({ $isSidebar }) => ($isSidebar ? '0' : '0 20px 20px 20px')};
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 10;
-  min-width: 260px;
+  min-width: ${({ $isSidebar }) => ($isSidebar ? '214px' : '260px')};
   display: ${({ $isOpen }) => ($isOpen ? 'block' : 'none')};
+
+  /* Override text color for dropdown items */
+  .dropdown-children a {
+    color: #6a7473 !important;
+  }
+
+  /* Override hover color for dropdown items */
+  .dropdown-children a:hover {
+    color: #000 !important;
+  }
 `;
 
 const ChildrenList = styled.ul`
   margin: 0;
   padding: 0;
   list-style: none;
+`;
+
+const ChildMenuItemWrapper = styled.div`
+  /* Always use dark color for items in dropdowns regardless of parent's variant */
+  & > li > a {
+    color: #6a7473 !important;
+  }
+
+  & > li > a:hover {
+    color: #000 !important;
+  }
+
+  /* Ensure pointer events work correctly */
+  & > li {
+    cursor: pointer;
+  }
 `;
 
 export default function MenuItem({
@@ -113,6 +160,7 @@ export default function MenuItem({
   hasDropdown = false,
   isHighlighted,
   isTransparent = false,
+  onClick,
 }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLLIElement>(null);
@@ -122,6 +170,13 @@ export default function MenuItem({
 
   const handleToggle = () => {
     if (showDropdown) setIsOpen(prev => !prev);
+  };
+
+  const closeDropdown = () => {
+    setIsOpen(false);
+    // If this MenuItem has an onClick prop, call it when closing the dropdown
+    // This will propagate to the SideBar's onClose function
+    if (onClick) onClick();
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -157,8 +212,9 @@ export default function MenuItem({
             ? e => {
                 e.preventDefault();
                 handleToggle();
+                if (onClick) onClick();
               }
-            : undefined
+            : onClick
         }
         onKeyDown={handleKeyDown}
         aria-expanded={showDropdown ? isOpen : undefined}
@@ -167,12 +223,20 @@ export default function MenuItem({
         tabIndex={0}
       >
         <Typography variant={textVariant}>{text}</Typography>
-        {showDropdown && <DropdownIcon aria-hidden="true" />}
+        {showDropdown && (
+          <DropdownIcon aria-hidden="true" color={variant === 'sidebar' ? '#F6F6F6' : undefined} />
+        )}
       </StyledLink>
 
       {children && (
-        <ChildrenContainer $isOpen={isOpen}>
-          <ChildrenList>{children}</ChildrenList>
+        <ChildrenContainer
+          $isOpen={isOpen}
+          $isSidebar={variant === 'sidebar'}
+          onClick={closeDropdown}
+        >
+          <ChildrenList>
+            <ChildMenuItemWrapper>{children}</ChildMenuItemWrapper>
+          </ChildrenList>
         </ChildrenContainer>
       )}
     </StyledContainer>
