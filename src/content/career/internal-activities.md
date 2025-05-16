@@ -11,7 +11,6 @@ TELOS nurtures a vibrant internal culture through various activities designed to
 ## Recurring Activities
 
 - **Quarterly Hackathons**: 2-day events where team members form cross-functional groups to work on innovative ideas, with winning projects potentially becoming company initiatives
-  
 - **Tech Talks**: Weekly sessions where team members share expertise on technical topics, new technologies, or interesting challenges they've solved
 
 - **Interest Groups**: Company-supported communities focused on specific technologies, methodologies, or professional interests

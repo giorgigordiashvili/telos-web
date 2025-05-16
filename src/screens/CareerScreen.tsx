@@ -35,17 +35,6 @@ const Container = styled.div`
   }
 `;
 
-const CareerContainer = styled.div`
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-
-  @media (max-width: 1280px) {
-    grid-template-columns: 1fr;
-  }
-`;
-
 const ContainerWrapper = styled.div`
   margin-top: 60px;
   background-image: url('/images/order/back.png');
@@ -78,29 +67,7 @@ const CareerScreen = () => {
     <ContainerWrapper>
       <Container>
         <PageTitle text="Career" />
-
-        {/* Company benefits section */}
         <ServicesList text="Career" />
-
-        {/* Career opportunities section */}
-        {careerItems.length > 0 && (
-          <>
-            <PageTitle text="Open Positions" subtitle="Join our team" />
-            <CareerContainer>
-              {careerItems.map(item => (
-                <ServicesCard
-                  key={item.slug}
-                  title={item.frontmatter.title}
-                  subtitle={item.frontmatter.shortDescription}
-                  imageUrl={item.frontmatter.icon || '/images/ServicesCard/default.png'}
-                  isCareer
-                  showLearnMore
-                  slug={item.slug}
-                />
-              ))}
-            </CareerContainer>
-          </>
-        )}
       </Container>
     </ContainerWrapper>
   );
