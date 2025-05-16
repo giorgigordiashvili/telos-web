@@ -1,8 +1,8 @@
 import { getContentBySlug } from '@/lib/content';
 import { NextResponse } from 'next/server';
 
-export async function GET(request: Request, { params }: { params: { slug: string } }) {
-  const { slug } = params;
+export async function GET(request: Request, { params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
 
   try {
     const career = await getContentBySlug('career', slug);
