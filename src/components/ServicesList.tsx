@@ -138,6 +138,7 @@ const careerServices = [
 const ServicesList: React.FC<Props> = ({ text }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [services, setServices] = useState<ServiceContent[]>([]);
+  const [careerItems, setCareerItems] = useState<ServiceContent[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -151,21 +152,32 @@ const ServicesList: React.FC<Props> = ({ text }) => {
 
   // Fetch services from CMS
   useEffect(() => {
-    const fetchServices = async () => {
+    const fetchContent = async () => {
       try {
-        const response = await fetch('/api/content/services');
-        if (!response.ok) throw new Error('Failed to fetch services');
-        const data = await response.json();
-        setServices(data);
+        // For services section
+        if (text === 'features' || text === 'Software') {
+          const response = await fetch('/api/content/services');
+          if (!response.ok) throw new Error('Failed to fetch services');
+          const data = await response.json();
+          setServices(data);
+        }
+
+        // For career section
+        if (text === 'Career') {
+          const response = await fetch('/api/content/career');
+          if (!response.ok) throw new Error('Failed to fetch career items');
+          const data = await response.json();
+          setCareerItems(data);
+        }
       } catch (error) {
-        console.error('Error fetching services:', error);
+        console.error(`Error fetching content for ${text}:`, error);
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchServices();
-  }, []);
+    fetchContent();
+  }, [text]);
 
   // Determine heading variant
   let headingVariant: 'h1' | 'h2' | 'h3' | 'h4';
@@ -224,6 +236,23 @@ const ServicesList: React.FC<Props> = ({ text }) => {
       }
     }
 
+    // If we have career items from CMS, use them
+    if (careerItems.length > 0 && text === 'Career') {
+      return (
+        <Container>
+          {careerItems.map(item => (
+            <ServicesCard
+              key={item.slug}
+              imageUrl={item.frontmatter.icon || '/images/ServicesCard/default_service_icon.png'}
+              title={item.frontmatter.title}
+              subtitle={item.frontmatter.shortDescription}
+              isCareer
+            />
+          ))}
+        </Container>
+      );
+    }
+
     // Fall back to hardcoded services if no CMS data or for other sections
     if (text === 'Software') {
       return (
@@ -247,19 +276,37 @@ const ServicesList: React.FC<Props> = ({ text }) => {
         />
       );
     } else if (text === 'Career') {
-      return (
-        <Container>
-          {careerServices.map((service, index) => (
-            <ServicesCard
-              key={index}
-              imageUrl={service.imageUrl}
-              title={service.title}
-              subtitle={service.subtitle}
-              isCareer
-            />
-          ))}
-        </Container>
-      );
+      // Use CMS career items if available, otherwise fall back to hardcoded ones
+      if (careerItems.length > 0) {
+        return (
+          <Container>
+            {careerItems.map(item => (
+              <ServicesCard
+                key={item.slug}
+                imageUrl={item.frontmatter.icon || '/images/ServicesCard/default_service_icon.png'}
+                title={item.frontmatter.title}
+                subtitle={item.frontmatter.shortDescription}
+                isCareer
+                slug={item.slug}
+              />
+            ))}
+          </Container>
+        );
+      } else {
+        return (
+          <Container>
+            {careerServices.map((service, index) => (
+              <ServicesCard
+                key={index}
+                imageUrl={service.imageUrl}
+                title={service.title}
+                subtitle={service.subtitle}
+                isCareer
+              />
+            ))}
+          </Container>
+        );
+      }
     } else {
       // Features section with hardcoded data
       return (

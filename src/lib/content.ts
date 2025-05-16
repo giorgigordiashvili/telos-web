@@ -11,30 +11,50 @@ const contentDirectory = path.join(process.cwd(), 'src/content');
  */
 export async function getAllContent(collection: string) {
   const directory = path.join(contentDirectory, collection);
+  console.log(`Looking for ${collection} content in directory: ${directory}`);
 
   // Check if directory exists
   if (!fs.existsSync(directory)) {
+    console.log(`Directory does not exist: ${directory}`);
     return [];
   }
 
-  const files = fs.readdirSync(directory);
+  try {
+    const files = fs.readdirSync(directory);
+    console.log(`Found ${files.length} files in ${collection} directory`);
 
-  const content = files
-    .filter(file => file.endsWith('.md'))
-    .map(file => {
-      const slug = file.replace(/\.md$/, '');
-      const fullPath = path.join(directory, file);
-      const fileContents = fs.readFileSync(fullPath, 'utf8');
-      const { data, content } = matter(fileContents);
+    const mdFiles = files.filter(file => file.endsWith('.md'));
+    console.log(
+      `Found ${mdFiles.length} markdown files in ${collection} directory: ${mdFiles.join(', ')}`
+    );
 
-      return {
-        slug,
-        frontmatter: data,
-        content,
-      };
-    });
+    const content = mdFiles
+      .map(file => {
+        const slug = file.replace(/\.md$/, '');
+        const fullPath = path.join(directory, file);
 
-  return content;
+        try {
+          const fileContents = fs.readFileSync(fullPath, 'utf8');
+          const { data, content } = matter(fileContents);
+
+          return {
+            slug,
+            frontmatter: data,
+            content,
+          };
+        } catch (error) {
+          console.error(`Error processing file ${fullPath}:`, error);
+          return null;
+        }
+      })
+      .filter(Boolean); // Filter out null values from any failed processing
+
+    console.log(`Successfully processed ${content.length} content items for ${collection}`);
+    return content;
+  } catch (error) {
+    console.error(`Error reading directory ${directory}:`, error);
+    return [];
+  }
 }
 
 /**

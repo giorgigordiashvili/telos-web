@@ -1,9 +1,20 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import PageTitle from '@/components/PageTitle';
 import ServicesList from '@/components/ServicesList';
+import ServicesCard from '@/components/ServicesCard';
+
+interface CareerContent {
+  slug: string;
+  frontmatter: {
+    title: string;
+    icon: string;
+    shortDescription: string;
+  };
+  content: string;
+}
 
 const Container = styled.div`
   max-width: 1152px;
@@ -35,6 +46,23 @@ const ContainerWrapper = styled.div`
 `;
 
 const CareerScreen = () => {
+  const [careerItems, setCareerItems] = useState<CareerContent[]>([]);
+
+  useEffect(() => {
+    const fetchCareerContent = async () => {
+      try {
+        const response = await fetch('/api/content/career');
+        if (!response.ok) throw new Error('Failed to fetch career content');
+        const data = await response.json();
+        setCareerItems(data);
+      } catch (error) {
+        console.error('Error fetching career content:', error);
+      }
+    };
+
+    fetchCareerContent();
+  }, []);
+
   return (
     <ContainerWrapper>
       <Container>

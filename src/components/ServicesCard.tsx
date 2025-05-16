@@ -104,9 +104,12 @@ const ServicesCard = ({
     </>
   );
 
-  if (slug && !isCareer) {
+  if (slug) {
+    // Different routes for career and services
+    const hrefPath = isCareer ? `/career/${slug}` : `/services/${slug}`;
+
     return (
-      <Link href={`/services/${slug}`} style={{ textDecoration: 'none' }}>
+      <Link href={hrefPath} style={{ textDecoration: 'none' }}>
         <Container $isCareer={isCareer} $isFeature={isFeature}>
           {content}
         </Container>

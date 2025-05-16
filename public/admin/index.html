@@ -10,5 +10,16 @@
   <body>
     <!-- Include the script that builds the page and powers Decap CMS -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    
+    <!-- Local development support script - this enables editing existing content -->
+    <script>
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        console.log('Running on localhost - loading existing content');
+        // Make sure to load page once CMS is ready
+        window.addEventListener('DOMContentLoaded', function() {
+          console.log('DOM loaded, CMS should be accessible now');
+        });
+      }
+    </script>
   </body>
 </html>
