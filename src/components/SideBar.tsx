@@ -23,6 +23,7 @@ const Box = styled.div`
   background-color: rgba(3, 23, 22, 1);
   height: 100dvh;
   padding: 11px 17px 26px 0;
+  overflow: hidden;
 `;
 
 const Wrapper = styled.div`
@@ -88,17 +89,23 @@ const SideBar = ({ onClose }: Props) => {
           <Image alt="X" width={17} height={14} src="/images/cancel.png" />
         </Wrapper>
         <Stylednav>
-          <MenuItem text="Services" variant="light" href="/services" />
-          <MenuItem text="Projects" variant="light" href="/projects" />
-          <MenuItem text="Acceleration" variant="light" href="/acceleration" />
-          <MenuItem text="resources" variant="light">
-            <MenuItem text="blog" href="/blog" />
-            <MenuItem text="career" href="/career" />
-            <MenuItem text="press" href="/press" />
+          <MenuItem text="Services" variant="light" href="/services" onClick={onClose} />
+          <MenuItem text="Projects" variant="light" href="/projects" onClick={onClose} />
+          <MenuItem text="Acceleration" variant="light" href="/acceleration" onClick={onClose} />
+          <MenuItem text="resources" variant="sidebar">
+            <MenuItem text="blog" href="/blog" onClick={onClose} />
+            <MenuItem text="career" href="/career" onClick={onClose} />
+            <MenuItem text="press" href="/press" onClick={onClose} />
           </MenuItem>
         </Stylednav>
         <Contact>
-          <MenuItem text="Contact Us" isHighlighted variant="light" href="/contact" />
+          <MenuItem
+            text="Contact Us"
+            isHighlighted
+            variant="light"
+            href="/contact"
+            onClick={onClose}
+          />
           <Location>
             <Image alt="location" width={11} height={17} src="/images/location.png" />
             <LocationP> Bakhtrioni st. 23</LocationP>
