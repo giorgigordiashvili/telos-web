@@ -45,6 +45,7 @@ interface BlogPost {
     title: string;
     date: string;
     thumbnail?: string;
+    description?: string; // Added to match Acceleration collection
     tags?: string[];
   };
   content: string;
@@ -94,7 +95,19 @@ const blogData = [
   },
 ];
 
-const BlogList: React.FC = () => {
+interface BlogListProps {
+  collectionName?: string;
+}
+
+// Define a type for the fallback data items
+interface FallbackBlogItem {
+  imageSrc: string;
+  title: string;
+  category: string;
+  slug?: string; // Add slug to fallback if needed, or generate on the fly
+}
+
+const BlogList: React.FC<BlogListProps> = ({ collectionName = 'blog' }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all articles');
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [categories, setCategories] = useState<string[]>(['all articles']);
@@ -104,8 +117,8 @@ const BlogList: React.FC = () => {
   useEffect(() => {
     const fetchBlogPosts = async () => {
       try {
-        const response = await fetch('/api/content/blog');
-        if (!response.ok) throw new Error('Failed to fetch blog posts');
+        const response = await fetch(`/api/content/${collectionName}`); // Use collectionName in API path
+        if (!response.ok) throw new Error(`Failed to fetch ${collectionName} posts`);
         const data = await response.json();
         setBlogPosts(data);
 
@@ -125,7 +138,7 @@ const BlogList: React.FC = () => {
     };
 
     fetchBlogPosts();
-  }, []);
+  }, [collectionName]); // Add collectionName to dependency array
 
   // Filter blog posts based on selected category
   const filteredPosts =
@@ -134,7 +147,7 @@ const BlogList: React.FC = () => {
       : blogPosts.filter(post => post.frontmatter.tags?.includes(selectedCategory));
 
   // Fall back to the hardcoded data if no posts are available from the CMS
-  const fallbackData = blogData;
+  const fallbackData: FallbackBlogItem[] = blogData; // Use the new type for fallbackData
 
   return (
     <Wrapper>
@@ -149,27 +162,35 @@ const BlogList: React.FC = () => {
         ))}
       </BlogListingContainer>
       <Container>
-        {isLoading ? (
-          <p>Loading blog posts...</p>
-        ) : filteredPosts.length > 0 ? (
-          filteredPosts.map(post => (
-            <BlogCard
-              key={post.slug}
-              imageSrc={post.frontmatter.thumbnail || '/images/PressCard/default.png'}
-              title={post.frontmatter.title}
-              category={post.frontmatter.tags?.join(', ') || 'Uncategorized'}
-              slug={post.slug}
-            />
-          ))
-        ) : (
-          fallbackData.map((item, index) => (
-            <BlogCard
-              key={index}
-              imageSrc={item.imageSrc}
-              title={item.title}
-              category={item.category}
-            />
-          ))
+        {(filteredPosts.length > 0 ? filteredPosts : isLoading ? [] : fallbackData).map(
+          (post: BlogPost | FallbackBlogItem, index) => {
+            const key = (post as BlogPost).slug || (post as FallbackBlogItem).slug || index;
+            const imageSrc =
+              (post as BlogPost).frontmatter?.thumbnail ||
+              (post as FallbackBlogItem).imageSrc ||
+              '/images/PressCard/default.png';
+            const title = (post as BlogPost).frontmatter?.title || (post as FallbackBlogItem).title;
+            const category =
+              (post as BlogPost).frontmatter?.tags?.[0] ||
+              (post as FallbackBlogItem).category ||
+              'General';
+            const slug =
+              (post as BlogPost).slug ||
+              (post as FallbackBlogItem).slug ||
+              title.toLowerCase().replace(/\s+/g, '-');
+            // const description = (post as BlogPost).frontmatter?.description; // Uncomment if BlogCard uses it
+
+            return (
+              <BlogCard
+                key={key}
+                imageSrc={imageSrc}
+                title={title}
+                category={category}
+                slug={slug}
+                // description={description}
+              />
+            );
+          }
         )}
       </Container>
     </Wrapper>

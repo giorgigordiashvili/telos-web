@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import Typography from '@/components/Typography';
 import PrimeryButton from '@/components/PrimeryButton';
 import Image from 'next/image';
+import Link from 'next/link'; // Added Link import
 import BlogList from '@/components/BlogList';
 
 // 🔹 useIsMobile hook
@@ -102,39 +103,61 @@ const PrimeryButtonWrapper = styled.div`
   width: 114px;
 `;
 
+// Define an interface for the featured article
+interface FeaturedArticleData {
+  title: string;
+  description: string;
+  imageUrl: string;
+  altText: string;
+  slug: string; // To make it linkable like BlogCard
+}
+
 const AccelerationScreen = () => {
   const isMobile = useIsMobile();
+
+  // Sample data for the featured article
+  // In a real app, this might come from a CMS or API
+  const featuredArticle: FeaturedArticleData = {
+    title: 'This is a featured article - the most important piece of content',
+    description:
+      'Very short description of what is actually being discussed in this article, maybe the first sentences to provide a preview.',
+    imageUrl: '/images/Blog/test.png',
+    altText: 'featured-article-photo',
+    slug: 'your-featured-article-slug', // Replace with actual slug
+  };
 
   return (
     <Container>
       <BlogContainer>
         <HeaderWrapper>
           <PageTitle text="Acceleration" />
-          <BlogContent>
-            <BlogTextContainer>
-              <Typography variant={isMobile ? 'h3' : 'h2'}>
-                this is a featured article - the most important piece of content
-              </Typography>
-              <Typography variant="paragraph-medium">
-                very short description of whats actually being discussed in this article, maybe the
-                first sentences to provide a preview
-              </Typography>
-              <PrimeryButtonWrapper>
-                <PrimeryButton variant="border">read now</PrimeryButton>
-              </PrimeryButtonWrapper>
-            </BlogTextContainer>
-            <BlogImageContainer>
-              <Image
-                src="/images/Blog/test.png"
-                alt="test-photo"
-                fill
-                sizes="100%"
-                style={{ objectFit: 'cover' }}
-              />
-            </BlogImageContainer>
-          </BlogContent>
+          {/* Modified BlogContent to use data and Link */}
+          <Link
+            href={`/blog/${featuredArticle.slug}`}
+            passHref
+            style={{ textDecoration: 'none', color: 'inherit' }}
+          >
+            <BlogContent>
+              <BlogTextContainer>
+                <Typography variant={isMobile ? 'h3' : 'h2'}>{featuredArticle.title}</Typography>
+                <Typography variant="paragraph-medium">{featuredArticle.description}</Typography>
+                <PrimeryButtonWrapper>
+                  <PrimeryButton variant="border">read now</PrimeryButton>
+                </PrimeryButtonWrapper>
+              </BlogTextContainer>
+              <BlogImageContainer>
+                <Image
+                  src={featuredArticle.imageUrl}
+                  alt={featuredArticle.altText}
+                  fill
+                  sizes="100%"
+                  style={{ objectFit: 'cover' }}
+                />
+              </BlogImageContainer>
+            </BlogContent>
+          </Link>
         </HeaderWrapper>
-        <BlogList />
+        <BlogList collectionName="acceleration" />
       </BlogContainer>
     </Container>
   );

@@ -41,7 +41,7 @@ collections:
       - {label: "Image", name: "image", widget: "image", required: false}
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "External Link", name: "link", widget: "string", required: false}
-
+      
   - name: "career"
     label: "Career"
     folder: "src/content/career"
@@ -52,3 +52,16 @@ collections:
       - {label: "Icon", name: "icon", widget: "image", required: false}
       - {label: "Short Description", name: "shortDescription", widget: "string"}
       - {label: "Body", name: "body", widget: "markdown"}
+
+  - name: "acceleration"
+    label: "Acceleration"
+    folder: "src/content/acceleration"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Featured Image", name: "thumbnail", widget: "image", required: false}
+      - {label: "Short Description", name: "description", widget: "string"}
+      - {label: "Body", name: "body", widget: "markdown"}
+      - {label: "Tags", name: "tags", widget: "list", required: false}
