@@ -19,6 +19,7 @@ const colorMap: Record<TagColor, string> = {
 
 const StyledTag = styled.div<{ $color: TagColor }>`
   width: fit-content;
+  max-width: 238px;
   height: min-content;
   padding: 4px 8px;
   gap: 10px;
@@ -29,10 +30,15 @@ const StyledTag = styled.div<{ $color: TagColor }>`
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 
   p {
     color: ${({ $color }) => colorMap[$color]};
     text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
   }
 
   @media (max-width: 1280px) {

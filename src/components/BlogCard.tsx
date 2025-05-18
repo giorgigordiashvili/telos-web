@@ -71,10 +71,17 @@ const Content = styled.div`
   gap: 12px;
   margin-top: -12px;
   position: sticky;
+  width: 100%;
+  box-sizing: border-box;
 `;
 
 const Title = styled(Typography)`
   color: #354545;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const ReadMore = styled.div`
