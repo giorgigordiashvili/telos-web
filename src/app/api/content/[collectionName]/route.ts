@@ -24,10 +24,20 @@ async function getCollection(collectionName: string) {
       return {
         id: slug, // Use slug as id
         slug,
-        ...data, // Spread frontmatter
+        frontmatter: data, // Keep frontmatter under its own key
         content, // Markdown content
       };
     });
+
+    // Sort entries by order if the order field exists in frontmatter
+    if (
+      entries.length > 0 &&
+      entries[0].frontmatter &&
+      typeof entries[0].frontmatter.order === 'number'
+    ) {
+      entries.sort((a, b) => (a.frontmatter.order as number) - (b.frontmatter.order as number));
+    }
+
     return entries;
   } catch (error) {
     console.error(`Error reading collection ${collectionName}:`, error);
