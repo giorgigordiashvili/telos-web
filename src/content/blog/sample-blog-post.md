@@ -1,8 +1,10 @@
 ---
-title: 'How Next.js 15 Changes Web Development'
-date: 2025-05-07T10:00:00Z
-thumbnail: '/images/Blog/test.png'
-tags: ['Next.js', 'React', 'Web Development']
+order: 1
+title: Article name - headline for article
+date: 2025-05-07T10:00:00.000Z
+thumbnail: /images/blog_1.jpg
+tags:
+  - CATEGORY 1
 ---
 
 # How Next.js 15 Changes Web Development
