@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Form</title>
+</head>
+<body>
+    <form name="order" method="POST">
+        <input type="hidden" name="form-name" value="order" />
+        <p>
+            <label>Option: <input type="text" name="option" /></label>
+        </p>
+        <p>
+            <label>Name: <input type="text" name="name" /></label>
+        </p>
+        <p>
+            <label>Email: <input type="email" name="email" /></label>
+        </p>
+        <p>
+            <label>Phone Number: <input type="text" name="number" /></label>
+        </p>
+        <p>
+            <label>Budget Min: <input type="number" name="minValue" /></label>
+        </p>
+        <p>
+            <label>Budget Max: <input type="number" name="maxValue" /></label>
+        </p>
+        <p>
+            <label>Message: <textarea name="message"></textarea></label>
+        </p>
+        <p>
+            <label>Agree to Privacy Policy: <input type="checkbox" name="agreed" /></label>
+        </p>
+        <p>
+            <button type="submit">Submit</button>
+        </p>
+    </form>
+</body>
+</html>
