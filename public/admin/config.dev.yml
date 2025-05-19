@@ -11,6 +11,7 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
+      - {label: "Order", name: "order", widget: "number", value_type: "int", hint: "Enter a number to define the display order. Lower numbers appear first."}
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Publish Date", name: "date", widget: "datetime"}
       - {label: "Featured Image", name: "thumbnail", widget: "image", required: false}
@@ -23,6 +24,7 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
+      - {label: "Order", name: "order", widget: "number", value_type: "int", hint: "Enter a number to define the display order. Lower numbers appear first."}
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Icon", name: "icon", widget: "image", required: false}
       - {label: "Short Description", name: "shortDescription", widget: "string"}
@@ -34,6 +36,7 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
+      - {label: "Order", name: "order", widget: "number", value_type: "int", hint: "Enter a number to define the display order. Lower numbers appear first."}
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Publish Date", name: "date", widget: "datetime"}
       - {label: "Source", name: "source", widget: "string"}
@@ -47,6 +50,7 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
+      - {label: "Order", name: "order", widget: "number", value_type: "int", hint: "Enter a number to define the display order. Lower numbers appear first."}
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Icon", name: "icon", widget: "image", required: false}
       - {label: "Short Description", name: "shortDescription", widget: "string"}
@@ -58,6 +62,7 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
+      - {label: "Order", name: "order", widget: "number", value_type: "int", hint: "Enter a number to define the display order. Lower numbers appear first."}
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Publish Date", name: "date", widget: "datetime"}
       - {label: "Featured Image", name: "thumbnail", widget: "image", required: false}
@@ -71,6 +76,7 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
+      - {label: "Order", name: "order", widget: "number", value_type: "int", hint: "Enter a number to define the display order. Lower numbers appear first."}
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Publish Date", name: "date", widget: "datetime"}
       - {label: "Featured Image", name: "thumbnail", widget: "image", required: false}
