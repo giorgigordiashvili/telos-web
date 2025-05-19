@@ -7,6 +7,7 @@ import Image from 'next/image';
 import styled from 'styled-components';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Main = styled.div`
   display: flex;
@@ -78,6 +79,7 @@ const validationSchema = Yup.object({
 const ContactScreen = () => {
   return (
     <Main>
+      <Toaster />
       <Title>
         <PageTitle text="Contact Us" />
       </Title>
@@ -112,11 +114,13 @@ const ContactScreen = () => {
                 body: new URLSearchParams(payload).toString(),
               });
               console.log('Form submitted successfully to /__forms.html');
-              alert('Thank you for your message! We will get back to you soon.');
+              toast.success('Thank you for your message! We will get back to you soon.');
               resetForm();
             } catch (error) {
               console.error('Error submitting form to /__forms.html:', error);
-              alert('Sorry, there was an issue submitting your form. Please try again later.');
+              toast.error(
+                'Sorry, there was an issue submitting your form. Please try again later.'
+              );
             }
             setSubmitting(false);
           }}

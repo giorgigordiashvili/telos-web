@@ -10,6 +10,7 @@ import Image from 'next/image';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Page = styled.div`
   margin-top: 60px;
@@ -117,6 +118,7 @@ const OrderScreen = () => {
 
   return (
     <Page>
+      <Toaster />
       <Main>
         <Head>
           <Image src={'/images/order/order.png'} alt="logo" width={40} height={40} />
@@ -135,16 +137,47 @@ const OrderScreen = () => {
             maxValue: defaultMax,
           }}
           validationSchema={validationSchema}
-          onSubmit={values => {
-            console.log('Submitted Values:', values);
+          onSubmit={async (values, { setSubmitting, resetForm }) => {
+            const stringifiedValues: Record<string, string> = {};
+            Object.entries(values).forEach(([key, value]) => {
+              stringifiedValues[key] = String(value);
+            });
+
+            const payload = {
+              'form-name': 'order', // Netlify needs this for AJAX
+              ...stringifiedValues,
+            };
+
+            try {
+              await fetch('/', {
+                // POST to the current page for Netlify AJAX
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(payload).toString(),
+              });
+              console.log('Order form submitted successfully via Netlify AJAX');
+              toast.success('Thank you for your order! We will get back to you soon.');
+              resetForm();
+            } catch (error) {
+              console.error('Error submitting order form via Netlify AJAX:', error);
+              toast.error(
+                'Sorry, there was an issue submitting your order. Please try again later.'
+              );
+            }
+            setSubmitting(false);
           }}
         >
-          {({ values, handleChange, handleSubmit, setFieldValue }) => (
-            <Form onSubmit={handleSubmit} data-netlify="true">
+          {({ values, handleChange, handleSubmit, setFieldValue, isSubmitting }) => (
+            <Form onSubmit={handleSubmit} name="order" data-netlify="true">
+              {' '}
+              {/* Ensure data-netlify="true" is present */}
+              {/* Hidden input for Netlify form name */}
+              <input type="hidden" name="form-name" value="order" />
               <OptionDropdown
                 options={options}
                 value={values.option}
                 onChange={val => setFieldValue('option', val)}
+                name="option" // Added name prop
               />
               <PrimeryInput
                 type="text"
@@ -184,7 +217,6 @@ const OrderScreen = () => {
                   }}
                 />
               </BudgetSliderWrapper>
-
               <Description>
                 <PrimeryInput
                   size="big"
@@ -195,16 +227,15 @@ const OrderScreen = () => {
                   name="message"
                 />
               </Description>
-
               <PrimeryCheckbox
                 label="By submitting this form, you agree to our Privacy Policy"
                 checked={values.agreed}
-                onChange={() => setFieldValue('agreed', !values.agreed)}
+                onChange={handleChange} // Use Formik's handleChange for consistency if preferred, or keep setFieldValue
+                name="agreed" // Added name prop
               />
-
               <Submit>
-                <PrimeryButton type="submit" variant="blue">
-                  Submit
+                <PrimeryButton type="submit" variant="blue" disabled={isSubmitting}>
+                  {isSubmitting ? 'Submitting...' : 'Submit'}
                 </PrimeryButton>
               </Submit>
             </Form>
