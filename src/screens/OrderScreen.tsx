@@ -149,8 +149,9 @@ const OrderScreen = () => {
             };
 
             try {
-              await fetch('/', {
-                // POST to the current page for Netlify AJAX
+              await fetch('/__order_forms.html', {
+                // Changed to /__order_forms.html
+                // POST to the static HTML form
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: new URLSearchParams(payload).toString(),
@@ -168,11 +169,11 @@ const OrderScreen = () => {
           }}
         >
           {({ values, handleChange, handleSubmit, setFieldValue, isSubmitting }) => (
-            <Form onSubmit={handleSubmit} name="order" data-netlify="true">
+            <Form onSubmit={handleSubmit} name="order">
               {' '}
-              {/* Ensure data-netlify="true" is present */}
-              {/* Hidden input for Netlify form name */}
-              <input type="hidden" name="form-name" value="order" />
+              {/* Removed data-netlify="true" */}
+              {/* <input type="hidden" name="form-name" value="order" /> */}
+              {/* Removed hidden input as it's in __order_forms.html */}
               <OptionDropdown
                 options={options}
                 value={values.option}
