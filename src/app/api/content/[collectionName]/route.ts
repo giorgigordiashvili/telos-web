@@ -35,8 +35,11 @@ async function getCollection(collectionName: string) {
   }
 }
 
-export async function GET(request: Request, { params }: { params: { collectionName: string } }) {
-  const collectionName = params.collectionName;
+export async function GET(
+  request: Request,
+  { params }: { params: Promise<{ collectionName: string }> }
+) {
+  const { collectionName } = await params;
 
   if (!collectionName) {
     return NextResponse.json({ error: 'Collection name is required' }, { status: 400 });
