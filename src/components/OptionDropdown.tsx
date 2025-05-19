@@ -87,9 +87,10 @@ interface SelecDropdownProps {
   options: string[];
   value?: string | null;
   onChange?: (value: string) => void;
+  name?: string; // Added name prop
 }
 
-const SelecDropdown: React.FC<SelecDropdownProps> = ({ options, value, onChange }) => {
+const SelecDropdown: React.FC<SelecDropdownProps> = ({ options, value, onChange, name }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState<string | null>(value ?? null);
 
