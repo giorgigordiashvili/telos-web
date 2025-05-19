@@ -97,15 +97,35 @@ const ContactScreen = () => {
             agreed: false,
           }}
           validationSchema={validationSchema}
-          onSubmit={values => {
-            console.log(values);
+          onSubmit={async (values, { setSubmitting, resetForm }) => {
+            const payload: Record<string, string> = {
+              'form-name': 'contact', // Hidden field for Netlify
+            };
+            Object.entries(values).forEach(([key, value]) => {
+              payload[key] = String(value);
+            });
+
+            try {
+              await fetch('/__forms.html', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(payload).toString(),
+              });
+              console.log('Form submitted successfully to /__forms.html');
+              alert('Thank you for your message! We will get back to you soon.');
+              resetForm();
+            } catch (error) {
+              console.error('Error submitting form to /__forms.html:', error);
+              alert('Sorry, there was an issue submitting your form. Please try again later.');
+            }
+            setSubmitting(false);
           }}
         >
-          {({ values, handleChange, handleSubmit, setFieldValue, errors }) => {
+          {({ values, handleChange, handleSubmit, errors, isSubmitting }) => {
             console.log('Formik Errors:', errors);
 
             return (
-              <Form onSubmit={handleSubmit}>
+              <Form onSubmit={handleSubmit} name="contact">
                 <Fullname>
                   <PrimeryInput
                     type="text"
@@ -139,11 +159,12 @@ const ContactScreen = () => {
                 <PrimeryCheckbox
                   label="By submitting this form, you agree to our Privacy Policy"
                   checked={values.agreed}
-                  onChange={() => setFieldValue('agreed', !values.agreed)}
+                  onChange={handleChange} // Use Formik's handleChange
+                  name="agreed" // Name attribute for Formik
                 />
                 <div>
-                  <PrimeryButton type="submit" variant="blue">
-                    Submit
+                  <PrimeryButton type="submit" variant="blue" disabled={isSubmitting}>
+                    {isSubmitting ? 'Submitting...' : 'Submit'}
                   </PrimeryButton>
                 </div>
               </Form>

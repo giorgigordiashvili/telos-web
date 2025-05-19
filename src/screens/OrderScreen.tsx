@@ -140,7 +140,7 @@ const OrderScreen = () => {
           }}
         >
           {({ values, handleChange, handleSubmit, setFieldValue }) => (
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit} data-netlify="true">
               <OptionDropdown
                 options={options}
                 value={values.option}

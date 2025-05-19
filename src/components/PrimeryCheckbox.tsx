@@ -53,10 +53,11 @@ const Checkmark = styled.div`
 type Props = {
   label?: string;
   checked: boolean;
-  onChange: () => void;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void; // Modified to accept event
+  name?: string; // Add name prop for Formik
 };
 
-export default function PrimeryCheckbox({ label, checked, onChange }: Props) {
+export default function PrimeryCheckbox({ label, checked, onChange, name }: Props) {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -65,7 +66,7 @@ export default function PrimeryCheckbox({ label, checked, onChange }: Props) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <HiddenCheckbox checked={checked} onChange={onChange} />
+      <HiddenCheckbox name={name} checked={checked} onChange={onChange} />
       <StyledCheckbox $checked={checked} $hovered={hovered}>
         {checked && <Checkmark />}
       </StyledCheckbox>
