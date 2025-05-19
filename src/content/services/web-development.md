@@ -1,7 +1,10 @@
 ---
-title: 'Web Development'
-icon: '/images/ServicesCard/frontend.png'
-shortDescription: 'Modern web applications built with React, Next.js, and other cutting-edge technologies.'
+title: Web Development
+icon: /images/ServicesCard/frontend.png
+shortDescription: We design and develop scalable, high-performance web
+  applications tailored to your business needs using Next.js. From dynamic
+  dashboards to e-commerce platforms, our solutions are optimized for user
+  experience.
 ---
 
 # Web Development Services
