@@ -62,19 +62,26 @@ const StyledImage = styled(Image)`
 `;
 
 const Content = styled.div`
-  max-height: 160px;
+  height: 160px;
   background-color: #fff;
   border-radius: 12px;
   padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  justify-content: space-between;
   margin-top: -12px;
   position: sticky;
+  width: 100%;
+  box-sizing: border-box;
 `;
 
 const Title = styled(Typography)`
   color: #354545;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const ReadMore = styled.div`

@@ -41,10 +41,10 @@ async function readContentFromDir(dir: string) {
       return {
         slug,
         file: {
-          path: filePath,
+          path: filePath, // Providing the full path as Decap might need it
         },
-        data,
-        raw: content,
+        data, // Frontmatter
+        raw: content, // Raw markdown content
       };
     });
 
@@ -61,8 +61,8 @@ interface ContentEntry {
   file: {
     path: string;
   };
-  data: Record<string, unknown>;
-  raw: string;
+  data: Record<string, unknown>; // Frontmatter data
+  raw: string; // Raw content
 }
 
 // API handler
@@ -76,6 +76,10 @@ export async function GET() {
       services: 'src/content/services',
       press: 'src/content/press',
       career: 'src/content/career',
+      acceleration: 'src/content/acceleration', // Added acceleration
+      news: 'src/content/news', // Added news
+      faq: 'src/content/faq', // Added faq collection
+      quotes: 'src/content/quotes', // Added quotes collection
     };
 
     // Load entries for each collection
@@ -83,7 +87,8 @@ export async function GET() {
 
     for (const [collection, dir] of Object.entries(collections)) {
       console.log(`Processing collection: ${collection}`);
-      entries[collection] = await readContentFromDir(dir);
+      // Correctly cast the result of readContentFromDir
+      entries[collection] = (await readContentFromDir(dir)) as ContentEntry[];
     }
 
     console.log(
@@ -97,15 +102,15 @@ export async function GET() {
     return NextResponse.json(entries, {
       status: 200,
       headers: {
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': '*', // Adjust for production if needed
         'Access-Control-Allow-Methods': 'GET, OPTIONS',
         'Cache-Control': 'no-cache, no-store, must-revalidate',
       },
     });
   } catch (error) {
-    console.error('Error in API route:', error);
+    console.error('Error in API route /api/decap/load:', error);
     return NextResponse.json(
-      { error: 'Failed to load content', message: (error as Error).message },
+      { error: 'Failed to load content for Decap CMS', message: (error as Error).message },
       { status: 500 }
     );
   }

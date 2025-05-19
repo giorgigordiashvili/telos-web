@@ -162,9 +162,20 @@ const QuoteSectionWrapper = styled.div`
   }
 `;
 
+interface NewsItem {
+  title: string;
+  subtitle: string;
+  buttonText: string;
+  thumbnail?: string;
+  variant?: 'right' | 'left';
+  slug?: string;
+  // Add any other properties that come from your news content
+}
+
 const HomePage: React.FC = () => {
   const isMobile = useIsMobile();
   const [init, setInit] = useState(false);
+  const [newsItems, setNewsItems] = useState<NewsItem[]>([]); // State to hold news items
 
   useEffect(() => {
     initParticlesEngine(async engine => {
@@ -172,6 +183,24 @@ const HomePage: React.FC = () => {
     }).then(() => {
       setInit(true);
     });
+
+    // Fetch news items
+    const fetchNews = async () => {
+      try {
+        const response = await fetch('/api/content/news'); // Adjust API endpoint as needed
+        if (!response.ok) {
+          throw new Error('Failed to fetch news');
+        }
+        const data = await response.json();
+        setNewsItems(data.slice(0, 2)); // Assuming you want to display the first two news items
+      } catch (error) {
+        console.error('Error fetching news:', error);
+        // Optionally, set some default news items or handle the error in the UI
+        setNewsItems([]); // Clear news items or set to default
+      }
+    };
+
+    fetchNews();
   }, []);
 
   const options = useMemo(
@@ -257,12 +286,33 @@ const HomePage: React.FC = () => {
       <NewsSectionWrapper>
         <News>
           <StyledFeaturesText variant={isMobile ? 'h3' : 'h2'}>News</StyledFeaturesText>
-          <NewsCardWrapper>
-            <NewsCard isMobile={isMobile} variant="right" />
-          </NewsCardWrapper>
-          <NewsCardWrapper>
-            <NewsCard isMobile={isMobile} variant="left" />
-          </NewsCardWrapper>
+          {newsItems.length > 0 ? (
+            newsItems.map((item, index) => (
+              <NewsCardWrapper key={index}>
+                <NewsCard
+                  isMobile={isMobile}
+                  variant={item.variant || (index % 2 === 0 ? 'right' : 'left')} // Alternate variant if not specified
+                  title={item.title}
+                  subtitle={item.subtitle}
+                  buttonText={item.buttonText}
+                  thumbnail={item.thumbnail}
+                  slug={item.slug} // Assuming your news items have a slug for navigation
+                />
+              </NewsCardWrapper>
+            ))
+          ) : (
+            // Fallback or loading state
+            <Typography variant="paragraph-medium">Loading news...</Typography>
+            // Or display static cards if API fails or returns no data
+            // <>
+            //   <NewsCardWrapper>
+            //     <NewsCard isMobile={isMobile} variant="right" />
+            //   </NewsCardWrapper>
+            //   <NewsCardWrapper>
+            //     <NewsCard isMobile={isMobile} variant="left" />
+            //   </NewsCardWrapper>
+            // </>
+          )}
         </News>
       </NewsSectionWrapper>
 
