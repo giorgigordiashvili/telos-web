@@ -105,7 +105,7 @@ const ContactScreen = () => {
             console.log('Formik Errors:', errors);
 
             return (
-              <Form onSubmit={handleSubmit}>
+              <Form onSubmit={handleSubmit} data-netlify="true">
                 <Fullname>
                   <PrimeryInput
                     type="text"

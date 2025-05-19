@@ -33,6 +33,7 @@ const AccordionButton = styled.button`
   background-color: transparent;
   cursor: pointer;
   border: none;
+  text-align: left;
 
   @media (max-width: 1280px) {
     width: 100%;
