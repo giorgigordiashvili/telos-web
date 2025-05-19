@@ -77,6 +77,9 @@ export async function GET() {
       press: 'src/content/press',
       career: 'src/content/career',
       acceleration: 'src/content/acceleration', // Added acceleration
+      news: 'src/content/news', // Added news
+      faq: 'src/content/faq', // Added faq collection
+      quotes: 'src/content/quotes', // Added quotes collection
     };
 
     // Load entries for each collection

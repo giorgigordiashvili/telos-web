@@ -7,6 +7,11 @@ import PrimeryButton from './PrimeryButton';
 type Props = {
   isMobile?: boolean;
   variant?: 'right' | 'left'; // default: 'right'
+  title: string;
+  subtitle: string;
+  buttonText: string;
+  thumbnail?: string; // Optional: URL for the image
+  slug?: string; // Optional: for navigation
 };
 
 const NewsCardWrapper = styled.div<{ $variant: 'right' | 'left' }>`
@@ -58,24 +63,23 @@ const PrimeryButtonWrapper = styled.div<{ $variant: 'right' | 'left' }>`
   }
 `;
 
-const NewsCard = ({ isMobile, variant = 'right' }: Props) => {
+const NewsCard = ({
+  isMobile,
+  variant = 'right',
+  title,
+  subtitle,
+  buttonText,
+  thumbnail,
+  slug,
+}: Props) => {
   const isRight = variant === 'right';
-
-  const title = isRight
-    ? 'Exploring the Latest in Tech Trends'
-    : 'Building Smarter Digital Solutions';
-
-  const subtitle = isRight
-    ? 'Stay ahead of the curve with our insights into emerging technologies and industry innovations. From AI advancements to groundbreaking design tools, we cover what matters most to your business.'
-    : 'Discover how our projects push the boundaries of web and mobile development. Learn about the cutting-edge solutions we’ve implemented for our clients.';
-
-  const buttonText = isRight ? 'Read More' : 'Learn More';
 
   const textSection = (
     <TextContainer>
       <StyledTitle variant={isMobile ? 'h4' : 'h3'}>{title}</StyledTitle>
       <StyledSubtitle variant="paragraph-medium">{subtitle}</StyledSubtitle>
       <PrimeryButtonWrapper $variant={variant}>
+        {/* TODO: Add navigation if slug is provided, e.g., using Next.js Link component */}
         <PrimeryButton variant="border">{buttonText}</PrimeryButton>
       </PrimeryButtonWrapper>
     </TextContainer>
@@ -84,8 +88,8 @@ const NewsCard = ({ isMobile, variant = 'right' }: Props) => {
   const imageSection = (
     <ImageContainer>
       <Image
-        src="/images/HomePage/NewsPhoto.png"
-        alt="NewsPhoto"
+        src={thumbnail || '/images/HomePage/NewsPhoto.png'}
+        alt={title || 'News Photo'}
         fill
         style={{ objectFit: 'cover' }}
         priority

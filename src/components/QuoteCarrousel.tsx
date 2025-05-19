@@ -1,48 +1,23 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Quote from './Quote';
+import Typography from './Typography'; // Assuming Typography is used for loading/error states
 
-type QuoteItem = {
+// Define a styled component for error messages
+const ErrorTypography = styled(Typography)`
+  color: red;
+`;
+
+interface QuoteItem {
+  id?: string; // Optional: if you have a unique ID from the CMS
   imageSrc: string;
   text: string;
   name: string;
   company: string;
-};
-
-const quotesData: QuoteItem[] = [
-  {
-    imageSrc: '/images/Quote/CustomerPhoto-1.png',
-    text: `“This is a customer quote. The customer is going to share their opinion about our product or service, hopefully it’s going to be a positive one. The social proof section is important when you want to increase trust and trustworthiness of your company with your website visitors.”`,
-    name: 'John Doe',
-    company: 'CEO @ Acme Corp',
-  },
-  {
-    imageSrc: '/images/Quote/CustomerPhoto-2.png',
-    text: `“This is a customer quote. The customer is going to share their opinion about our product or service, hopefully it’s going to be a positive one. The social proof section is important when you want to increase trust and trustworthiness of your company with your website visitors.”`,
-    name: 'Jane Smith',
-    company: 'CTO @ BetaTech',
-  },
-  {
-    imageSrc: '/images/Quote/CustomerPhoto-3.png',
-    text: `“This is a customer quote. The customer is going to share their opinion about our product or service, hopefully it’s going to be a positive one. The social proof section is important when you want to increase trust and trustworthiness of your company with your website visitors.”`,
-    name: 'Alice Johnson',
-    company: 'Marketing Manager @ Gamma LLC',
-  },
-  {
-    imageSrc: '/images/Quote/CustomerPhoto-4.png',
-    text: `“This is a customer quote. The customer is going to share their opinion about our product or service, hopefully it’s going to be a positive one. The social proof section is important when you want to increase trust and trustworthiness of your company with your website visitors.”`,
-    name: 'Bob Brown',
-    company: 'Lead Developer @ DeltaWorks',
-  },
-  {
-    imageSrc: '/images/Quote/CustomerPhoto-5.png',
-    text: `“This is a customer quote. The customer is going to share their opinion about our product or service, hopefully it’s going to be a positive one. The social proof section is important when you want to increase trust and trustworthiness of your company with your website visitors.”`,
-    name: 'Emily Davis',
-    company: 'Product Designer @ Epsilon Inc',
-  },
-];
+  order?: number;
+}
 
 const Wrapper = styled.div`
   width: 100%;
@@ -111,23 +86,68 @@ const QuoteOuter = styled.div`
   }
 `;
 
-const QuoteCarousel: React.FC = () => (
-  <Wrapper>
-    <CarouselContainer>
-      <FadeLeft />
-      <FadeRight />
+const QuoteCarousel: React.FC = () => {
+  const [quotes, setQuotes] = useState<QuoteItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-      <ScrollArea>
-        {quotesData.map((q, idx) => (
-          <Slide key={idx}>
-            <QuoteOuter>
-              <Quote imageSrc={q.imageSrc} text={q.text} name={q.name} company={q.company} />
-            </QuoteOuter>
-          </Slide>
-        ))}
-      </ScrollArea>
-    </CarouselContainer>
-  </Wrapper>
-);
+  useEffect(() => {
+    const fetchQuotes = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/content/quotes');
+        if (!response.ok) {
+          throw new Error(`Failed to fetch quotes: ${response.statusText}`);
+        }
+        let data = await response.json();
+        // Sort by order if available
+        if (data.length > 0 && data[0].order !== undefined) {
+          data = data.sort((a: QuoteItem, b: QuoteItem) => (a.order || 0) - (b.order || 0));
+        }
+        setQuotes(data);
+        setError(null);
+      } catch (err) {
+        setError((err as Error).message);
+        console.error(err);
+        setQuotes([]); // Clear or set to fallback
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchQuotes();
+  }, []);
+
+  if (loading) {
+    return <Typography variant="paragraph-medium">Loading quotes...</Typography>;
+  }
+
+  if (error) {
+    return <ErrorTypography variant="paragraph-medium">Error: {error}</ErrorTypography>;
+  }
+
+  if (quotes.length === 0) {
+    return <Typography variant="paragraph-medium">No quotes available at the moment.</Typography>;
+  }
+
+  return (
+    <Wrapper>
+      <CarouselContainer>
+        <FadeLeft />
+        <FadeRight />
+
+        <ScrollArea>
+          {quotes.map((q, idx) => (
+            <Slide key={q.id || q.name || idx}>
+              <QuoteOuter>
+                <Quote imageSrc={q.imageSrc} text={q.text} name={q.name} company={q.company} />
+              </QuoteOuter>
+            </Slide>
+          ))}
+        </ScrollArea>
+      </CarouselContainer>
+    </Wrapper>
+  );
+};
 
 export default QuoteCarousel;
