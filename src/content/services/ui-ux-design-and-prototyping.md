@@ -1,4 +1,5 @@
 ---
+order: 4
 title: UI/UX Design and Prototyping
 icon: /images/design.png
 shortDescription: Our design team creates intuitive and visually appealing
