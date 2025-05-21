@@ -10,13 +10,19 @@ const ErrorTypography = styled(Typography)`
   color: red;
 `;
 
-interface QuoteItem {
-  id?: string; // Optional: if you have a unique ID from the CMS
+interface QuoteItemFrontmatter {
   imageSrc: string;
   text: string;
   name: string;
   company: string;
   order?: number;
+}
+
+interface QuoteItem {
+  id?: string; // Optional: if you have a unique ID from the CMS
+  slug?: string;
+  frontmatter: QuoteItemFrontmatter;
+  order?: number; // Keep order here if sorting is based on a top-level field
 }
 
 const Wrapper = styled.div`
@@ -101,7 +107,12 @@ const QuoteCarousel: React.FC = () => {
         }
         let data = await response.json();
         // Sort by order if available
-        if (data.length > 0 && data[0].order !== undefined) {
+        if (data.length > 0 && data[0].frontmatter && data[0].frontmatter.order !== undefined) {
+          data = data.sort(
+            (a: QuoteItem, b: QuoteItem) => (a.frontmatter.order || 0) - (b.frontmatter.order || 0)
+          );
+        } else if (data.length > 0 && data[0].order !== undefined) {
+          // Fallback for older structure
           data = data.sort((a: QuoteItem, b: QuoteItem) => (a.order || 0) - (b.order || 0));
         }
         setQuotes(data);
@@ -138,9 +149,14 @@ const QuoteCarousel: React.FC = () => {
 
         <ScrollArea>
           {quotes.map((q, idx) => (
-            <Slide key={q.id || q.name || idx}>
+            <Slide key={q.id || q.slug || q.frontmatter.name || idx}>
               <QuoteOuter>
-                <Quote imageSrc={q.imageSrc} text={q.text} name={q.name} company={q.company} />
+                <Quote
+                  imageSrc={q.frontmatter.imageSrc}
+                  text={q.frontmatter.text}
+                  name={q.frontmatter.name}
+                  company={q.frontmatter.company}
+                />
               </QuoteOuter>
             </Slide>
           ))}

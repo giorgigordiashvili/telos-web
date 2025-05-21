@@ -162,14 +162,39 @@ const QuoteSectionWrapper = styled.div`
   }
 `;
 
-interface NewsItem {
+interface NewsItemFrontmatter {
   title: string;
   subtitle: string;
   buttonText: string;
   thumbnail?: string;
-  variant?: 'right' | 'left';
+}
+
+interface NewsItem {
   slug?: string;
-  // Add any other properties that come from your news content
+  frontmatter: NewsItemFrontmatter;
+  variant?: 'right' | 'left';
+}
+
+interface QuoteItemFrontmatter {
+  quote: string;
+  author: string;
+  company?: string;
+  thumbnail?: string;
+}
+
+interface QuoteItem {
+  slug?: string;
+  frontmatter: QuoteItemFrontmatter;
+}
+
+interface FAQItemFrontmatter {
+  question: string;
+  answer: string;
+}
+
+interface FAQItem {
+  slug?: string;
+  frontmatter: FAQItemFrontmatter;
 }
 
 const HomePage: React.FC = () => {
@@ -195,8 +220,7 @@ const HomePage: React.FC = () => {
         setNewsItems(data.slice(0, 2)); // Assuming you want to display the first two news items
       } catch (error) {
         console.error('Error fetching news:', error);
-        // Optionally, set some default news items or handle the error in the UI
-        setNewsItems([]); // Clear news items or set to default
+        setNewsItems([]);
       }
     };
 
@@ -292,10 +316,10 @@ const HomePage: React.FC = () => {
                 <NewsCard
                   isMobile={isMobile}
                   variant={item.variant || (index % 2 === 0 ? 'right' : 'left')} // Alternate variant if not specified
-                  title={item.title}
-                  subtitle={item.subtitle}
-                  buttonText={item.buttonText}
-                  thumbnail={item.thumbnail}
+                  title={item.frontmatter.title}
+                  subtitle={item.frontmatter.subtitle}
+                  buttonText={item.frontmatter.buttonText}
+                  thumbnail={item.frontmatter.thumbnail}
                   slug={item.slug} // Assuming your news items have a slug for navigation
                 />
               </NewsCardWrapper>

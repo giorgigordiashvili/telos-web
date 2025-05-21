@@ -19,35 +19,17 @@ const ErrorTypography = styled(Typography)`
   color: red;
 `;
 
-// const faqData = [
-//   {
-//     question: '1. What is your main service?',
-//     answer:
-//       'We specialize in building scalable web and mobile apps using modern technologies like React and Next.js.',
-//   },
-//   {
-//     question: '2. How long does a typical project take?',
-//     answer: 'It depends on the scope, but most projects are completed within 4 to 8 weeks.',
-//   },
-//   {
-//     question: '3. Do you provide post-launch support?',
-//     answer: 'Yes, we offer maintenance and continuous improvement packages after launch.',
-//   },
-//   {
-//     question: '4. Do you provide post-launch support?',
-//     answer: 'Yes, we offer maintenance and continuous improvement packages after launch.',
-//   },
-//   {
-//     question: '5. Do you provide post-launch support?',
-//     answer: 'Yes, we offer maintenance and continuous improvement packages after launch.',
-//   },
-// ];
-
-interface FAQItem {
-  id: string;
+interface FAQItemFrontmatter {
   question: string;
   answer: string;
   order?: number;
+}
+
+interface FAQItem {
+  id?: string; // Optional: if you have a unique ID from the CMS
+  slug?: string;
+  frontmatter: FAQItemFrontmatter;
+  order?: number; // Keep order here if sorting is based on a top-level field
 }
 
 const FAQSection = () => {
@@ -65,7 +47,12 @@ const FAQSection = () => {
         }
         let data = await response.json();
         // Sort by order if available
-        if (data.length > 0 && data[0].order !== undefined) {
+        if (data.length > 0 && data[0].frontmatter && data[0].frontmatter.order !== undefined) {
+          data = data.sort(
+            (a: FAQItem, b: FAQItem) => (a.frontmatter.order || 0) - (b.frontmatter.order || 0)
+          );
+        } else if (data.length > 0 && data[0].order !== undefined) {
+          // Fallback for older structure
           data = data.sort((a: FAQItem, b: FAQItem) => (a.order || 0) - (b.order || 0));
         }
         setFaqItems(data);
@@ -97,7 +84,11 @@ const FAQSection = () => {
   return (
     <Wrapper>
       {faqItems.map(faq => (
-        <Accordion key={faq.id || faq.question} question={faq.question} answer={faq.answer} />
+        <Accordion
+          key={faq.id || faq.slug || faq.frontmatter.question}
+          question={faq.frontmatter.question}
+          answer={faq.frontmatter.answer}
+        />
       ))}
     </Wrapper>
   );
