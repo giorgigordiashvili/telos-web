@@ -1,60 +1,15 @@
 'use client';
 
 import PageTitle from '@/components/PageTitle';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ProjectList, { ProjectItem } from '@/components/ProjectList';
+import Typography from '@/components/Typography';
 
-const allProjects: ProjectItem[] = [
-  {
-    variant: 'big',
-    imageSrc: '/images/PressCard/default.png',
-    alt: 'Project 1',
-    siteName: 'Press Showcase',
-  },
-  {
-    variant: 'small',
-    imageSrc: '/images/Blog/test.png',
-    alt: 'Project 2',
-    siteName: 'Tech Blog',
-  },
-  {
-    variant: 'big',
-    imageSrc: '/images/PressCard/default.png',
-    alt: 'Project 3',
-    siteName: 'Press Showcase',
-  },
-  {
-    variant: 'small',
-    imageSrc: '/images/Blog/test.png',
-    alt: 'Project 4',
-    siteName: 'Tech Blog',
-  },
-  {
-    variant: 'big',
-    imageSrc: '/images/PressCard/default.png',
-    alt: 'Project 5',
-    siteName: 'Press Showcase',
-  },
-  {
-    variant: 'small',
-    imageSrc: '/images/Blog/test.png',
-    alt: 'Project 6',
-    siteName: 'Tech Blog',
-  },
-  {
-    variant: 'big',
-    imageSrc: '/images/PressCard/default.png',
-    alt: 'Project 7',
-    siteName: 'Press Showcase',
-  },
-  {
-    variant: 'small',
-    imageSrc: '/images/Blog/test.png',
-    alt: 'Project 8',
-    siteName: 'Tech Blog',
-  },
-];
+const StatusTypography = styled(Typography)`
+  text-align: center;
+  color: #555;
+`;
 
 const Container = styled.div`
   margin: auto;
@@ -70,11 +25,69 @@ const Container = styled.div`
   }
 `;
 
-const ProjectsScreen: React.FC = () => (
-  <Container>
-    <PageTitle text="Projects" />
-    <ProjectList projects={allProjects} />
-  </Container>
-);
+const ProjectsScreen: React.FC = () => {
+  const [projects, setProjects] = useState<ProjectItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/content/projects');
+        if (!response.ok) {
+          throw new Error(`Failed to fetch projects: ${response.statusText}`);
+        }
+        const data = await response.json();
+        setProjects(data);
+        setError(null);
+      } catch (err) {
+        setError((err as Error).message);
+        console.error(err);
+        setProjects([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
+  if (loading) {
+    return (
+      <Container>
+        <PageTitle text="Projects" />
+        <StatusTypography variant="paragraph-medium">Loading projects...</StatusTypography>
+      </Container>
+    );
+  }
+
+  if (error) {
+    return (
+      <Container>
+        <PageTitle text="Projects" />
+        <StatusTypography variant="paragraph-medium">Error: {error}</StatusTypography>
+      </Container>
+    );
+  }
+
+  if (projects.length === 0) {
+    return (
+      <Container>
+        <PageTitle text="Projects" />
+        <StatusTypography variant="paragraph-medium">
+          No projects available at the moment.
+        </StatusTypography>
+      </Container>
+    );
+  }
+
+  return (
+    <Container>
+      <PageTitle text="Projects" />
+      <ProjectList projects={projects} />
+    </Container>
+  );
+};
 
 export default ProjectsScreen;
