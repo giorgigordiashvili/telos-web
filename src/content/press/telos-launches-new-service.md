@@ -1,9 +1,10 @@
 ---
-title: 'TELOS Launches New AI Implementation Services'
-date: 2025-05-01T09:00:00Z
-source: 'Tech Daily'
-image: '/images/PressCard/default.png'
-link: 'https://example.com/telos-ai-services'
+order: 1
+title: Article name - headline for article
+date: 2025-05-01T09:00:00.000Z
+source: Press Name
+image: /images/blog_1.jpg
+link: https://example.com/telos-ai-services
 ---
 
 TELOS LLC announced today the launch of their new AI implementation services, helping businesses integrate artificial intelligence solutions into their existing workflows and applications.
