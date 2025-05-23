@@ -57,7 +57,7 @@ const Content = styled.div`
   padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  justify-content: space-around;
   flex: 1;
 
   @media (max-width: 768px) {
