@@ -11,6 +11,7 @@ import Particles, { initParticlesEngine } from '@tsparticles/react';
 import { loadSlim } from '@tsparticles/slim';
 import React, { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
+import Link from 'next/link'; // Import Link from next/link
 
 const useIsMobile = (breakpoint = 1280) => {
   const [isMobile, setIsMobile] = React.useState(false);
@@ -162,17 +163,30 @@ const QuoteSectionWrapper = styled.div`
   }
 `;
 
-interface NewsItemFrontmatter {
+// interface NewsItemFrontmatter {
+//   title: string;
+//   subtitle: string;
+//   buttonText: string;
+//   thumbnail?: string;
+// }
+
+// interface NewsItem {
+//   slug?: string;
+//   frontmatter: NewsItemFrontmatter;
+//   variant?: 'right' | 'left';
+// }
+
+interface BlogPostFrontmatter {
   title: string;
-  subtitle: string;
-  buttonText: string;
+  date: string; // Assuming date is a string, adjust if it's a Date object
+  subtitle?: string; // Added subtitle
   thumbnail?: string;
 }
 
-interface NewsItem {
+interface BlogPost {
   slug?: string;
-  frontmatter: NewsItemFrontmatter;
-  variant?: 'right' | 'left';
+  frontmatter: BlogPostFrontmatter;
+  content: string; // <--- Add content here
 }
 
 interface QuoteItemFrontmatter {
@@ -200,7 +214,8 @@ interface FAQItem {
 const HomePage: React.FC = () => {
   const isMobile = useIsMobile();
   const [init, setInit] = useState(false);
-  const [newsItems, setNewsItems] = useState<NewsItem[]>([]); // State to hold news items
+  // const [newsItems, setNewsItems] = useState<NewsItem[]>([]); // State to hold news items
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]); // State to hold blog posts
 
   useEffect(() => {
     initParticlesEngine(async engine => {
@@ -209,22 +224,26 @@ const HomePage: React.FC = () => {
       setInit(true);
     });
 
-    // Fetch news items
-    const fetchNews = async () => {
+    // Fetch blog posts
+    const fetchBlogPosts = async () => {
       try {
-        const response = await fetch('/api/content/news'); // Adjust API endpoint as needed
+        const response = await fetch('/api/content/blog'); // Fetch blog posts
         if (!response.ok) {
-          throw new Error('Failed to fetch news');
+          throw new Error('Failed to fetch blog posts');
         }
-        const data = await response.json();
-        setNewsItems(data.slice(0, 2)); // Assuming you want to display the first two news items
+        const data: BlogPost[] = await response.json();
+        // Sort posts by date (newest first) and take the top 2
+        const sortedPosts = data.sort(
+          (a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime()
+        );
+        setBlogPosts(sortedPosts.slice(0, 2));
       } catch (error) {
-        console.error('Error fetching news:', error);
-        setNewsItems([]);
+        console.error('Error fetching blog posts:', error);
+        setBlogPosts([]);
       }
     };
 
-    fetchNews();
+    fetchBlogPosts();
   }, []);
 
   const options = useMemo(
@@ -292,7 +311,9 @@ const HomePage: React.FC = () => {
             applications built on Next.js and React Native.
           </StyledParagraphMedium>
           <ExploreOurServices>
-            <PrimeryButton variant="blue">Explore Our Services</PrimeryButton>
+            <Link href="/services" passHref>
+              <PrimeryButton variant="blue">Explore Our Services</PrimeryButton>
+            </Link>
           </ExploreOurServices>
         </OverlayContent>
       </BackgroundSection>
@@ -302,7 +323,9 @@ const HomePage: React.FC = () => {
           <StyledFeaturesText variant={isMobile ? 'h3' : 'h2'}>Features</StyledFeaturesText>
           <ServicesList text="features" />
           <MoreAboutOurFeatures>
-            <PrimeryButton variant="blue">More about our features</PrimeryButton>
+            <Link href="/services" passHref>
+              <PrimeryButton variant="blue">More about our features</PrimeryButton>
+            </Link>
           </MoreAboutOurFeatures>
         </Features>
       </FeaturesSectionWrapper>
@@ -310,32 +333,35 @@ const HomePage: React.FC = () => {
       <NewsSectionWrapper>
         <News>
           <StyledFeaturesText variant={isMobile ? 'h3' : 'h2'}>News</StyledFeaturesText>
-          {newsItems.length > 0 ? (
-            newsItems.map((item, index) => (
-              <NewsCardWrapper key={index}>
-                <NewsCard
-                  isMobile={isMobile}
-                  variant={item.variant || (index % 2 === 0 ? 'right' : 'left')} // Alternate variant if not specified
-                  title={item.frontmatter.title}
-                  subtitle={item.frontmatter.subtitle}
-                  buttonText={item.frontmatter.buttonText}
-                  thumbnail={item.frontmatter.thumbnail}
-                  slug={item.slug} // Assuming your news items have a slug for navigation
-                />
-              </NewsCardWrapper>
-            ))
+          {blogPosts.length > 0 ? (
+            blogPosts.map((post, index) => {
+              // Generate a short excerpt from the content
+              let excerpt = '';
+              if (post.content) {
+                const lines = post.content.split('\n'); // Split by actual newline characters
+                const firstThreeLines = lines.slice(0, 3).join('\n'); // Join with actual newline characters
+                if (lines.length > 3) {
+                  excerpt = `${firstThreeLines}...`;
+                } else {
+                  excerpt = firstThreeLines;
+                }
+              }
+              return (
+                <NewsCardWrapper key={post.slug || index}>
+                  <NewsCard
+                    isMobile={isMobile}
+                    variant={index % 2 === 0 ? 'right' : 'left'} // Alternate variant
+                    title={post.frontmatter.title}
+                    subtitle={excerpt} // Use excerpt from content
+                    buttonText="Read More" // Static button text
+                    thumbnail={post.frontmatter.thumbnail}
+                    slug={post.slug}
+                  />
+                </NewsCardWrapper>
+              );
+            })
           ) : (
-            // Fallback or loading state
             <Typography variant="paragraph-medium">Loading news...</Typography>
-            // Or display static cards if API fails or returns no data
-            // <>
-            //   <NewsCardWrapper>
-            //     <NewsCard isMobile={isMobile} variant="right" />
-            //   </NewsCardWrapper>
-            //   <NewsCardWrapper>
-            //     <NewsCard isMobile={isMobile} variant="left" />
-            //   </NewsCardWrapper>
-            // </>
           )}
         </News>
       </NewsSectionWrapper>

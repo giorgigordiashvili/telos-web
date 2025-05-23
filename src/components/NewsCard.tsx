@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Typography from './Typography';
 import Image from 'next/image';
 import PrimeryButton from './PrimeryButton';
+import Link from 'next/link';
 
 type Props = {
   isMobile?: boolean;
@@ -48,7 +49,7 @@ const StyledTitle = styled(Typography)`
 `;
 
 const StyledSubtitle = styled(Typography)`
-  color: #031716b3;
+  color: #031716;
 
   @media (max-width: 1280px) {
     font-size: 14px;
@@ -57,7 +58,7 @@ const StyledSubtitle = styled(Typography)`
 
 const PrimeryButtonWrapper = styled.div<{ $variant: 'right' | 'left' }>`
   width: ${({ $variant }) => ($variant === 'left' ? '130px' : '126px')};
-  padding-top: 44px;
+  padding-top: 24px;
   @media (max-width: 1280px) {
     padding-top: 34px;
   }
@@ -79,8 +80,13 @@ const NewsCard = ({
       <StyledTitle variant={isMobile ? 'h4' : 'h3'}>{title}</StyledTitle>
       <StyledSubtitle variant="paragraph-medium">{subtitle}</StyledSubtitle>
       <PrimeryButtonWrapper $variant={variant}>
-        {/* TODO: Add navigation if slug is provided, e.g., using Next.js Link component */}
-        <PrimeryButton variant="border">{buttonText}</PrimeryButton>
+        {slug ? (
+          <Link href={`/blog/${slug}`} passHref>
+            <PrimeryButton variant="border">{buttonText}</PrimeryButton>
+          </Link>
+        ) : (
+          <PrimeryButton variant="border">{buttonText}</PrimeryButton>
+        )}
       </PrimeryButtonWrapper>
     </TextContainer>
   );
