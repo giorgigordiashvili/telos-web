@@ -120,3 +120,15 @@ collections:
       - {label: "Site Name", name: "siteName", widget: "string", hint: "Enter the name of the project/site."}
       - {label: "Description", name: "description", widget: "markdown", required: false}
       - {label: "Tags", name: "tags", widget: "list", required: false}
+
+  - name: "marketing"
+    label: "Marketing"
+    folder: "src/content/marketing"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Order", name: "order", widget: "number", value_type: "int", hint: "Enter a number to define the display order. Lower numbers appear first."}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Icon", name: "icon", widget: "image", required: false}
+      - {label: "Short Description", name: "shortDescription", widget: "text"}
+      - {label: "Body", name: "body", widget: "markdown"}
