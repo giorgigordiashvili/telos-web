@@ -335,12 +335,6 @@ const HomePage: React.FC = () => {
           <StyledFeaturesText variant={isMobile ? 'h3' : 'h2'}>News</StyledFeaturesText>
           {blogPosts.length > 0 ? (
             blogPosts.map((post, index) => {
-              console.log(
-                'Processing post for NewsCard:',
-                post.slug,
-                post.frontmatter,
-                post.content
-              );
               // Generate a short excerpt from the content
               let excerpt = '';
               if (post.content) {
