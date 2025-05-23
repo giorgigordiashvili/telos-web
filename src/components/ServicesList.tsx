@@ -139,6 +139,7 @@ const ServicesList: React.FC<Props> = ({ text }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [services, setServices] = useState<ServiceContent[]>([]);
   const [careerItems, setCareerItems] = useState<ServiceContent[]>([]);
+  const [marketingItems, setMarketingItems] = useState<ServiceContent[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -168,6 +169,14 @@ const ServicesList: React.FC<Props> = ({ text }) => {
           if (!response.ok) throw new Error('Failed to fetch career items');
           const data = await response.json();
           setCareerItems(data);
+        }
+
+        // For marketing section or features section (to get marketing content)
+        if (text === 'Marketing' || text === 'features') {
+          const response = await fetch('/api/content/marketing');
+          if (!response.ok) throw new Error('Failed to fetch marketing content');
+          const data = await response.json();
+          setMarketingItems(data);
         }
       } catch (error) {
         console.error(`Error fetching content for ${text}:`, error);
@@ -215,14 +224,33 @@ const ServicesList: React.FC<Props> = ({ text }) => {
                 slug={service.slug}
               />
             ))}
-            <ServicesCard
-              key="marketing-service-feature-cms"
-              imageUrl={marketingService.imageUrl}
-              title={marketingService.title}
-              subtitle={marketingService.subtitle}
-              showLearnMore
-              isFeature
-            />
+            {/* Use marketing content from CMS if available, otherwise fallback */}
+            {marketingItems.length > 0 ? (
+              marketingItems
+                .slice(0, 1)
+                .map(marketing => (
+                  <ServicesCard
+                    key={marketing.slug}
+                    imageUrl={
+                      marketing.frontmatter.icon || '/images/ServicesCard/default_service_icon.png'
+                    }
+                    title={marketing.frontmatter.title}
+                    subtitle={marketing.frontmatter.shortDescription}
+                    showLearnMore
+                    isFeature
+                    slug={marketing.slug}
+                  />
+                ))
+            ) : (
+              <ServicesCard
+                key="marketing-service-feature-fallback"
+                imageUrl={marketingService.imageUrl}
+                title={marketingService.title}
+                subtitle={marketingService.subtitle}
+                showLearnMore
+                isFeature
+              />
+            )}
           </FeaturesContainer>
         );
       } else {
@@ -276,13 +304,30 @@ const ServicesList: React.FC<Props> = ({ text }) => {
         </Container>
       );
     } else if (text === 'Marketing') {
-      return (
-        <ServicesCard
-          imageUrl={marketingService.imageUrl}
-          title={marketingService.title}
-          subtitle={marketingService.subtitle}
-        />
-      );
+      // Use marketing content from CMS if available, otherwise fall back to hardcoded
+      if (marketingItems.length > 0) {
+        return (
+          <Container>
+            {marketingItems.map(item => (
+              <ServicesCard
+                key={item.slug}
+                imageUrl={item.frontmatter.icon || '/images/ServicesCard/default_service_icon.png'}
+                title={item.frontmatter.title}
+                subtitle={item.frontmatter.shortDescription}
+                slug={item.slug}
+              />
+            ))}
+          </Container>
+        );
+      } else {
+        return (
+          <ServicesCard
+            imageUrl={marketingService.imageUrl}
+            title={marketingService.title}
+            subtitle={marketingService.subtitle}
+          />
+        );
+      }
     } else if (text === 'Career') {
       // Use CMS career items if available, otherwise fall back to hardcoded ones
       if (careerItems.length > 0) {
