@@ -2,10 +2,10 @@
 order: 1
 variant: big
 imageSrc: /images/henka.jpg
-alt: test
-siteName: henka
+alt: ჰენკა
+siteName: ჰენკა
 siteUrl: https://henka.ge/
-description: test description
+description: ჰენკა
 tags:
-  - testTag
+  - ჰენკა
 ---
