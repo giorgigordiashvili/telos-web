@@ -139,7 +139,6 @@ const ServicesList: React.FC<Props> = ({ text }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [services, setServices] = useState<ServiceContent[]>([]);
   const [careerItems, setCareerItems] = useState<ServiceContent[]>([]);
-  const [marketingItemsCms, setMarketingItemsCms] = useState<ServiceContent[]>([]); // New state for CMS marketing items
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -154,9 +153,8 @@ const ServicesList: React.FC<Props> = ({ text }) => {
   // Fetch services from CMS
   useEffect(() => {
     const fetchContent = async () => {
-      setIsLoading(true); // Set loading to true at the start of fetch
       try {
-        // For services section (Software & Features)
+        // For services section
         if (text === 'features' || text === 'Software') {
           const response = await fetch('/api/content/services');
           if (!response.ok) throw new Error('Failed to fetch services');
@@ -171,20 +169,8 @@ const ServicesList: React.FC<Props> = ({ text }) => {
           const data = await response.json();
           setCareerItems(data);
         }
-
-        // For marketing section
-        if (text === 'Marketing') {
-          const response = await fetch('/api/content/marketing'); // Fetch from new endpoint
-          if (!response.ok) throw new Error('Failed to fetch marketing items');
-          const data = await response.json();
-          setMarketingItemsCms(data); // Set new state
-        }
       } catch (error) {
         console.error(`Error fetching content for ${text}:`, error);
-        // Reset specific states on error to allow fallback to hardcoded data
-        if (text === 'features' || text === 'Software') setServices([]);
-        if (text === 'Career') setCareerItems([]);
-        if (text === 'Marketing') setMarketingItemsCms([]);
       } finally {
         setIsLoading(false);
       }
@@ -229,6 +215,14 @@ const ServicesList: React.FC<Props> = ({ text }) => {
                 slug={service.slug}
               />
             ))}
+            <ServicesCard
+              key="marketing-service-feature-cms"
+              imageUrl={marketingService.imageUrl}
+              title={marketingService.title}
+              subtitle={marketingService.subtitle}
+              showLearnMore
+              isFeature
+            />
           </FeaturesContainer>
         );
       } else {
@@ -267,23 +261,6 @@ const ServicesList: React.FC<Props> = ({ text }) => {
       );
     }
 
-    // If we have marketing items from CMS, use them
-    if (marketingItemsCms.length > 0 && text === 'Marketing') {
-      return (
-        <Container>
-          {marketingItemsCms.map(item => (
-            <ServicesCard
-              key={item.slug}
-              imageUrl={item.frontmatter.icon || '/images/ServicesCard/default_service_icon.png'}
-              title={item.frontmatter.title}
-              subtitle={item.frontmatter.shortDescription}
-              slug={item.slug} // Assuming marketing items might also have a detail page
-            />
-          ))}
-        </Container>
-      );
-    }
-
     // Fall back to hardcoded services if no CMS data or for other sections
     if (text === 'Software') {
       return (
@@ -299,7 +276,6 @@ const ServicesList: React.FC<Props> = ({ text }) => {
         </Container>
       );
     } else if (text === 'Marketing') {
-      // Fallback for Marketing if CMS data failed or is empty
       return (
         <ServicesCard
           imageUrl={marketingService.imageUrl}
@@ -345,7 +321,7 @@ const ServicesList: React.FC<Props> = ({ text }) => {
         <FeaturesContainer>
           {featuresServices.map((service, index) => (
             <ServicesCard
-              key={index}
+              key={`feature-${index}`}
               imageUrl={service.imageUrl}
               title={service.title}
               subtitle={service.subtitle}
@@ -353,6 +329,14 @@ const ServicesList: React.FC<Props> = ({ text }) => {
               isFeature
             />
           ))}
+          <ServicesCard
+            key="marketing-service-feature-hardcoded"
+            imageUrl={marketingService.imageUrl}
+            title={marketingService.title}
+            subtitle={marketingService.subtitle}
+            showLearnMore
+            isFeature
+          />
         </FeaturesContainer>
       );
     }
