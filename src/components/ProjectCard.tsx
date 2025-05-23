@@ -11,6 +11,7 @@ interface ProjectCardProps {
   imageSrc: string;
   alt: string;
   siteName: string;
+  siteUrl?: string; // Add siteUrl as an optional prop
 }
 
 // overlay that changes background-color on hover
@@ -81,14 +82,35 @@ const Card = styled.div<{ variant: CardVariant }>`
   }
 `;
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ variant, imageSrc, alt, siteName }) => (
-  <Card variant={variant}>
-    <Image src={imageSrc} alt={alt} fill style={{ objectFit: 'cover' }} />
-    <Overlay>
-      <DesktopText variant="h3">{siteName}</DesktopText>
-      <MobileText variant="h4">{siteName}</MobileText>
-    </Overlay>
-  </Card>
-);
+const StyledLink = styled.a`
+  text-decoration: none;
+  color: inherit;
+  display: block; /* Ensure the link takes up the full card space */
+  position: relative; /* Needed for the Image and Overlay to be positioned correctly within the link */
+  width: 100%;
+  height: 100%;
+`;
+
+const ProjectCard: React.FC<ProjectCardProps> = ({ variant, imageSrc, alt, siteName, siteUrl }) => {
+  const cardContent = (
+    <Card variant={variant}>
+      <Image src={imageSrc} alt={alt} fill style={{ objectFit: 'cover' }} />
+      <Overlay>
+        <DesktopText variant="h3">{siteName}</DesktopText>
+        <MobileText variant="h4">{siteName}</MobileText>
+      </Overlay>
+    </Card>
+  );
+
+  if (siteUrl) {
+    return (
+      <StyledLink href={siteUrl} target="_blank" rel="noopener noreferrer">
+        {cardContent}
+      </StyledLink>
+    );
+  }
+
+  return cardContent;
+};
 
 export default ProjectCard;
