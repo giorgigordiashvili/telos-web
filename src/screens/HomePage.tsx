@@ -31,12 +31,8 @@ const HomePageWrapper = styled.div``;
 const BackgroundSection = styled.section`
   position: relative;
   width: 100%;
-  height: 1057px;
+  height: 100dvh;
   overflow: hidden;
-
-  @media (max-width: 1280px) {
-    height: 687px;
-  }
 `;
 
 const StyledParticles = styled(Particles)`
