@@ -60,6 +60,7 @@ const AccordionContent = styled.div`
 
 // New styled override: shrink h4 to 14px on mobile
 const QuestionText = styled(Typography)`
+  color: #031716;
   @media (max-width: 1280px) {
     font-size: 14px;
     font-weight: 700;
