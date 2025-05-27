@@ -10,7 +10,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "cms:dev": "node scripts/cms-config.js --dev && next dev --turbopack",
-    "cms:prod": "node scripts/cms-config.js --prod"
+    "cms:prod": "node scripts/cms-config.js --prod",
+    "analyze": "ANALYZE=true npm run build"
   },
   "dependencies": {
     "@tsparticles/react": "^3.0.0",
@@ -29,6 +30,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@next/bundle-analyzer": "^15.3.2",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
