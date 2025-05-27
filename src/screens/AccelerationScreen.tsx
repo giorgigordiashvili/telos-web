@@ -6,8 +6,21 @@ import styled from 'styled-components';
 import Typography from '@/components/Typography';
 import PrimeryButton from '@/components/PrimeryButton';
 import Image from 'next/image';
-import Link from 'next/link'; // Added Link import
+import Link from 'next/link';
 import BlogList from '@/components/BlogList';
+
+// Interface for Acceleration post data from CMS (similar to BlogPost)
+interface AccelerationPost {
+  slug: string;
+  frontmatter: {
+    title: string;
+    date?: string; // Optional: if acceleration posts have dates
+    thumbnail?: string;
+    description?: string; // Keep this for short description
+    tags?: string[];
+  };
+  content: string;
+}
 
 // 🔹 useIsMobile hook
 const useIsMobile = (breakpoint = 768) => {
@@ -103,59 +116,92 @@ const PrimeryButtonWrapper = styled.div`
   width: 114px;
 `;
 
-// Define an interface for the featured article
-interface FeaturedArticleData {
-  title: string;
-  description: string;
-  imageUrl: string;
-  altText: string;
-  slug: string; // To make it linkable like BlogCard
-}
-
 const AccelerationScreen = () => {
   const isMobile = useIsMobile();
+  const [featuredPost, setFeaturedPost] = useState<AccelerationPost | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Sample data for the featured article
-  // In a real app, this might come from a CMS or API
-  const featuredArticle: FeaturedArticleData = {
-    title: 'This is a featured article - the most important piece of content',
-    description:
-      'Very short description of what is actually being discussed in this article, maybe the first sentences to provide a preview.',
-    imageUrl: '/images/Blog/test.png',
-    altText: 'featured-article-photo',
-    slug: 'your-featured-article-slug', // Replace with actual slug
-  };
+  useEffect(() => {
+    const fetchFeaturedPost = async () => {
+      try {
+        const response = await fetch('/api/content/acceleration');
+        if (!response.ok) throw new Error('Failed to fetch acceleration posts');
+        const data = await response.json();
+
+        // Sort posts by date (newest first) or order, and get the first one as featured
+        // Adjust sorting as needed for acceleration posts (e.g., by 'order' or 'date')
+        if (data.length > 0) {
+          const sortedPosts = [...data].sort((a, b) => {
+            // Example: sort by order, then by date if order is the same or not present
+            const orderA = a.frontmatter.order || 0;
+            const orderB = b.frontmatter.order || 0;
+            if (orderA !== orderB) return orderA - orderB;
+            return (
+              new Date(b.frontmatter.date || 0).getTime() -
+              new Date(a.frontmatter.date || 0).getTime()
+            );
+          });
+          setFeaturedPost(sortedPosts[0]);
+        }
+      } catch (error) {
+        console.error('Error fetching featured acceleration post:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchFeaturedPost();
+  }, []);
 
   return (
     <Container>
       <BlogContainer>
         <HeaderWrapper>
           <PageTitle text="Acceleration" />
-          {/* Modified BlogContent to use data and Link */}
-          <Link
-            href={`/blog/${featuredArticle.slug}`}
-            passHref
-            style={{ textDecoration: 'none', color: 'inherit' }}
-          >
-            <BlogContent>
-              <BlogTextContainer>
-                <Typography variant={isMobile ? 'h3' : 'h2'}>{featuredArticle.title}</Typography>
-                <Typography variant="paragraph-medium">{featuredArticle.description}</Typography>
-                <PrimeryButtonWrapper>
-                  <PrimeryButton variant="border">read now</PrimeryButton>
-                </PrimeryButtonWrapper>
-              </BlogTextContainer>
-              <BlogImageContainer>
-                <Image
-                  src={featuredArticle.imageUrl}
-                  alt={featuredArticle.altText}
-                  fill
-                  sizes="100%"
-                  style={{ objectFit: 'cover' }}
-                />
-              </BlogImageContainer>
-            </BlogContent>
-          </Link>
+          <BlogContent>
+            <BlogTextContainer>
+              {isLoading ? (
+                <Typography variant={isMobile ? 'h4' : 'h2'}>
+                  Loading featured article...
+                </Typography>
+              ) : featuredPost ? (
+                <>
+                  <Typography variant={isMobile ? 'h4' : 'h2'}>
+                    {featuredPost.frontmatter.title}
+                  </Typography>
+                  <Typography variant="paragraph-medium">
+                    {/* Use description from frontmatter or a snippet from content */}
+                    {featuredPost.frontmatter.description ||
+                      featuredPost.content.substring(0, 150) + '...'}
+                  </Typography>
+                  <PrimeryButtonWrapper>
+                    <Link href={`/acceleration/${featuredPost.slug}`}>
+                      <PrimeryButton variant="border">read now</PrimeryButton>
+                    </Link>
+                  </PrimeryButtonWrapper>
+                </>
+              ) : (
+                <>
+                  {/* Fallback content if no featured post is loaded */}
+                  <Typography variant={isMobile ? 'h4' : 'h2'}>
+                    Explore Our Acceleration Insights
+                  </Typography>
+                  <Typography variant="paragraph-medium">
+                    Discover strategies and resources to accelerate your growth.
+                  </Typography>
+                </>
+              )}
+            </BlogTextContainer>
+            <BlogImageContainer>
+              <Image
+                src={featuredPost?.frontmatter.thumbnail || '/images/Blog/test.png'} // Fallback image
+                alt={featuredPost?.frontmatter.title || 'Featured acceleration article'}
+                fill
+                sizes="100%"
+                style={{ objectFit: 'cover' }}
+              />
+            </BlogImageContainer>
+          </BlogContent>
         </HeaderWrapper>
         <BlogList collectionName="acceleration" />
       </BlogContainer>

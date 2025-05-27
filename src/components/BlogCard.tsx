@@ -12,6 +12,7 @@ type Props = {
   title: string;
   category: string;
   slug?: string;
+  basePath: string; // Added basePath prop
 };
 
 type TagColor = 'brown' | 'green' | 'blue';
@@ -99,7 +100,7 @@ const ReadMore = styled.div`
   }
 `;
 
-const BlogCard = ({ imageSrc, title, category, slug }: Props) => {
+const BlogCard = ({ imageSrc, title, category, slug, basePath }: Props) => {
   const tagColor = getTagColor(category);
 
   const content = (
@@ -131,7 +132,7 @@ const BlogCard = ({ imageSrc, title, category, slug }: Props) => {
 
   if (slug) {
     return (
-      <Link href={`/blog/${slug}`} style={{ textDecoration: 'none' }}>
+      <Link href={`/${basePath}/${slug}`} style={{ textDecoration: 'none' }}>
         <Wrapper>{content}</Wrapper>
       </Link>
     );
