@@ -7,6 +7,7 @@ export interface ProjectItemFrontmatter {
   imageSrc: string;
   alt: string;
   siteName: string;
+  siteUrl?: string; // Add siteUrl as an optional prop
   order?: number; // Optional: if you have an order field in your CMS
 }
 
@@ -61,6 +62,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
           imageSrc={project.frontmatter.imageSrc}
           alt={project.frontmatter.alt}
           siteName={project.frontmatter.siteName}
+          siteUrl={project.frontmatter.siteUrl} // Pass siteUrl to ProjectCard
         />
       ))}
     </CardWrapper>

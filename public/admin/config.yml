@@ -118,7 +118,7 @@ collections:
       - {label: "Image", name: "imageSrc", widget: "image", hint: "Upload the project image."}
       - {label: "Alt Text", name: "alt", widget: "string", hint: "Enter descriptive alt text for the image."}
       - {label: "Site Name", name: "siteName", widget: "string", hint: "Enter the name of the project/site."}
-      - {label: "Site URL", name: "siteUrl", widget: "string", required: false}
+      - {label: "Site URL", name: "siteUrl", widget: "string", required: false, hint: "Enter the full URL for the project site (e.g., https://example.com)"}
       - {label: "Description", name: "description", widget: "markdown", required: false}
       - {label: "Tags", name: "tags", widget: "list", required: false}
 
