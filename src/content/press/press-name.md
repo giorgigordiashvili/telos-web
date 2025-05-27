@@ -1,6 +1,6 @@
 ---
 order: 4
-title: Press Name
+title: Article name - headline for article
 date: 2025-05-28T00:22:00.000Z
 source: Press Name
 image: /images/blog_1.jpg
