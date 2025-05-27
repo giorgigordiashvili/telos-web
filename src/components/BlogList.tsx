@@ -113,6 +113,9 @@ const BlogList: React.FC<BlogListProps> = ({ collectionName = 'blog' }) => {
   const [categories, setCategories] = useState<string[]>(['all articles']);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  // Determine basePath based on collectionName
+  const basePath = collectionName === 'acceleration' ? 'acceleration' : 'blog';
+
   // Fetch blog posts from the CMS
   useEffect(() => {
     const fetchBlogPosts = async () => {
@@ -152,45 +155,43 @@ const BlogList: React.FC<BlogListProps> = ({ collectionName = 'blog' }) => {
   return (
     <Wrapper>
       <BlogListingContainer>
+        {/* Render category filter buttons */}
         {categories.map(category => (
           <CategroyFilterButton
             key={category}
             text={category}
+            selected={selectedCategory === category} // Changed isActive to selected
             onClick={() => setSelectedCategory(category)}
-            selected={selectedCategory === category}
           />
         ))}
       </BlogListingContainer>
       <Container>
-        {(filteredPosts.length > 0 ? filteredPosts : isLoading ? [] : fallbackData).map(
-          (post: BlogPost | FallbackBlogItem, index) => {
-            const key = (post as BlogPost).slug || (post as FallbackBlogItem).slug || index;
-            const imageSrc =
-              (post as BlogPost).frontmatter?.thumbnail ||
-              (post as FallbackBlogItem).imageSrc ||
-              '/images/PressCard/default.png';
-            const title = (post as BlogPost).frontmatter?.title || (post as FallbackBlogItem).title;
-            const category =
-              (post as BlogPost).frontmatter?.tags?.[0] ||
-              (post as FallbackBlogItem).category ||
-              'General';
-            const slug =
-              (post as BlogPost).slug ||
-              (post as FallbackBlogItem).slug ||
-              title.toLowerCase().replace(/\s+/g, '-');
-            // const description = (post as BlogPost).frontmatter?.description; // Uncomment if BlogCard uses it
-
-            return (
-              <BlogCard
-                key={key}
-                imageSrc={imageSrc}
-                title={title}
-                category={category}
-                slug={slug}
-                // description={description}
-              />
-            );
-          }
+        {isLoading ? (
+          <p>Loading posts...</p>
+        ) : filteredPosts.length > 0 ? (
+          filteredPosts.map(post => (
+            <BlogCard
+              key={post.slug}
+              imageSrc={post.frontmatter.thumbnail || '/images/PressCard/default.png'}
+              title={post.frontmatter.title}
+              category={post.frontmatter.tags?.[0] || 'uncategorized'} // Use first tag as category or fallback
+              slug={post.slug}
+              basePath={basePath} // Pass basePath to BlogCard
+            />
+          ))
+        ) : fallbackData.length > 0 ? (
+          fallbackData.map((post, index) => (
+            <BlogCard
+              key={`fallback-${index}`}
+              imageSrc={post.imageSrc}
+              title={post.title}
+              category={post.category}
+              slug={post.slug} // Assuming fallback might have slugs
+              basePath={basePath} // Pass basePath to BlogCard for fallback too
+            />
+          ))
+        ) : (
+          <p>No posts available in this category.</p>
         )}
       </Container>
     </Wrapper>
