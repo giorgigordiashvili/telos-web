@@ -6,13 +6,16 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "build:netlify": "./scripts/build-netlify.sh",
+    "build:prod": "NODE_ENV=production next build",
+    "build:analyze": "ANALYZE=true NODE_ENV=production next build",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "cms:dev": "node scripts/cms-config.js --dev && next dev --turbopack",
     "cms:prod": "node scripts/cms-config.js --prod",
-    "analyze": "ANALYZE=true npm run build"
+    "analyze": "ANALYZE=true npm run build",
+    "perf": "node scripts/performance-analysis.js"
   },
   "dependencies": {
     "@tsparticles/react": "^3.0.0",
