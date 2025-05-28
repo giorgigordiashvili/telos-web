@@ -1,7 +1,8 @@
 ---
-title: 'Relocation Opportunities'
-icon: '/images/ServicesCard/frontend.png'
-shortDescription: 'Support for team members looking to relocate, including guidance with visas, housing, and integration into new communities.'
+order: 5
+title: Relocation Opportunities
+icon: /images/ServicesCard/frontend.png
+shortDescription: type description here, what this services offers cliend
 ---
 
 # Relocation Opportunities
