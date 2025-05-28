@@ -5,13 +5,17 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
+    "build:prod": "NODE_ENV=production next build",
+    "build:analyze": "ANALYZE=true NODE_ENV=production next build",
+    "build:netlify": "npm run cms:prod && npm run build:prod",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "cms:dev": "node scripts/cms-config.js --dev && next dev --turbopack",
     "cms:prod": "node scripts/cms-config.js --prod",
-    "analyze": "ANALYZE=true npm run build"
+    "analyze": "ANALYZE=true npm run build",
+    "perf": "node scripts/performance-analysis.js"
   },
   "dependencies": {
     "@tsparticles/react": "^3.0.0",
@@ -30,6 +34,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@netlify/plugin-nextjs": "^5.11.2",
     "@next/bundle-analyzer": "^15.3.2",
     "@types/node": "^20",
     "@types/react": "^19",

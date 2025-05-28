@@ -1,0 +1,67 @@
+[build]
+  publish = ".next"
+  command = "npm run build:netlify"
+
+[build.environment]
+  # Enable Next.js optimization
+  NEXT_TELEMETRY_DISABLED = "1"
+  # Reduce memory usage during build
+  NODE_OPTIONS = "--max-old-space-size=4096"
+  # Set production environment
+  NODE_ENV = "production"
+
+# Next.js plugin for Netlify (required for App Router)
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Function configuration for better performance
+[functions]
+  # Exclude large files and directories from functions
+  included_files = ["!node_modules/**", "!.next/cache/**", "!public/admin/**", "!scripts/**", "!*.md", "!*.txt"]
+
+# Enhanced compression and caching
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Security headers (from Next.js config)
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "origin-when-cross-origin"
+    # Performance headers
+    X-DNS-Prefetch-Control = "on"
+    # Enable Brotli compression
+    Accept-Encoding = "br, gzip"
+
+# Static assets caching with enhanced settings
+[[headers]]
+  for = "/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    # Enable compression
+    Content-Encoding = "br"
+
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Encoding = "br"
+
+# Image optimization caching
+[[headers]]
+  for = "/_next/image*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Admin CMS configuration
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+
+# Handle Next.js routing (removed - @netlify/plugin-nextjs handles this automatically)
+# Note: Next.js App Router routing is handled by the Netlify Next.js plugin
+
+# Edge Functions for enhanced performance (optional)
+# [[edge_functions]]
+#   function = "geo-headers"
+#   path = "/*"
