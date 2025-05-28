@@ -9,6 +9,10 @@
   NODE_OPTIONS = "--max-old-space-size=4096"
   # Set production environment
   NODE_ENV = "production"
+  # Ensure TypeScript compilation
+  TYPESCRIPT_PATHS = "true"
+  # Node version
+  NODE_VERSION = "18"
 
 # Next.js plugin for Netlify (required for App Router)
 [[plugins]]
