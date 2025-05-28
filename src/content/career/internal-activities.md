@@ -1,7 +1,8 @@
 ---
-title: 'Internal Activities'
-icon: '/images/ServicesCard/design.png'
-shortDescription: 'Engaging internal programs like hackathons, interest groups, and collaborative projects that foster creativity and cross-team collaboration.'
+order: 3
+title: Events & Occasions
+icon: /images/icon_for-services.png
+shortDescription: type description here, what this services offers cliend
 ---
 
 # Internal Activities
