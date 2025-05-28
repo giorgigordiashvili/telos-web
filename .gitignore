@@ -36,6 +36,15 @@ yarn-error.log*
 # vercel
 .vercel
 
+# netlify
+.netlify
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Bundle analyzer
+/.next/analyze/
+
+# Cache directories
+/.next/cache/

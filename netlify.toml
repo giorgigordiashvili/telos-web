@@ -1,0 +1,39 @@
+[build]
+  publish = ".next"
+  command = "npm run build:netlify"
+
+[build.environment]
+  # Enable Next.js optimization
+  NEXT_TELEMETRY_DISABLED = "1"
+  # Reduce memory usage during build
+  NODE_OPTIONS = "--max-old-space-size=4096"
+  # Set production environment
+  NODE_ENV = "production"
+
+# Function configuration for better performance
+[functions]
+  # Exclude large files and directories from functions
+  included_files = ["!node_modules/**", "!.next/cache/**", "!public/admin/**", "!scripts/**", "!*.md", "!*.txt"]
+  
+# Handle Next.js routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Cache optimization
+[[headers]]
+  for = "/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Admin CMS configuration
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
