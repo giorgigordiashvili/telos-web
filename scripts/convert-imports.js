@@ -7,74 +7,52 @@
 
 const fs = require('fs');
 const path = require('path');
+const glob = require('glob');
 
-// Recursively find all TypeScript and JavaScript files
-function findFiles(dir, extensions = ['.ts', '.tsx', '.js', '.jsx']) {
-  const files = [];
-  
-  function walkDir(currentDir) {
-    const items = fs.readdirSync(currentDir);
-    
-    for (const item of items) {
-      const fullPath = path.join(currentDir, item);
-      const stat = fs.statSync(fullPath);
-      
-      if (stat.isDirectory() && item !== 'node_modules' && item !== '.next') {
-        walkDir(fullPath);
-      } else if (stat.isFile() && extensions.some(ext => item.endsWith(ext))) {
-        files.push(fullPath);
-      }
-    }
-  }
-  
-  walkDir(dir);
-  return files;
-}
+// Get all TypeScript and JavaScript files in src directory
+const files = glob.sync('src/**/*.{ts,tsx,js,jsx}', { cwd: process.cwd() });
 
 console.log('🔧 Converting @ imports to relative imports...\n');
-
-const srcDir = path.join(process.cwd(), 'src');
-const files = findFiles(srcDir);
 
 let totalFilesProcessed = 0;
 let totalImportsConverted = 0;
 
 files.forEach(filePath => {
-  const content = fs.readFileSync(filePath, 'utf8');
-  
+  const fullPath = path.join(process.cwd(), filePath);
+  const content = fs.readFileSync(fullPath, 'utf8');
+
   // Find all @ imports
   const importRegex = /import\s+.*?\s+from\s+['"]@\/([^'"]+)['"]/g;
   let match;
   let hasChanges = false;
   let newContent = content;
-  
+
   while ((match = importRegex.exec(content)) !== null) {
     const importPath = match[1];
     const currentDir = path.dirname(filePath);
-    
+
     // Calculate relative path from current file to the imported file
-    const targetPath = path.join(srcDir, importPath);
+    const targetPath = path.join('src', importPath);
     const relativePath = path.relative(currentDir, targetPath);
-    
+
     // Ensure the path starts with ./ or ../
-    const normalizedRelativePath = relativePath.startsWith('.') 
-      ? relativePath.replace(/\\/g, '/') // Convert Windows paths to Unix format
-      : `./${relativePath.replace(/\\/g, '/')}`;
-    
+    const normalizedRelativePath = relativePath.startsWith('.')
+      ? relativePath
+      : `./${relativePath}`;
+
     // Replace the @ import with relative import
     const oldImport = match[0];
     const newImport = oldImport.replace(`@/${importPath}`, normalizedRelativePath);
-    
+
     newContent = newContent.replace(oldImport, newImport);
     hasChanges = true;
     totalImportsConverted++;
-    
-    const relativeFilePath = path.relative(process.cwd(), filePath);
-    console.log(`  ${relativeFilePath}: @/${importPath} → ${normalizedRelativePath}`);
+
+    console.log(`  ${filePath}: @/${importPath} → ${normalizedRelativePath}`);
   }
-  
+
   if (hasChanges) {
-    fs.writeFileSync(filePath, newContent, 'utf8');
+    fs.writeFileSync(fullPath, newContent, 'utf8');
     totalFilesProcessed++;
   }
 });
