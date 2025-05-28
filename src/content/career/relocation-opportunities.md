@@ -1,7 +1,7 @@
 ---
 order: 5
 title: Relocation Opportunities
-icon: /images/ServicesCard/frontend.png
+icon: /images/icon_for-services.png
 shortDescription: type description here, what this services offers cliend
 ---
 
