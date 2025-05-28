@@ -1,7 +1,8 @@
 ---
-title: 'Events & Occasions'
-icon: '/images/ServicesCard/mobile.png'
-shortDescription: 'Regular team events, celebrations, and special occasions to foster team spirit and create a vibrant company culture.'
+order: 2
+title: Personal Growth
+icon: /images/icon_for-services.png
+shortDescription: type description here, what this services offers cliend
 ---
 
 # Events & Occasions
