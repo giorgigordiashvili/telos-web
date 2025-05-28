@@ -12,10 +12,6 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-[plugins.inputs]
-  # Disable compression for font files
-  distDir = ".next"
-
 # Function configuration for better performance
 [functions]
   # Exclude large files and directories from functions
