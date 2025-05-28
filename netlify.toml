@@ -7,8 +7,8 @@
   NEXT_TELEMETRY_DISABLED = "1"
   # Reduce memory usage during build
   NODE_OPTIONS = "--max-old-space-size=4096"
-  # Set production environment
-  NODE_ENV = "production"
+  # DO NOT set NODE_ENV=production here - it prevents devDependencies installation
+  # NODE_ENV will be set properly by the build process
   # Ensure TypeScript compilation
   TYPESCRIPT_PATHS = "true"
   # Node version
