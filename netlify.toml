@@ -7,16 +7,14 @@
   NEXT_TELEMETRY_DISABLED = "1"
   # Reduce memory usage during build
   NODE_OPTIONS = "--max-old-space-size=4096"
-  # DO NOT set NODE_ENV=production here - it prevents devDependencies installation
-  # NODE_ENV will be set properly by the build process
-  # Ensure TypeScript compilation
-  TYPESCRIPT_PATHS = "true"
-  # Node version
-  NODE_VERSION = "18"
 
 # Next.js plugin for Netlify (required for App Router)
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+[plugins.inputs]
+  # Disable compression for font files
+  distDir = ".next"
 
 # Function configuration for better performance
 [functions]
@@ -33,26 +31,85 @@
     Referrer-Policy = "origin-when-cross-origin"
     # Performance headers
     X-DNS-Prefetch-Control = "on"
-    # Enable Brotli compression
-    Accept-Encoding = "br, gzip"
 
-# Static assets caching with enhanced settings
+# Font files - no compression to avoid decoding issues
+[[headers]]
+  for = "/_next/static/media/*.woff2"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "font/woff2"
+    # Explicitly disable compression for font files
+    Content-Encoding = ""
+
+[[headers]]
+  for = "/_next/static/media/*.woff"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "font/woff"
+    Content-Encoding = ""
+
+[[headers]]
+  for = "/_next/static/media/*.ttf"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "font/ttf"
+    Content-Encoding = ""
+
+# Font files in public directory
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Encoding = ""
+
+# Font files anywhere
+[[headers]]
+  for = "/*.woff2"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "font/woff2"
+    Content-Encoding = ""
+
+[[headers]]
+  for = "/*.woff"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "font/woff"
+    Content-Encoding = ""
+
+# Static assets caching (removed Content-Encoding to let Netlify handle compression)
 [[headers]]
   for = "/static/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
-    # Enable compression
-    Content-Encoding = "br"
 
 [[headers]]
   for = "/_next/static/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
-    Content-Encoding = "br"
+
+# JavaScript and CSS files
+[[headers]]
+  for = "/_next/static/chunks/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "application/javascript"
+
+[[headers]]
+  for = "/_next/static/css/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "text/css"
 
 # Image optimization caching
 [[headers]]
   for = "/_next/image*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Images in static directory
+[[headers]]
+  for = "/images/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
@@ -65,7 +122,42 @@
 # Handle Next.js routing (removed - @netlify/plugin-nextjs handles this automatically)
 # Note: Next.js App Router routing is handled by the Netlify Next.js plugin
 
+# Redirects for specific routes (if needed)
+[[redirects]]
+  from = "/admin/*"
+  to = "/admin/index.html"
+  status = 200
+
+# Ensure no compression is applied to any font files
+[[headers]]
+  for = "**/fonts/**"
+  [headers.values]
+    Content-Encoding = ""
+
+[[headers]]
+  for = "**/*font*"
+  [headers.values]
+    Content-Encoding = ""
+
 # Edge Functions for enhanced performance (optional)
 # [[edge_functions]]
 #   function = "geo-headers"
 #   path = "/*"
+
+# Netlify asset optimization settings
+[build.processing]
+  skip_processing = false
+
+[build.processing.css]
+  bundle = true
+  minify = true
+
+[build.processing.js]
+  bundle = true
+  minify = true
+
+[build.processing.html]
+  pretty_urls = true
+
+[build.processing.images]
+  compress = true
