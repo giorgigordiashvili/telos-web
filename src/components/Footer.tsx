@@ -144,14 +144,14 @@ const Footer = () => {
           <Image alt="phone icon" src="/images/Footer/footer_phone.png" width={32} height={32} />
           <Footertext>
             <Typography variant="paragraph-bold">Phone Number</Typography>
-            <Typography variant="paragraph-bold">+(995) 999 999 999</Typography>
+            <Typography variant="paragraph-bold">+(995) 579 797 902</Typography>
           </Footertext>
         </Location>
         <Location>
           <Image alt="email icon" src="/images/Footer/footer_email.png" width={32} height={32} />
           <Footertext>
             <Typography variant="paragraph-bold">Email</Typography>
-            <Typography variant="paragraph-bold">example@example.com</Typography>
+            <Typography variant="paragraph-bold">info@telos.ge</Typography>
           </Footertext>
         </Location>
       </Footerinfo>
